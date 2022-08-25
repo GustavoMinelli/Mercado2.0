@@ -91,6 +91,8 @@ class ProductController extends Controller
 
             }
 
+            $this->preDelete();
+
             $product->delete();
 
 
@@ -214,6 +216,7 @@ class ProductController extends Controller
 
 
         }
+    private function preDelete(){
 
-
+    }
 }

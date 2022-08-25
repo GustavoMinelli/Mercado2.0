@@ -8,6 +8,7 @@
 
 
     <div class="page page-category page-index">
+
         <div class="page-header">
             <h1>Categorias <small>Listagem de Categorias</small></h1>
         </div>

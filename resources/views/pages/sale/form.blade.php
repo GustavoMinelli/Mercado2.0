@@ -1,65 +1,87 @@
-@extends('layouts.main')
-
-@section('title', 'Nova venda')
-
+@extends('layouts.main',[
+    'pageTitle' => 'Vendas'
+])
 @section('content')
 
-    <div class="container">
-        <h1>Nova venda</h1>
+    <div class="page page-sale page-form">
 
-        <form action="/form/sale" method="POST">
+        <div class="page-header">
+            <h1>Venda <small>Nova venda</small></h1>
+        </div>
 
-            @csrf
+        <div class="page-body">
 
-            <label>Cliente: </label>
-            <select name="customer_id" required>
-                <option selected>Selecione um cliente</option>
+            @include('components.alert')
 
-                @foreach ($customers as $customer)
+            <form action="{{ url('sale') }}" method="POST">
 
-                    <option value="{{$customer->id}}">{{$customer->name}}</option>
+                @csrf
 
-                @endforeach
+                <div class="form-group">
+                    <label>Cliente: </label>
+                    <select name="customer_id" required>
+                        <option selected>Selecione um cliente</option>
 
-            </select>
-            <br>
+                        @foreach ($customers as $customer)
 
-            <label>Funcionário: </label>
-            <select name="employee_id" required>
-                <option selected>Selecione um funcionário</option>
+                            <option value="{{$customer->id}}">{{$customer->name}}</option>
 
-                @foreach ($employees as $employee)
+                        @endforeach
 
-                    <option value="{{$employee->id}}">{{$employee->name}}</option>
+                    </select>
+                </div>
 
-                @endforeach
+                <div class="form-group">
+                    <label>Funcionário: </label>
+                    <select name="employee_id" required>
+                        <option selected>Selecione um funcionário</option>
 
-            </select>
-            <br>
+                        @foreach ($employees as $employee)
 
-            @if (count($products) > 0)
-                <label>Qual produto foi comprado e sua quantidade: </label><br>
+                            <option value="{{$employee->id}}">{{$employee->name}}</option>
 
-                @foreach ($products as $k => $product)
+                        @endforeach
 
-                    <input type="checkbox" name="product_id[{{$k}}]" value="{{ $product->id }}">{{$product->name}}
+                    </select>
+                </div>
 
-                    <input type="number" name="qty_sales[]">
-                    <br>
+                <div class="form-group">
+                    @if (count($products) > 0)
+                        <label>Qual produto foi comprado e sua quantidade: </label><br>
 
-                @endforeach
+                        @foreach ($products as $k => $product)
 
-            @else
+                            <input type="checkbox" name="product_id[{{$k}}]" value="{{ $product->id }}">{{$product->name}}
 
-                <h3>Nenhum produto cadastrado</h3>
-                <p><a href="/create/product">Clique aqui</a> para criar um novo</p>
+                            <input type="number" name="qty_sales[]">
+                            <br>
 
-            <br>
+                        @endforeach
 
-            @endif
-            <button type="submit">Enviar</button>
-        </form>
+                    @else
+
+                        <h3>Nenhum produto cadastrado</h3>
+                        <p><a href="/create/product">Clique aqui</a> para criar um novo</p>
+
+
+
+                    @endif
+
+                </div>
+
+                <div class="page-controls">
+
+                    <a class="btn btn-outline-primary" href="{{ url('sales') }}">Voltar</a>
+
+                    <button type="submit" class="btn btn-outline-success">Enviar</button>
+
+                </div>
+
+            </form>
+
+        </div>
 
     </div>
+
 
 @endsection

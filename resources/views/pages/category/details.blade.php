@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <div class="page page-customer page-detals">
+    <div class="page page-customer page-details">
 
 
         <div class="page-header">
@@ -16,14 +16,14 @@
 
             <ul>
                 <li><b>ID: </b>{{$product->id}}</li>
-                <li><b>Name: </b>{{$product->name}}</li>
-                <li><b>ID: </b>{{$product->current_qty}}</li>
+                <li><b>Nome: </b>{{$product->name}}</li>
+                <li><b>Quantidade: </b>{{$product->current_qty}}</li>
             </ul>
 
             @endforeach
 
             <div class="page-controls">
-                <a class="btn btn-outline-primary" ssshref="{{ url('categories') }}">Voltar</a>
+                <a class="btn btn-outline-primary" href="{{ url('categories') }}">Voltar</a>
 
             </div>
 

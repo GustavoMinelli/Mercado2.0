@@ -66,23 +66,20 @@ Route::group([], function(){ //Estoque
 Route::group([], function(){ //Promoções
 
     Route::get('/promotions',           'PromotionController@index');
-
-    Route::get('/create/promotion',     'PromotionController@create');
-    Route::post('/form/promotion',      'PromotionController@insert');
-    Route::get('/edit/promotion/{id}',  'PromotionController@edit');
-    Route::put('/form/promotion',       'PromotionController@update');
-    Route::get('/delete/promotion/{id}', 'PromotionController@delete');
+    Route::get('/promotion/create',     'PromotionController@create');
+    Route::post('/promotion',      'PromotionController@insert');
+    Route::get('/promotion/{id}/edit',  'PromotionController@edit');
+    Route::put('promotion',       'PromotionController@update');
+    Route::get('/promotion/{id}/delete', 'PromotionController@delete');
 
 });
 
 Route::group([], function(){ //Vendas
 
     Route::get('/sales',                'SaleController@index');
-
-    Route::get('/new/sale',             'SaleController@create');
-    Route::post('/form/sale',           'SaleController@insert');
-    Route::get('/delete/sale/{id}',     'SaleController@delete');
-
+    Route::get('sale/create',             'SaleController@create');
+    Route::post('sale',           'SaleController@insert');
+    Route::get('/sale/{id}delete/',     'SaleController@delete');
     Route::get('/sale/{id}/products',   'SaleController@show');
 
 });

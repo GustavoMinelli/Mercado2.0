@@ -1,4 +1,4 @@
-@extends('layouts.main' [
+@extends('layouts.main', [
     'pageTitle' => 'Estoque'
 ])
 
@@ -53,12 +53,12 @@
 
                 <div class="form-group">
                     <label>Quantidade: </label>
-                    <input type="number" name="qty" required value="{{ $employee->qty }}">
+                    <input type="number" name="qty" required value="{{ $inventory->qty }}">
                 </div>
 
                 <div class="form-group">
                     <label>Data: </label>
-                    <input type="date" name="created_at" value="{{ $employee->created_at }}">
+                    <input type="date" name="created_at" value="{{ $inventory->created_at }}">
                 </div>
 
                 <div class="page-controls">

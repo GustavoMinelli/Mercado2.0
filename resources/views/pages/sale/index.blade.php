@@ -1,65 +1,68 @@
-@extends('layouts.main')
-
-@section('title', 'Vendas')
+@extends('layouts.main', [
+    'pageTItle' => 'Vendas'
+])
 
 @section('content')
 
-    <div class="container">
+    <div class="page page-sale page-form">
 
-        <h1>Vendas</h1>
+        <div class="page-header">
+            <h1>Vendas <small>Listagem de vendas</h1>
+        </div>
 
-        @if(session()->has('msg'))
+        <div class="page-body">
 
-            <h4>{{session()->get('msg')}}</h4>
+            @include('components.alert')
 
-        @endif
+            @if ( count($sales) > 0 )
 
-        @if ( count($sales) > 0 )
+                <table clas="table table-striped">
 
-            <a href="/new/sale">Criar nova venda</a>
-
-            <table>
-
-                <thead>
-
-                    <tr>
-
-                        <th>Id</th>
-                        <th>Valor</th>
-                        <th>Ações</th>
-
-                    </tr>
-
-                </thead>
-
-                @foreach ($sales as $sale)
-
-                    <tbody>
+                    <thead>
 
                         <tr>
 
-                            <td>{{$sale->id}}</td>
-                            <td>{{$sale->total}}</td>
-                            <td>
-                                <a href="/sale/{{$sale->id}}/products">Detalhes</a>
-                                <a href="/delete/sale/{{$sale->id}}">Deletar</a>
-                            </td>
+                            <th>ID</th>
+                            <th>Valor</th>
+                            <th>Ações</th>
 
                         </tr>
 
-                    </tbody>
+                    </thead>
 
-                @endforeach
+                    @foreach ($sales as $sale)
 
-            </table>
+                        <tbody>
 
-        @else
+                            <tr>
 
-            <h2>Nenhuma venda criada</h2>
+                                <td>{{$sale->id}}</td>
+                                <td>{{$sale->total}}</td>
+                                <td>
+                                    <a  class="btn btn-primary btn-sm" href="{{ url('sale/'.$sale->id. '/products') }}">Detalhes</a>
+                                    <a  class="btn btn-primary btn-sm" href="{{ url('sale/'.$sale->id. '/delete') }}">Remover</a>
+                                </td>
 
-            <p><a href="/new/sale">Clique aqui </a>para criar uma nova</p>
+                            </tr>
 
-        @endif
+                        </tbody>
+
+                    @endforeach
+
+                </table>
+
+            @else
+
+                <div class="page-message">
+
+                <h3>Nenhuma venda cadastrada</h3>
+
+            @endif
+
+            <div class="page-controls">
+                <a class="btn btn-primary" href="{{ url('sale/create') }}">Nova Venda</a>
+
+        </div>
 
     </div>
 

@@ -13,11 +13,10 @@ class CustomerControllerBackup extends Controller
     /**
      * Mostra todos os clientes
      *
-     * @return void
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
+
+
     */
-
-
-
     public function index()
     {
 

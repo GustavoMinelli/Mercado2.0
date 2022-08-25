@@ -1,50 +1,38 @@
-@extends('layouts.main')
-
-@section('title', 'Produtos da venda')
+@extends('layouts.main', [
+    'pageTItle' => 'Vendas'
+])
 
 @section('content')
 
-    <h2>Produtos da venda</h2>
+    <div class="page page-costumer page-details">
+
+        <div class="page-header">
+            <h2>Vendas <small>Produtos da Venda</small></h2>
+        </div>
+
+        <div class="page-body">
+
+            @foreach ($sales as $sale)
+
+            <ul>
+                <li><b>ID:</b>{{$sale->id}}</li>
+                <li><b>Cliente: </b>{{$sale->client}}</li>
+                <li><b>Funcionario: </b>{{$sale->employee}}</li>
+                <li><b>Produto: </b>{{$sale->product}}</li>
+                <li><b>Quantidade: </b>{{$sale->qty_sales}}</li>
+                <li><b>Preço: </b>{{$sale->total_price}}</li>
+            </ul>
+
+            @endforeach
+
+            <div class="page-controls">
+                <a class="btn btn-outline-primary" href="{{ url('sales') }}">Voltar</a>
+
+            </div>
 
 
-    <a href="/sales">Voltar para vendas</a>
-    <table>
+        </div>
 
-        <thead>
-
-            <tr>
-
-                <th>Id</th>
-                <th>Cliente</th>
-                <th>Funcionário</th>
-                <th>Produto</th>
-                <th>Quantidade</th>
-                <th>Valor do volume</th>
-
-            </tr>
-
-        </thead>
-
-
-        @foreach ($sales as $sale)
-
-            <tbody>
-
-                <tr>
-
-                    <td>{{$sale->id}}</td>
-                    <td>{{$sale->client}}</td>
-                    <td>{{$sale->employee}}</td>
-                    <td>{{$sale->product}}</td>
-                    <td>{{$sale->qty_sales}}</td>
-                    <td>{{$sale->total_price}}</td>
-
-                </tr>
-
-            </tbody>
-
-        @endforeach
-
-    </table>
+    </div>
 
 @endsection

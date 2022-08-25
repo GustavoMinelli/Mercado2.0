@@ -45,7 +45,7 @@
                             <tr>
                                 <td>{{ $product->id }}</td>
                                 <td>{{ $product->name }}</td>
-                                <td><a class="btn btn-outline-secondary" href="{{url('category/'.$product->category->id.'/products')}}'">{{ $product->category->name }}</td>
+                                <td><a class="btn btn-outline-secondary" href="{{url('category/'.$product->category->id.'/products')}}">{{ $product->category->name }}</td>
                                 <td>{{ $product->current_qty }}</td>
                                 {{-- @dd($product->current_qty) --}}
                                 <td>

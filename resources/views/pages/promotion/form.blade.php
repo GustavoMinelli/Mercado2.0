@@ -6,7 +6,7 @@
 @section('content')
 
     @php
-    $isEdit = !empty($employee->id);
+    $isEdit = !empty($promotion->id);
     @endphp
 
 

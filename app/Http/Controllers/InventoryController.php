@@ -7,6 +7,7 @@ use App\Models\Product;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class InventoryController extends Controller
@@ -25,7 +26,11 @@ class InventoryController extends Controller
 
         return view('pages.inventory.index', $data);
     }
-
+    /**
+     * Carregar um formulario para criar um novo produto
+     *
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
+     */
     public function create(){
 
         $inventory = new Inventory();
@@ -33,102 +38,186 @@ class InventoryController extends Controller
         return $this->form($inventory);
     }
 
-
+    /**
+     * Carregar formulário para editar um produto
+     *
+     * @param int $id
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
+     */
     public function edit(int $id){
         $inventory = Inventory::find($id);
 
         return $this->form($inventory);
     }
 
-    // public function form(Inventory $inventory){
+    /**
+     * Inserir novo produto no banco de dados
+     *
+     * @param Request $request
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     */
+    public function insert(Request $request){
 
-    //     $isEdit = $inventory->id ? true : false;
+        return $this->insertOrUpdate($request);
 
-    //     $products = Product::get();
+    }
 
-    //     $data = [
-    //         'isEdit' => $isEdit,
-    //         'inventory' => $inventory,
-    //         'products' => $products
-    //     ];
+     /**
+     * Persistir atualizações de um produto no banco de dados
+     *
+     * @param Request $request
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     */
+    public function update(Request $request){
 
-    //     return view('inventory.form', $data);
-
-    // }
-
-    // public function insert(Request $request){
-    //     $inventory = new Inventory();
-
-    //     $validator = $this->validator($request);
-
-    //     if($validator->fails()){
-
-    //         return redirect('/create/inventory')->with('msg', 'Não foi possivel criar: '.$validator->errors()->first());
-
-    //     }
-    //     else{
-
-    //         $this->save($inventory, $request);
-    //         return redirect('/inventories')->with('msg', 'Estoque criado com sucesso');
-
-    //     }
+        return $this->insertOrUpdate($request);
 
 
-    // }
+    }
 
-    // public function update(Request $request){
-    //     $inventory = Inventory::find($request->id);
+    /**
+     * Remover um produto no banco de dados
+     *
+     * @param [type] $id
+     * @return @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     */
+    public function delete($id){
 
-    //     $validator = $this->validator($request);
+        try {
 
-    // }
+            DB::beginTransaction();
 
-    // public function delete($id){
-    //     $inventory = Inventory::find($id);
+            $inventory = Inventory::find($id);
 
-    //     $product = Product::find($inventory->product_id);
+            if(!$inventory) {
+                throw new \Exception('Estoque não encontrado!');
+            }
 
-    //     $product->decrement('current_qty', $inventory->qty);
+            $product = Product::find($inventory->product_id);
 
-    //     $inventory->delete();
+            $product->decrement('current_qty', $inventory->qty);
 
-    //     return redirect('/inventories')->with('msg', 'Estoque excluido com sucesso');
-    // }
+            $inventory->delete();
 
-    // private function validator(Request $request){
+            DB::commit();
 
-    //     $rules = [
-    //         'qty' => 'required|min:1',
-    //         'created_at' => 'required|date:Y-m-d'
-    //     ];
+            Session::flash('success', 'Estoque removido com sucesso');
 
-    //     $msg = [
-    //         'qty.required' => 'necessário uma quantidade',
-    //         'qty.min' => 'necessário pelo menos 1 produto',
-    //         'created_at.required' => 'necessário uma data',
-    //     ];
+        } catch(\Exception $e){
 
-    //     $validator = Validator::make($request->all(), $rules, $msg);
-    //     return $validator;
-    // }
+            DB::rollBack();
 
-    // private function save(Inventory $inventory, Request $request){
+            Session::flash('error', 'Não foi possivel remover o estoque');
 
 
+        }
 
-    //         $product = Product::find($request->product_id);
+        return redirect('/inventories');
+    }
 
-    //         $inventory->qty = $request->qty;
+    /**
+     * Carregar um formulario para criar/editar um estoque
+     *
+     * @param Inventory $inventory
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
+     */
+    public function form(Inventory $inventory){
 
-    //         $inventory->created_at = $request->created_at;
+        $products = Product::get();
 
-    //         $inventory->product_id = $request->product_id;
+        $data = [
+            'inventory' => $inventory,
+            'products' => $products
+        ];
 
-    //         $product->increment('current_qty', $request->qty);
+        return view('pages.inventory.form', $data);
 
-    //         $inventory->save();
+    }
+
+    /**
+     * Inserir ou atualizar o estoque no banco de dados
+     *
+     * @param Request $request
+     * @return object
+     */
+    private function insertOrUpdate(Request $request){
+
+        $validator = $this->getInsertUpdateValidator($request);
+
+        if ($validator->fails()) {
+
+            $error = $validator->errors()->first();
+
+            return back()->withInput()->withErrors($error);
+
+        } else {
+
+            try {
+                DB::beginTransaction();
+
+                $isEdit = $request->method() == 'PUT';
+
+                $inventory = $isEdit ? Inventory::find($request->id) : new Inventory();
+
+                $this->save($inventory, $request);
+
+                DB::commit();
+
+                Session::flash('success', 'O estoque foi '.($isEdit ? 'alterado' : 'criado'). ' com sucesso!');
+
+                return redirect('inventories');
+
+
+            } catch (\Exception $e) {
+
+                DB::rollBack();
+
+                $error = $e->getMessage();
+
+                return back()->withInput()->withErrors($error);
+
+            }
+        }
+    }
+
+    private function getInsertUpdateValidator(Request $request){
+
+        $data = $request->all();
+
+        $method = $request->method();
+
+        $rules = [
+            'qty' => ['required'],
+            'created_at' => ['required']
+
+        ];
+
+        $validator = Validator::make($data, $rules);
+
+        $validator->sometimes('id', ['required', 'integer', 'exists:inventories,id'], function() use ($method){
+            return $method == 'PUT';
+        });
+
+        return $validator;
+    }
+
+    private function save(Inventory $inventory, Request $request){
 
 
 
-    // }
+            $product = Product::find($request->product_id);
+
+            $inventory->qty = $request->qty;
+
+            $inventory->created_at = $request->created_at;
+
+            $inventory->product_id = $request->product_id;
+
+            $product->increment('current_qty', $request->qty);
+
+            $inventory->save();
+
+
+
+    }
 }

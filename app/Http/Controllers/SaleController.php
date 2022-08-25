@@ -12,7 +12,9 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use PhpParser\Node\Stmt\Catch_;
 
 class SaleController extends Controller
 {
@@ -62,6 +64,52 @@ class SaleController extends Controller
     }
 
 
+
+    public function insert(Request $request){
+
+        return $this->insertOrUpdate($request);
+
+    }
+
+    public function update(Request $request){
+
+        return $this->insertOrUpdate($request);
+
+    }
+
+    public function delete(int $id){
+
+        try {
+
+            DB::beginTransaction();
+
+            $sale = Sale::find($id);
+
+            if(!$sale) {
+                throw new \Exception('Venda nao encontrada');
+            }
+
+            $this->preDelete();
+
+            $sale->delete();
+
+            DB::commit();
+
+            Session::flash('sucess', 'Venda removida com sucesso');
+
+        } catch (\Exception $e) {
+
+            DB::rollBack();
+
+            Session::flash('error', 'Nao foi possivel remover a venda' .$e->getMessage());
+        }
+
+        return redirect('sales');
+
+
+
+    }
+
     public function form(Sale $sale){
 
         $products = Product::orderBy('id','asc')->get();
@@ -73,53 +121,149 @@ class SaleController extends Controller
             'employees' => $employees,
             'sale' => $sale,
             'products' => $products
+
         ];
 
-        return view('sale.form', $data);
+        return view('pages.sale.form', $data);
     }
+    /**
+     * Inserir ou atualizar o estoque no banco de dados
+     *
+     * @param Request $request
+     * @return object
+     */
+    private function insertOrUpdate(Request $request){
 
-    public function insert(Request $request){
+        $validator = $this->getInsertUpdateValidator($request);
 
-       return $this->insertOrUpdate($request);
+        if ($validator->fails()) {
 
-    }
+            $error = $validator->errors()->first();
 
-    public function delete($id){
+            return back()->withInput()->withErrors($error);
 
-        $sale = Sale::find($id);
+        } else {
 
-        $qty = Sale::searchQty($sale->id)->get();
+            try {
+                DB::beginTransaction();
 
-        foreach($qty as $productQty){
-            $product = Product::find($productQty->product_id);
+                $isEdit = $request->method() == 'PUT';
 
-            $product->increment('current_qty', $productQty->qty_sales);
+                $sale = $isEdit ? Sale::find($request->id) : new Sale();
+
+                $this->save($sale, $request);
+
+                DB::commit();
+
+                Session::flash('success', 'A venda foi '.($isEdit ? 'alterado' : 'criado'). ' com sucesso!');
+
+                return redirect('sales');
+
+
+            } catch (\Exception $e) {
+
+                DB::rollBack();
+
+                $error = $e->getMessage();
+
+                return back()->withInput()->withErrors($error);
+
+            }
         }
-
-        $sale->delete();
-
-        return redirect('/sales')->with('msg', 'Venda deletada com sucesso');
     }
 
+    // private function InsertOnly(Request $request){
 
-    private function validator(Request $request){
+    //     $validator = $this->getInsertOnlyValidator($request);
+
+    //     if($validator->fails()) {
+
+    //         $error = $validator->errors()->first();
+
+    //         return back()->withInput()->withErrors($error);
+
+
+    //     }else {
+
+    //         try{
+
+    //             DB::beginTransaction();
+
+    //             $sale = Sale::find($request->id);
+
+    //             $this->save($sale, $request);
+
+    //             DB::commit();
+
+    //             Session::flash('success', 'A venda foi criada com sucesso');
+
+    //             return('sales');
+
+    //         }catch (\Exception $e) {
+
+    //             DB::rollBack();
+
+    //             $error = $e->getMessage();
+
+    //             return back()->withInput()->withErrors($error);
+
+    //         }
+    //     }
+    // }
+
+    // private function getInsertOnlyValidator(Request $request){
+
+    //     $data = $request->all();
+
+
+    //     $rules = [
+    //         'customer_id' => 'required',
+    //         'employee_id' => 'required',
+    //         'product_id'  => 'required',
+    //         // 'product_qty' => 'required'
+
+    //     ];
+
+    //     $validator = Validator::make($data, $rules);
+
+    //     return $validator;
+    // }
+
+    private function getInsertUpdateValidator(Request $request){
+
+        $data = $request->all();
+
+        $method = $request->method();
 
         $rules = [
             'customer_id' => 'required',
             'employee_id' => 'required',
+
         ];
 
-        $msg = [
-            'customer_id.' => 'necessário um cliente para registrar a compra',
-            'employee_id.' => 'necessário um funcionário para registrar a compra',
-        ];
+        $validator = Validator::make($data, $rules);
 
-        $validator = Validator::make($request->all(), $rules, $msg);
+        $validator->sometimes('id', ['required', 'integer', 'exists:sales,id'], function() use ($method){
+            return $method == 'PUT';
+        });
 
         return $validator;
     }
+
+
+
+
+
     private function save(Sale $sale, Request $request){
 
+        // $sale->customer_id = $request->customer_id;
+        // $sale->employee_id = $request->employee_id;
+
+        // $products = $request->product_id;
+
+        // $sale->save();
+
+        // foreach($products as $k => $product){
         DB::beginTransaction();
         try{
 
@@ -176,4 +320,7 @@ class SaleController extends Controller
 
     }
 
+    // private function preDelete(Request $request);
+
+    // $sale
 }
