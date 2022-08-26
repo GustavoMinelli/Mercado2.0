@@ -38,9 +38,9 @@
                                 <td>{{ $customer->name }}</td>
                                 <td>{{ $customer->email }}</td>
                                 <td>
-                                    <a class="btn btn-primary btn-sm" role="button" href="{{ url('customer/'.$customer->id.'/show') }}">Visualizar</a><br>
-                                    <a class="btn btn-primary btn-sm" role="button" href="{{ url('customer/'.$customer->id.'/edit') }}">Editar</a><br>
-                                    <a class="btn btn-primary btn-sm" role="button" href="{{ url('customer/'.$customer->id.'/delete') }}">Remover</a>
+                                    <a class="btn btn-primary btn-sm" role="button" href="{{ url('customer/'.$customer->id.'/show') }}">Visualizar</a>
+                                    <a class="btn btn-primary btn-sm" role="button" href="{{ url('customer/'.$customer->id.'/edit') }}">Editar</a>
+                                    <a class="btn btn-danger btn-sm" role="button" href="{{ url('customer/'.$customer->id.'/delete') }}">Remover</a>
                                 </td>
                             </tr>
 

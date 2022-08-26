@@ -69,7 +69,7 @@ Route::group([], function(){ //Promoções
     Route::get('/promotion/create',     'PromotionController@create');
     Route::post('/promotion',      'PromotionController@insert');
     Route::get('/promotion/{id}/edit',  'PromotionController@edit');
-    Route::put('promotion',       'PromotionController@update');
+    Route::put('/promotion',       'PromotionController@update');
     Route::get('/promotion/{id}/delete', 'PromotionController@delete');
 
 });
@@ -79,7 +79,7 @@ Route::group([], function(){ //Vendas
     Route::get('/sales',                'SaleController@index');
     Route::get('sale/create',             'SaleController@create');
     Route::post('sale',           'SaleController@insert');
-    Route::get('/sale/{id}delete/',     'SaleController@delete');
+    Route::get('/sale/{id}/delete/',     'SaleController@delete');
     Route::get('/sale/{id}/products',   'SaleController@show');
 
 });

@@ -44,7 +44,7 @@
                                 <td>{{$inventory->qty}}</td>
 
                                 <td>
-                                    <a  class="btn btn-primary btn-sm" href="{{ url('inventory/'.$inventory->id. '/delete') }}">Remover</a>
+                                    <a  class="btn btn-danger btn-sm" href="{{ url('inventory/'.$inventory->id. '/delete') }}">Remover</a>
                                 </td>
 
                             </tr>

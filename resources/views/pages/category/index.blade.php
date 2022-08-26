@@ -44,7 +44,7 @@
                                 <td>
                                     <a  class="btn btn-primary btn-sm" href="{{ url('category/'.$category->id. '/products') }}">Produtos</a>
                                     <a  class="btn btn-primary btn-sm" href="{{ url('category/'.$category->id. '/edit') }}">Editar</a>
-                                    <a  class="btn btn-primary btn-sm" href="{{ url('category/'.$category->id. '/delete') }}">Remover</a>
+                                    <a  class="btn btn-danger btn-sm" href="{{ url('category/'.$category->id. '/delete') }}">Remover</a>
                                 </td>
                             </tr>
 

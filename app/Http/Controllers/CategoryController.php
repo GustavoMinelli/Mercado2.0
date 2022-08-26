@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Promotion;
 use Exception;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -119,6 +120,8 @@ class CategoryController extends Controller
             }
             $this->preDelete($category);
 
+
+
             $category->delete();
 
             DB::commit();
@@ -134,6 +137,30 @@ class CategoryController extends Controller
 
         return redirect('categories');
     }
+
+    private function preDelete(Category $category){
+
+        $products = $category->products;
+
+        foreach($products as $product) {
+
+            $promotions = $product->promotions;
+
+            $promotions->each->delete();
+
+            if($product->sales = []) {
+                throw new \Exception('Não foi possivel excluir');
+
+            }
+
+
+        }
+
+        $products->each->delete();
+
+
+    }
+
 
     /**
      * Carregar o formulario para criar/editar uma categoria
@@ -231,12 +258,11 @@ class CategoryController extends Controller
 
         $category->save();
     }
-    private function preDelete(Category $category){
 
 
 
 
-    }
+
 }
     // public function update(Request $request){
     //     $category = Category::find($request->id);

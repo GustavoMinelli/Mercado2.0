@@ -50,7 +50,7 @@
                                 <td>{{$promotion->is_active ? "Ativo" : "Inativo"}}</td>
                                 <td>
                                     <a  class="btn btn-primary btn-sm" href="{{ url('promotion/'.$promotion->id. '/edit') }}">Editar</a>
-                                    <a  class="btn btn-primary btn-sm" href="{{ url('promotion/'.$promotion->id. '/delete') }}">Remover</a>
+                                    <a  class="btn btn-danger btn-sm" href="{{ url('promotion/'.$promotion->id. '/delete') }}">Remover</a>
                                 </td>
 
                             </tr>

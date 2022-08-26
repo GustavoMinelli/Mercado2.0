@@ -89,7 +89,8 @@ class SaleController extends Controller
                 throw new \Exception('Venda nao encontrada');
             }
 
-            $this->preDelete();
+
+            $this->preDelete($sale);
 
             $sale->delete();
 
@@ -109,6 +110,16 @@ class SaleController extends Controller
 
 
     }
+
+    private function preDelete($sale){
+        // dd($sale);/
+
+        $sale->products()->detach();
+
+
+    }
+
+
 
     public function form(Sale $sale){
 
@@ -172,62 +183,6 @@ class SaleController extends Controller
         }
     }
 
-    // private function InsertOnly(Request $request){
-
-    //     $validator = $this->getInsertOnlyValidator($request);
-
-    //     if($validator->fails()) {
-
-    //         $error = $validator->errors()->first();
-
-    //         return back()->withInput()->withErrors($error);
-
-
-    //     }else {
-
-    //         try{
-
-    //             DB::beginTransaction();
-
-    //             $sale = Sale::find($request->id);
-
-    //             $this->save($sale, $request);
-
-    //             DB::commit();
-
-    //             Session::flash('success', 'A venda foi criada com sucesso');
-
-    //             return('sales');
-
-    //         }catch (\Exception $e) {
-
-    //             DB::rollBack();
-
-    //             $error = $e->getMessage();
-
-    //             return back()->withInput()->withErrors($error);
-
-    //         }
-    //     }
-    // }
-
-    // private function getInsertOnlyValidator(Request $request){
-
-    //     $data = $request->all();
-
-
-    //     $rules = [
-    //         'customer_id' => 'required',
-    //         'employee_id' => 'required',
-    //         'product_id'  => 'required',
-    //         // 'product_qty' => 'required'
-
-    //     ];
-
-    //     $validator = Validator::make($data, $rules);
-
-    //     return $validator;
-    // }
 
     private function getInsertUpdateValidator(Request $request){
 
@@ -319,8 +274,62 @@ class SaleController extends Controller
         }
 
     }
-
-    // private function preDelete(Request $request);
-
-    // $sale
 }
+
+
+                    // private function InsertOnly(Request $request){
+
+                    //     $validator = $this->getInsertOnlyValidator($request);
+
+                    //     if($validator->fails()) {
+
+                    //         $error = $validator->errors()->first();
+
+                    //         return back()->withInput()->withErrors($error);
+
+
+                    //     }else {
+
+                    //         try{
+
+                    //             DB::beginTransaction();
+
+                    //             $sale = Sale::find($request->id);
+
+                    //             $this->save($sale, $request);
+
+                    //             DB::commit();
+
+                    //             Session::flash('success', 'A venda foi criada com sucesso');
+
+                    //             return('sales');
+
+                    //         }catch (\Exception $e) {
+
+                    //             DB::rollBack();
+
+                    //             $error = $e->getMessage();
+
+                    //             return back()->withInput()->withErrors($error);
+
+                    //         }
+                    //     }
+                    // }
+
+                    // private function getInsertOnlyValidator(Request $request){
+
+                    //     $data = $request->all();
+
+
+                    //     $rules = [
+                    //         'customer_id' => 'required',
+                    //         'employee_id' => 'required',
+                    //         'product_id'  => 'required',
+                    //         // 'product_qty' => 'required'
+
+                    //     ];
+
+                    //     $validator = Validator::make($data, $rules);
+
+                    //     return $validator;
+                    // }

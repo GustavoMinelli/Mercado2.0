@@ -7,6 +7,7 @@ use App\Models\Promotion;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
 class PromotionController extends Controller
@@ -26,17 +27,28 @@ class PromotionController extends Controller
 
         ];
 
-        return view('promotion.show', $data);
+        return view('pages.promotion.index', $data);
 
     }
 
+    /**
+     * Carrega um formulario para criar uma nova promoção
+     *
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
+     */
     public function create(){
 
         return $this->form(new Promotion());
 
     }
 
-    public function edit($id){
+    /**
+     * Carrega um formulario para editar uma promoção
+     *
+     * @param integer $id
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
+     */
+    public function edit(int $id){
 
         $promotion = Promotion::find($id);
 
@@ -44,76 +56,133 @@ class PromotionController extends Controller
 
     }
 
-    public function form(Promotion $promotion){
-
-        $products = Product::get();
-
-        $isEdit = $promotion->id ? true : false;
-
-        $data = [
-            'products' => $products,
-            'promotion' => $promotion,
-            'isEdit' => $isEdit
-
-        ];
-
-        return view('promotion.form', $data);
-
-    }
-
+    /**
+     * Insere uma nova promoção ao banco de dados
+     *
+     * @param Request $request
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     */
     public function insert(Request $request) {
 
-        $promotion = new Promotion();
-
-        $validator = $this->validator($request);
-
-        if($validator->fails()){
-
-            return redirect('/create/promotion')->with('msg', 'Não foi possivel criar: '.$validator->errors()->first());
-
-        }
-        else{
-
-            $this->save($promotion, $request);
-
-            return redirect('/promotions')->with('msg', 'Promoção criado com sucesso');
-
-        }
-
+        return $this->insertOrUpdate($request);
 
     }
 
     public function update(Request $request){
 
-        $promotion = Promotion::find($request->id);
-
-        $validator = $this->validator($request);
-
-        if($validator->fails()){
-
-            return redirect('/edit/promotion/'.$promotion->id)->with('msg', 'Não foi possivel editar: '.$validator->errors()->first());
-
-        }
-        else{
-
-            $this->save($promotion, $request);
-            return redirect('/promotions')->with('msg', 'Promoção editada com sucesso');
-
-        }
+        return $this->insertOrUpdate($request);
 
     }
 
-    public function delete($id){
+    /**
+     * Delete uma promoção
+     *
+     * @param integer $id
+     * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     */
+    public function delete(int $id){
 
-        $promotion = Promotion::find($id);
+        try {
 
-        $promotion->delete();
+            DB::beginTransaction();
 
-        return redirect('/promotions')->with('msg', 'Promoção apagada com sucesso');
+            $promotion = Promotion::find($id);
+
+            if (!$promotion){
+                throw new \Exception('Promoção não cadastrada');
+            }
+
+            $promotion->delete();
+
+            DB::commit();
+
+            Session::flash('success', 'Promoção removida com sucesso!');
+
+        } catch(\Exception $e){
+
+            DB::rollBack();
+
+            Session::flash('error', 'Não foi possivel remover a promoção '.$e->getMessage());
+        }
+
+        return redirect('/promotions');
 
     }
 
-    private function validator(Request $request){
+    /**
+     * Carrega um formuario para criar/editar um produto
+     *
+     * @param Promotion $promotion
+     * @return Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
+     */
+    public function form(Promotion $promotion){
+
+        $products = Product::get();
+
+
+        $data = [
+            'products' => $products,
+            'promotion' => $promotion,
+
+        ];
+
+        return view('pages.promotion.form', $data);
+
+    }
+    /**
+     * Insere/Atualiza a promoção no banco de dados
+     *
+     * @param Request $request
+     * @return void
+     */
+    private function insertOrUpdate(Request $request){
+
+        $validator = $this->getInsertUpdateValidator($request);
+
+        if($validator->fails()) {
+
+            $error = $validator->errors()->first();
+
+            return back()->withInput()->withErrors($error);
+
+        }else {
+
+            try{
+                DB::beginTransaction();
+
+                $isEdit = $request->method() == 'PUT';
+
+				$promotion = $isEdit ? Promotion::find($request->id) : new Promotion();
+
+				$this->save($promotion, $request);
+
+				DB::commit();
+
+				Session::flash('success', 'A promoção foi '.($isEdit ? 'alterado' : 'criado'). ' com sucesso!');
+
+				return redirect('promotions');
+
+			} catch (\Exception $e) {
+
+				DB::rollBack();
+
+				$error = $e->getMessage();
+
+				return back()->withInput()->withErrors($error);
+            }
+        }
+    }
+    /**
+     * VAlida os dados do $request
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\Validation\Validator $validator
+     */
+    private function getInsertUpdateValidator(Request $request){
+
+        $data = $request->all();
+
+        $method = $request->method();
 
         $rules = [
 
@@ -123,27 +192,23 @@ class PromotionController extends Controller
 
         ];
 
-        $msg = [
+        $validator = Validator::make($data, $rules);
 
-            'price.required' => 'preço necessário',
-            'price.min' => 'digite pelo menos um preço de R$ 0,01',
-            'started_at.required' => 'data de início necessário',
-            'started_at.date' => 'data inválida',
-            'ended_at.required' => 'data final inválida',
-            'ended_at.date' => 'data inválida'
-
-        ];
-
-        $validator = Validator::make($request->all(), $rules, $msg);
+        $validator->sometimes('id', ['required', 'integer', 'exists:promotion,id'], function() use ($method){
+            return $method =='PUT';
+        });
 
         return $validator;
     }
 
+    /**
+     * Salva as alterações da promoçao
+     *
+     * @param Promotion $promotion
+     * @param Request $request
+     * @return void
+     */
     private function save(Promotion $promotion, Request $request){
-
-        DB::beginTransaction();
-
-        try{
 
             $promotion->product_id = $request->product_id;
             $promotion->price = $request->price;
@@ -153,12 +218,10 @@ class PromotionController extends Controller
 
             $promotion->save();
 
-            DB::commit();
 
-        }catch(Exception $e){
 
-            DB::rollBack();
 
-        }
     }
+
+
 }

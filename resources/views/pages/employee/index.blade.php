@@ -8,21 +8,14 @@
 
     <div class="page page-category page-index">
         <div class="page-header">
-            <h1>Funcionarios<small>Listagem de Funcionarios</small></h1>
+            <h1>Funcionarios <small>Listagem de Funcionarios</small></h1>
         </div>
 
         <div class="page-body">
 
-
-            @if($errors->any())
-            <h4>{{$errors->first()}}</h4>
-            @elseif(session()->has('msg'))
-            <h4>{{session()->get('msg')}}</h4>
-            @endif
-
             @if (count($employees) > 0)
 
-                <table>
+                <table class="table table-striped">
 
                     <thead>
 
@@ -47,9 +40,9 @@
                                 <td>{{$employee->name}}</td>
                                 <td>{{$employee->phone}}</td>
                                 <td>
-                                    <a href="{{url('employee/'.$employee->id. '/show') }}">Perfil</a>
-                                    <a href="{{url('employee/'.$employee->id. '/edit') }}">Editar</a>
-                                    <a href="{{url('employee/'.$employee->id. '/delete') }}">Remover</a>
+                                    <a class="btn btn-primary" href="{{url('employee/'.$employee->id. '/show') }}">Perfil</a>
+                                    <a class="btn btn-primary" href="{{url('employee/'.$employee->id. '/edit') }}">Editar</a>
+                                    <a class="btn btn-danger" href="{{url('employee/'.$employee->id. '/delete') }}">Remover</a>
                                 </td>
                             </tr>
 

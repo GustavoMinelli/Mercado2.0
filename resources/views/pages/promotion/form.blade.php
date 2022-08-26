@@ -1,5 +1,5 @@
 @extends('layouts.main', [
-    'pageTitle' => 'Promoçoes'
+    'pageTitle' => 'Promoçoes',
 ])
 
 
@@ -16,60 +16,66 @@
             <h1>Promoção<small>{{ $isEdit ? 'Editar promoção' : 'Nova promoção' }}</small></h1>
         </div>
 
-        <form action="/form/promotion" method="POST">
+        <div class="page-body">
 
-            @csrf
+            <form action="{{ url('promotion') }}" method="POST">
 
-            @method($isEdit ? "PUT" : "POST")
+                @csrf
 
-            <label>Qual produto: </label>
-            <select name="product_id">
+                @method($isEdit ? 'PUT' : 'POST')
 
-                @if (count($products) > 0)
+                <input type="hidden" name="id" value="{{ $promotion->id }}">
 
-                    @foreach ($products as $product)
+                <div class="form-group">
+                    {{-- <label>Qual produto: </label> --}}
+                        <select class="form-select" name="product_id">
+                            <option>Produto:</option>
+                            @if (count($products) > 0)
+                                @foreach ($products as $product)
+                                    <option value="{{ $product->id }}">{{ $product->name }}</option>
+                                @endforeach
+                            @else
+                                <option>Nenhum produto cadastrado</option>
+                            @endif
 
-                        <option value="{{$product->id}}">{{$product->name}}</option>
+                        </select>
 
-                    @endforeach
+                </div>
 
-                @else
+                <div class="form-group">
+                    <label>Preço: </label>
+                    <input type="number" step="0.01" name="price" required value="{{ $promotion->price ?? '' }}">
+                </div>
 
-                    <option>Nenhum produto cadastrado</option>
+                <div class="form-group">
+                    <input class="form-check-input" type="checkbox" name="is_active" {{ $promotion->is_active ? 'checked' : '' }}
+                        value="{{ true }}"><label>Está ativo?</label>
+                </div>
 
-                @endif
+                <div class="form-group">
+                    <label>Data inicial: </label>
+                    <input type="date" name="started_at" required
+                        value="{{ (string) $promotion->started_at ? $promotion->started_at->format('Y-m-d') : '' }}">
+                </div>
 
-            </select>
-            <br>
-
-
-            <label>Preço: </label>
-            <input type="number" step="0.01" name="price" required value="{{$promotion->price ?? ""}}">
-            <br><br>
-
-            <input type="checkbox" name="is_active" {{$promotion->is_active ? "checked" : ""}} value="{{true}}">Está ativo?
-            <br><br>
-
-            <label>Data inicial: </label>
-            <input type="date" name="started_at" required value="{{(string) $promotion->started_at ? $promotion->started_at->format('Y-m-d') : ""}}">
-            <br>
-            {{-- @dd((string) $promotion->ended_at->format('Y-m-d')) --}}
-            <label>Data final: </label>
-            <input type="date" name="ended_at" required value="{{(string) $promotion->ended_at ? $promotion->ended_at->format('Y-m-d') : ""}}">
-            <br><br>
-
-
-            @if ($isEdit)
-
-                <input type="hidden" name="id" value="{{$promotion->id}}">
-
-            @endif
-
-            <button type="submit">Enviar</button>
+                <div class="form-group">
+                    <label>Data final: </label>
+                    <input type="date" name="ended_at" required
+                        value="{{ (string) $promotion->ended_at ? $promotion->ended_at->format('Y-m-d') : '' }}">
+                </div>
 
 
-        </form>
+                <div class="page-controls">
+
+                    <button class="btn btn-outline-primary" type="submit">Enviar</button>
+
+                </div>
+
+            </form>
+
+        </div>
 
     </div>
 
-@endsection
+
+    @endsection

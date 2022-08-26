@@ -50,7 +50,7 @@
                                 {{-- @dd($product->current_qty) --}}
                                 <td>
                                     <a class="btn btn-primary btn-sm" href={{ url ('product/'.$product->id. '/edit') }}>Editar</a>
-                                    <a class="btn btn-primary btn-sm" href="{{ url ('product/'.$product->id. '/delete') }}">Deletar</a>
+                                    <a class="btn btn-danger btn-sm" href="{{ url ('product/'.$product->id. '/delete') }}">Remover</a>
                                 </td>
 
                             </tr>
