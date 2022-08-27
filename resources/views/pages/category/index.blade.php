@@ -42,9 +42,9 @@
                                 <td>{{ $category->id }}</td>
                                 <td>{{ $category->name }}</td>
                                 <td>
-                                    <a  class="btn btn-primary btn-sm" href="{{ url('category/'.$category->id. '/products') }}">Produtos</a>
-                                    <a  class="btn btn-primary btn-sm" href="{{ url('category/'.$category->id. '/edit') }}">Editar</a>
-                                    <a  class="btn btn-danger btn-sm" href="{{ url('category/'.$category->id. '/delete') }}">Remover</a>
+                                    <a  class="btn btn-primary btn-sm" href="{{ url('categories/'.$category->id. '/products') }}">Produtos</a>
+                                    <a  class="btn btn-primary btn-sm" href="{{ url('categories/'.$category->id. '/edit') }}">Editar</a>
+                                    <a  class="btn btn-danger btn-sm" href="{{ url('categories/'.$category->id. '/delete') }}">Remover</a>
                                 </td>
                             </tr>
 
@@ -62,7 +62,7 @@
             @endif
 
             <div class="page-controls">
-                <a class="btn btn-primary" href="{{ url('category/create') }}">Nova Categoria</a>
+                <a class="btn btn-primary" href="{{ url('categories/create') }}">Nova Categoria</a>
             </div>
 
         </div>

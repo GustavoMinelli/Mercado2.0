@@ -40,9 +40,9 @@
                                 <td>{{$employee->name}}</td>
                                 <td>{{$employee->phone}}</td>
                                 <td>
-                                    <a class="btn btn-primary" href="{{url('employee/'.$employee->id. '/show') }}">Perfil</a>
-                                    <a class="btn btn-primary" href="{{url('employee/'.$employee->id. '/edit') }}">Editar</a>
-                                    <a class="btn btn-danger" href="{{url('employee/'.$employee->id. '/delete') }}">Remover</a>
+                                    <a class="btn btn-primary" href="{{url('employees/'.$employee->id. '/show') }}">Perfil</a>
+                                    <a class="btn btn-primary" href="{{url('employees/'.$employee->id. '/edit') }}">Editar</a>
+                                    <a class="btn btn-danger" href="{{url('employees/'.$employee->id. '/delete') }}">Remover</a>
                                 </td>
                             </tr>
 
@@ -61,7 +61,7 @@
             @endif
 
             <div class="page-controls">
-                <a class="btn btn-primary" href="{{url('employee/create') }}">Novo funcionario</a>
+                <a class="btn btn-primary" href="{{url('employees/create') }}">Novo funcionario</a>
             </div>
 
         </div>

@@ -38,9 +38,9 @@
                                 <td>{{ $customer->name }}</td>
                                 <td>{{ $customer->email }}</td>
                                 <td>
-                                    <a class="btn btn-primary btn-sm" role="button" href="{{ url('customer/'.$customer->id.'/show') }}">Visualizar</a>
-                                    <a class="btn btn-primary btn-sm" role="button" href="{{ url('customer/'.$customer->id.'/edit') }}">Editar</a>
-                                    <a class="btn btn-danger btn-sm" role="button" href="{{ url('customer/'.$customer->id.'/delete') }}">Remover</a>
+                                    <a class="btn btn-primary btn-sm" role="button" href="{{ url('customers/'.$customer->id.'/show') }}">Visualizar</a>
+                                    <a class="btn btn-primary btn-sm" role="button" href="{{ url('customers/'.$customer->id.'/edit') }}">Editar</a>
+                                    <a class="btn btn-danger btn-sm" role="button" href="{{ url('customers/'.$customer->id.'/delete') }}">Remover</a>
                                 </td>
                             </tr>
 
@@ -59,7 +59,7 @@
             @endif
 
             <div class="page-controls">
-                <a class="btn btn-primary" href="{{ url('customer/create') }}">Novo Cliente</a>
+                <a class="btn btn-primary" href="{{ url('customers/create') }}">Novo Cliente</a>
             </div>
 
         </div>

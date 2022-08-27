@@ -18,7 +18,7 @@
 
         <div class="page-body">
 
-            <form action="{{ url('promotion') }}" method="POST">
+            <form action="{{ url('promotions') }}" method="POST">
 
                 @csrf
 

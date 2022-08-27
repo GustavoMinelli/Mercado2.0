@@ -17,7 +17,7 @@
 
         <div class="page-body">
 
-            <form action="{{ url('inventory') }}" method="POST">
+            <form action="{{ url('inventories') }}" method="POST">
 
                 @csrf
 

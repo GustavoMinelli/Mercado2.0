@@ -19,7 +19,7 @@ class CreateProductsTable extends Migration
             $table->unsignedInteger('category_id');
             $table->string('name', 50);
             $table->double('price');
-            $table->integer('current_qty')->default(0);
+            $table->integer('current_qty')->default(1);
             $table->timestamps();
 
         });

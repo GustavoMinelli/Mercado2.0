@@ -73,7 +73,7 @@ class CustomerControllerBackup extends Controller
 
         $isEdit = $customer->id ? true : false;
 
-        return view('customer.form', ['customer' => $customer, 'isEdit' => $isEdit]);
+        return view('pages.customerss.form', ['customer' => $customer, 'isEdit' => $isEdit]);
     }
 
     /**
@@ -88,7 +88,7 @@ class CustomerControllerBackup extends Controller
 
         if($validator->fails()){
 
-            return redirect('/create/customer')->with('msg', 'Não foi possivel criar: '.$validator->errors()->first());
+            return redirect('/customers/create')->with('msg', 'Não foi possivel criar: '.$validator->errors()->first());
 
         }
         else{

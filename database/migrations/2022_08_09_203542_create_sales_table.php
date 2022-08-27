@@ -20,8 +20,9 @@ class CreateSalesTable extends Migration
             $table->double('total')->default(0);
             $table->timestamps();
 
-            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('CASCADE');
-            $table->foreign('customer_id')->references('id')->on('customers')->onDelete('CASCADE');
+            $table->foreign('employee_id')->references('id')->on('employees');
+            $table->foreign('customer_id')->references('id')->on('customers');
+        
 
         });
     }

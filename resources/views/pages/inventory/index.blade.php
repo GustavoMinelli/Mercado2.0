@@ -44,7 +44,7 @@
                                 <td>{{$inventory->qty}}</td>
 
                                 <td>
-                                    <a  class="btn btn-danger btn-sm" href="{{ url('inventory/'.$inventory->id. '/delete') }}">Remover</a>
+                                    <a  class="btn btn-danger btn-sm" href="{{ url('inventories/'.$inventory->id. '/delete') }}">Remover</a>
                                 </td>
 
                             </tr>
@@ -63,7 +63,7 @@
             @endif
 
             <div class="page-controls">
-                <a  class="btn btn-primary btn-sm" href="{{ url('inventory/create') }}">Criar um novo estoque</a>
+                <a  class="btn btn-primary btn-sm" href="{{ url('inventories/create') }}">Criar um novo estoque</a>
             </div>
 
         </div>

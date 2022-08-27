@@ -19,7 +19,7 @@
 
             @include('components.alert')
 
-            <form action="{{url('product')}}" method="POST">
+            <form action="{{url('products')}}" method="POST">
 
                 @csrf
 
