@@ -28,37 +28,37 @@
 
                 <div class="form-group">
                     <label>Nome: </label>
-                    <input type="text" class="form-control" name="name" required value="{{ $employee->name }}">
+                    <input type="text" class="form-control" name="name" required value="{{ old('name', $employee->name) }}">
                 </div>
 
                 <div class="form-group">
                     <label>Endereço: </label>
-                    <input type="text" class="form-control" name="address" required value="{{ $employee->address }}">
+                    <input type="text" class="form-control" name="address" required value="{{ old('adress', $employee->address) }}">
                 </div>
-
+)
                 <div class="form-group">
                     <label>Email: </label>
-                    <input type="email" class="form-control" name="email" required value="{{ $employee->email }}">
+                    <input type="email" class="form-control" name="email" required value="{{ old('email', $employee->email) }}">
                 </div>
 
                 <div class="form-group">
                     <label>Telefone: </label>
-                    <input type="number" class="form-control" name="phone" required value="{{ $employee->phone }}">
+                    <input type="number" class="form-control" name="phone" required value="{{ old('phone', $employee->phone) }}">
                 </div>
 
                 <div class="form-group">
                     <label>CPF: </label>
-                    <input type="number" class="form-control" name="cpf" required value="{{ $employee->cpf }}">
+                    <input type="number" class="form-control" name="cpf" required value="{{ old('cpf', $employee->cpf) }}">
                 </div>
 
                 <div class="form-group">
                     <label>RG: </label>
-                    <input type="number" class="form-control" name="rg" required value="{{ $employee->rg }}">
+                    <input type="number" class="form-control" name="rg" required value="{{ old('rg', $employee->rg) }}">
                 </div>
 
                 <div class="form-group">
                     <label>Carteira de trabalho</label>
-                    <input type="number" class="form-control" name="work_code" required value="{{ $employee->work_code }}">
+                    <input type="number" class="form-control" name="work_code" required value="{{ old('work_code', $employee->work_code) }}">
                 </div>
 
                 <div class="page-controls">

@@ -142,6 +142,22 @@ class EmployeeController extends Controller
         return view('pages.employee.form', $data);
     }
 
+      /**
+     * Carrega um formulario para criar
+     *
+     * @param Employee $employee
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
+     */
+    private function formauth(Employee $employee){
+
+        $data = [
+            'employee' => $employee,
+
+        ];
+
+        return view('register.form', $data);
+    }
+
 
     /**
      * Inserir/atualizar um funcionario no banco de dados

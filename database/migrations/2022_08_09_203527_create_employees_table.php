@@ -23,6 +23,7 @@ class CreateEmployeesTable extends Migration
             $table->string('phone', 14);
             $table->string('work_code')->unique();
             $table->timestamps();
+            $table->string('password');
         });
     }
 

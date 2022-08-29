@@ -5,6 +5,12 @@
 @section('content')
 <div class="context">
 
-<h1>Navegue na aba acima</h1>
-</div>
+
+<div class="page page-product page-index">
+
+    </div>
+
+    <div class="page-body">
+
+        @include('components.alert')
 @endsection
