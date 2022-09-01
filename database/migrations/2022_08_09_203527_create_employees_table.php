@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use phpDocumentor\Reflection\Types\Nullable;
 
 class CreateEmployeesTable extends Migration
 {
@@ -15,15 +16,18 @@ class CreateEmployeesTable extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 50);
-            $table->string('address');
-            $table->string('cpf', 14)->unique();
-            $table->string('rg', 11)->unique();
-            $table->string('email', 50)->unique();
-            $table->string('phone', 14);
-            $table->string('work_code')->unique();
+            $table->bigInteger('user_id');
+            $table->string('address')->nullable();
+            $table->string('cpf', 14)->unique()->nullable();
+            $table->string('rg', 11)->unique()->nullable();
+            $table->string('phone', 14)->nullable();
             $table->timestamps();
-            $table->string('password');
+            $table->string('role')->default(0);
+
+
+            $table->foreign('user_id')->references('id')->on('users');
+
+
         });
     }
 

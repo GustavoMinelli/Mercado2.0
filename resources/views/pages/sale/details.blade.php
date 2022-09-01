@@ -17,7 +17,12 @@
             <ul>
                 <li><b>ID:</b>{{$sale->id}}</li>
                 <li><b>Cliente: </b>{{$sale->client}}</li>
-                <li><b>Funcionario: </b>{{$sale->employee}}</li>
+                @if (Auth::user()->role == 1)
+
+                <li><b>Funcionário: </b>{{ $sales[0]->employee }}</li>
+
+            @endif
+
                 <li><b>Produto: </b>{{$sale->product}}</li>
                 <li><b>Quantidade: </b>{{$sale->qty_sales}}</li>
                 <li><b>Preço: </b>{{$sale->total_price}}</li>

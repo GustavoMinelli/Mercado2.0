@@ -11,7 +11,7 @@ Route::group([ 'middleware' => [ 'auth']], function () {
 });
 /* Rotas para gerenciar clientes */
 // Route::group([], function() { //Clientes
-Route::group([ 'middleware' => [ 'auth', 'admin']], function () {
+Route::group([ 'middleware' => [ 'auth']], function () {
 
     Route::get  ('/customers', 'CustomerController@index');
     Route::get  ('/customers/{id}/show', 'CustomerController@show');
@@ -36,6 +36,10 @@ Route::group([ 'middleware' => [ 'auth']], function () {
     Route::get('/categories/{id}/products', 'CategoryController@show');
 });
 
+// Route::group([ 'middleware' => [ 'auth']], function () {
+    // Route::group([], function(){ //User
+
+
 // Route::group([], function() { //Funcionários
 
 Route::group([ 'middleware' => [ 'auth', 'admin']], function () {
@@ -48,10 +52,17 @@ Route::group([ 'middleware' => [ 'auth', 'admin']], function () {
     Route::get('/employees/{id}/delete', 'EmployeeController@delete');
     Route::get('/employees/{id}/show', 'EmployeeController@show');
 
-// });
+
+
+
+// Route::group([], function() { //Usuarios
+
+
+
+});
 
 // Route::group([], function(){ // Produtos
-
+    Route::group([ 'middleware' => [ 'auth']], function () {
 
     Route::get('/products',             'ProductController@index');
     Route::get('/products/create',       'ProductController@create');
@@ -92,8 +103,8 @@ Route::group([ 'middleware' => [ 'auth', 'admin']], function () {
     Route::get('/sales/{id}/products',   'SaleController@show');
 
 // });
-
 });
+
 
 // Route::get('/login',                'LoginController@showLoginForm');
 // Route::post('/login',                'LoginController@login');

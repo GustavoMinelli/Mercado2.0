@@ -1,8 +1,8 @@
 @php
 
 	$pages = [
+        ['Funcionários', 'employees'],
 		['Clientes', 'customers'],
-		['Funcionários', 'employees'],
 		['Categorias', 'categories'],
 		['Produtos', 'products'],
 		['Estoque', 'inventories'],
@@ -40,6 +40,16 @@
 
         </div>
 
+        {{-- @if(Auth::user()->role == 0)
+
+
+        @endif --}}
+
+
+
+
+
+
         <ul class="navbar-nav ms-auto">
             <!-- Authentication Links -->
             @guest
@@ -61,6 +71,8 @@
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+
+                        <a href="#" class="dropdown-item">Perfil</a>
                         <a class="dropdown-item" href="{{ route('logout') }}"
                            onclick="event.preventDefault();
                                          document.getElementById('logout-form').submit();">

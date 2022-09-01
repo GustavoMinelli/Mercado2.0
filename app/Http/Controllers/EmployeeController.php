@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -184,11 +186,11 @@ class EmployeeController extends Controller
 
 				$isEdit = $request->method() == 'PUT';
 
-				// Instanciar um novo cliente ou obter referência já salva no banco de dados
-				$employee = $isEdit ? Employee::find($request->id) : new Employee();
+				$employee = $isEdit ? Employee::where('id', $request->id)->first() : new Employee();
 
-				// Setar alterações
-				$this->save($employee, $request);
+				$user = $isEdit ? User::find($employee->user->id) : new User();
+
+				$this->save($employee, $request, $user);
 
 				DB::commit();
 
@@ -246,16 +248,27 @@ class EmployeeController extends Controller
      * @param Request $request
      * @return void
      */
-    private function save(Employee $employee, Request $request){
+    private function save(Employee $employee, Request $request, User $user){
 
 
-            $employee->name = $request->name;
+        $user->name = $request->name;
+        $user->email = $request->email;
+
+        if ($request->password) {
+
+        $user->password = Hash::make($request->password);
+
+    }
+
+        $user->save();
+
             $employee->address = $request->address;
             $employee->cpf = $request->cpf;
             $employee->rg = $request->rg;
-            $employee->email = $request->email;
             $employee->phone = $request->phone;
             $employee->work_code = $request->work_code;
+            $employee->user_id = $user->id;
+
 
             $employee->save();
 

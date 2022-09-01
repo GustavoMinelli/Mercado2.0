@@ -17,4 +17,13 @@ class Employee extends Model
         'phone',
         'work_code'
     ];
+
+    public function user(){
+
+        return $this->belongsTo(User::class);
+
+
+    }
 }
+
+

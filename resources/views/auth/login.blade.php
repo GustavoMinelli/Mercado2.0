@@ -19,7 +19,7 @@
                             <div class="row mb-3">
 
                                 <label for="email"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
+                                    class="col-md-4 col-form-label text-md-end">{{ __('Email') }}</label>
 
                                 <div class="col-md-6">
 
@@ -40,7 +40,7 @@
                             <div class="row mb-3">
 
                                 <label for="password"
-                                    class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+                                    class="col-md-4 col-form-label text-md-end">{{ __('Senha') }}</label>
 
                                 <div class="col-md-6">
 
@@ -68,7 +68,7 @@
                                             {{ old('remember') ? 'checked' : '' }}>
 
                                         <label class="form-check-label" for="remember">
-                                            {{ __('Remember Me') }}
+                                            {{ __('Manter conectado') }}
                                         </label>
 
                                     </div>
@@ -85,12 +85,12 @@
                                         {{ __('Login') }}
                                     </button>
 
-                                    <a class="btn btn-primary" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                    <a class="btn btn-primary" href="{{ route('register') }}">{{ __('Criar conta') }}</a>
 
                                     @if (Route::has('password.request'))
 
                                         <a class="btn btn-link" href="{{ route('password.request') }}">
-                                            {{ __('Forgot Your Password?') }}
+                                            {{ __('Esqueceu sua senha?') }}
                                         </a>
 
                                     @endif

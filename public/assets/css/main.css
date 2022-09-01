@@ -18,3 +18,7 @@
 .td {
     display: flex;
 }
+
+.card {
+    /* border: none; */
+}
