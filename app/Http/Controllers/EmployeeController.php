@@ -108,10 +108,14 @@ class EmployeeController extends Controller
                 throw new \Exception('Funcionario não encontrado');
             }
 
+            $user = $employee->user;
+
+
             $employee->delete();
 
+            $user->delete;
 
-            Db::commit();
+            DB::commit();
 
             Session::flash('sucess', 'Funcionario removido com sucesso');
 
@@ -144,21 +148,21 @@ class EmployeeController extends Controller
         return view('pages.employee.form', $data);
     }
 
-      /**
-     * Carrega um formulario para criar
-     *
-     * @param Employee $employee
-     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
-     */
-    private function formauth(Employee $employee){
+    //   /**
+    //  * Carrega um formulario para criar
+    //  *
+    //  * @param Employee $employee
+    //  * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
+    //  */
+    // private function formauth(Employee $employee){
 
-        $data = [
-            'employee' => $employee,
+    //     $data = [
+    //         'employee' => $employee,
 
-        ];
+    //     ];
 
-        return view('register.form', $data);
-    }
+    //     return view('register.form', $data);
+    // }
 
 
     /**

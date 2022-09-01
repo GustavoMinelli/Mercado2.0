@@ -24,11 +24,11 @@
 
                 @method($isEdit ? "PUT" : "POST")
 
-                <input type="hidden" name="id" value="{{ $employee->id }}">
+                <input type="hidden" name="id" value="{{ $employee->user->id }}">
 
                 <div class="form-group">
                     <label>Nome: </label>
-                    <input type="text" class="form-control" name="name" required value="{{ old('name', $user  <li><b>Funcionario: </b>{{$sale->employee}}</li>->name) }}">
+                    <input type="text" class="form-control" name="name" required value="{{ old('name', $user->name) }}">
                 </div>
 
                 <div class="form-group">

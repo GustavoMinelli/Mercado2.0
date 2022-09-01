@@ -8,6 +8,7 @@
 		['Estoque', 'inventories'],
 		['Vendas', 'sales'],
 		['Promoções', 'promotions'],
+        ['Pag do Admin', 'admins']
 	];
 
 @endphp
