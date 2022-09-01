@@ -28,7 +28,7 @@
 
                 <div class="form-group">
                     <label>Nome: </label>
-                    <input type="text" class="form-control" name="name" required value="{{ old('name', $employee->name) }}">
+                    <input type="text" class="form-control" name="name" required value="{{ old('name', $user->name) }}">
                 </div>
 
                 <div class="form-group">
@@ -38,7 +38,7 @@
 )
                 <div class="form-group">
                     <label>Email: </label>
-                    <input type="email" class="form-control" name="email" required value="{{ old('email', $employee->email) }}">
+                    <input type="email" class="form-control" name="email" required value="{{ old('email', $user->email) }}">
                 </div>
 
                 <div class="form-group">
@@ -60,6 +60,32 @@
                     <label>Carteira de trabalho</label>
                     <input type="number" class="form-control" name="work_code" required value="{{ old('work_code', $employee->work_code) }}">
                 </div>
+
+                @if($isEdit)
+
+                    <div class="form-group">
+                        <label for="password">Confirme sua senha</label>
+                        <input type="password" class="form-control" name="password"id="password"required>
+                    </div>
+
+                @else
+
+                    <div class="form-group">
+
+                        <label for="password">Senha</label>
+                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="password-confirm">Confirmar senha</label>
+                        <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+
+                    </div>
+
+                @endif
+
 
                 <div class="page-controls">
 

@@ -37,7 +37,7 @@
                             <tr>
 
                                 <td>{{$employee->id}}</td>
-                                <td>{{$employee->name}}</td>
+                                <td>{{$employee->user->name}}</td>
                                 <td>{{$employee->phone}}</td>
                                 <td>
                                     <a class="btn btn-primary" href="{{url('employees/'.$employee->id. '/show') }}">Perfil</a>
