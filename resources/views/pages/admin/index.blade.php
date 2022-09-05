@@ -13,7 +13,7 @@
 
         @include('components.alert')
 
-        @if (count($users) > 0)
+        @if (count($user) > 0)
 
            <table class="table table-striped">
 
@@ -29,7 +29,7 @@
 
                 </thead>
 
-                @foreach ($users as $user)
+                @foreach ($user as $user)
 
                     <tbody>
 

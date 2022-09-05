@@ -16,9 +16,9 @@
             {{-- @foreach ($users as $user) --}}
 
             <ul>
-                <li><b>ID:</b>{{$users->id}}</li>
-                <li><b>Name:</b>{{$users->name}}</li>
-                <li><b>Email:</b>{{$users->email}}</li>
+                <li><b>ID:</b>{{$user->id}}</li>
+                <li><b>Name:</b>{{$user->name}}</li>
+                <li><b>Email:</b>{{$user->email}}</li>
             </ul>
 
             {{-- @endforeach --}}

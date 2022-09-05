@@ -6,6 +6,7 @@ use App\Models\Employee;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
@@ -20,9 +21,11 @@ class EmployeeController extends Controller
      */
     public function index(){
         $employees = Employee::orderBy('id','asc')->get();
+        $users = User::orderBy('id','asc')->get();
 
         $data = [
-            'employees' => $employees
+            'employees' => $employees,
+            'users' => $users
         ];
 
         return view('pages.employee.index', $data);
@@ -54,6 +57,7 @@ class EmployeeController extends Controller
 
         $employee = new Employee();
 
+
         return $this->form($employee);
     }
 
@@ -66,6 +70,7 @@ class EmployeeController extends Controller
     public function edit(int $id) {
 
         $employee = Employee::find($id);
+
 
         return $this->form($employee);
     }
@@ -140,30 +145,18 @@ class EmployeeController extends Controller
      */
     private function form(Employee $employee){
 
+        $user = User::get();
+
+        // dd($employee);
+
+
         $data = [
             'employee' => $employee,
-
+            'user' =>$user,
         ];
 
         return view('pages.employee.form', $data);
     }
-
-    //   /**
-    //  * Carrega um formulario para criar
-    //  *
-    //  * @param Employee $employee
-    //  * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
-    //  */
-    // private function formauth(Employee $employee){
-
-    //     $data = [
-    //         'employee' => $employee,
-
-    //     ];
-
-    //     return view('register.form', $data);
-    // }
-
 
     /**
      * Inserir/atualizar um funcionario no banco de dados
@@ -174,6 +167,8 @@ class EmployeeController extends Controller
     private function insertOrUpdate(Request $request) {
 
         $validator = $this->getInsertUpdateValidator($request);
+
+        $user = Auth::user();
 
         if ($validator->fails()) {
 
@@ -262,21 +257,22 @@ class EmployeeController extends Controller
 
         $user->password = Hash::make($request->password);
 
-    }
+        }
 
         $user->save();
 
-            $employee->address = $request->address;
-            $employee->cpf = $request->cpf;
-            $employee->rg = $request->rg;
-            $employee->phone = $request->phone;
-            $employee->work_code = $request->work_code;
-            $employee->user_id = $user->id;
+        $employee->address = $request->address;
+        $employee->cpf = $request->cpf;
+        $employee->rg = $request->rg;
+        $employee->phone = $request->phone;
+        $employee->work_code = $request->work_code;
+        $employee->user_id = $user->id;
+        $employee->is_new = false;
 
-
-            $employee->save();
+        $employee->save();
 
     }
+
 }
 
         // private function validator(Request $request){

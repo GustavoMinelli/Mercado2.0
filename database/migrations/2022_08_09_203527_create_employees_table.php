@@ -23,7 +23,8 @@ class CreateEmployeesTable extends Migration
             $table->string('phone', 14)->nullable();
             $table->timestamps();
             $table->string('role')->default(0);
-
+            $table->boolean('is_new')->default(true);
+            $table->string('work_code')->unique()->nullable();
 
             $table->foreign('user_id')->references('id')->on('users');
 

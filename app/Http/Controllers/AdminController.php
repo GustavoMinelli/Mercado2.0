@@ -13,10 +13,10 @@ class AdminController extends Controller
 {
 
     public function index(){
-        $users = User::where('role',1)->orderBy('id', 'asc')->get();
+        $user = User::where('role',1)->orderBy('id', 'asc')->get();
 
         $data = [
-            'users' => $users
+            'user' => $user
         ];
 
         return view('pages.admin.index', $data);
@@ -25,11 +25,11 @@ class AdminController extends Controller
 
     public function show(int $id){
 
-        $users = User::find($id);
+        $user = User::find($id);
         // dd($users);
 
         $data = [
-            'users' => $users
+            'user' => $user
         ];
 
         return view('pages.admin.details', $data);
@@ -44,9 +44,9 @@ class AdminController extends Controller
     }
     public function edit(int $id){
 
-        $user = User::find($id);
+        $admin = User::find($id);
 
-        return $this->form($user);
+        return $this->form($admin);
 
     }
 
@@ -114,15 +114,15 @@ class AdminController extends Controller
 
                 $isEdit = $request->method() == 'PUT';
 
-                $user = $isEdit ? User::where('id'. $request->id)->first() : new User();
+                $admin = $isEdit ? User::find('id'. $request->id) : new User();
 
-                $this->save($user, $request);
+                $this->save($admin, $request);
 
                 DB::commit();
 
                 Session ::flash('sucess', 'O admin foi ', ($isEdit ? 'aleterado' : 'criado'). ' com sucesso!');
 
-                return redirect('admins');
+                return redirect('/admins');
 
             } catch(\Exception $e) {
                 DB::rollBack();

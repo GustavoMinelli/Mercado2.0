@@ -11,25 +11,29 @@
     <div class="page page-employee page-form">
 
         <div class="page-header">
-            <h1>Funcionarios<small>{{ $isEdit ? 'Editar cliente' : 'Novo Cliente' }}</small></h1>
+            <h1>Funcionarios<small>{{ $isEdit ? 'Editar funcionario' : 'Novo Funcionario' }}</small></h1>
         </div>
 
         <div class="page-body">
 
             @include('components.alert')
 
-            <form action="{{url ('employee') }}" method="POST">
+            <form action="{{url ('employees') }}" method="POST">
 
                 @csrf
 
                 @method($isEdit ? "PUT" : "POST")
 
-                <input type="hidden" name="id" value="{{ $employee->user->id }}">
+
+
+                <input type="hidden" name="id" value="{{ $employee->id }}">
+
 
                 <div class="form-group">
                     <label>Nome: </label>
                     <input type="text" class="form-control" name="name" required value="{{ old('name', $user->name) }}">
                 </div>
+
 
                 <div class="form-group">
                     <label>Endereço: </label>
@@ -38,8 +42,9 @@
 
                 <div class="form-group">
                     <label>Email: </label>
-                    <input type="email" class="form-control" name="email" required value="{{ old('email', $user->email) }}">
+                    <input type="email" class="form-control" name="email" required value="{{ $user->email}}">
                 </div>
+
 
                 <div class="form-group">
                     <label>Telefone: </label>
@@ -48,22 +53,23 @@
 
                 <div class="form-group">
                     <label>CPF: </label>
-                    <input type="number" class="form-control" name="cpf" required value="{{ old('cpf', $employee->cpf) }}">
+                    <input type="number" class="form-control" name="cpf" required value="{{ old('cpf', $employee->cpf ) }}">
                 </div>
 
                 <div class="form-group">
                     <label>RG: </label>
-                    <input type="number" class="form-control" name="rg" required value="{{ old('rg', $employee->rg) }}">
+                    <input type="number" class="form-control" name="rg" required value="{{ old('rg', $employee->rg ) }}">
                 </div>
 
                 <div class="form-group">
                     <label>Carteira de trabalho</label>
-                    <input type="number" class="form-control" name="work_code" required value="{{ old('work_code', $employee->work_code) }}">
+                    <input type="text" class="form-control" name="work_code" required value="{{ old('work_code', $employee->work_code) }}">
                 </div>
-                @if($isEdit)
+
+            @if($isEdit)
 
                 <div class="form-group">
-                    <label for="password">Confirme sua senha</label>
+                    <label for="password">Senha</label>
                     <input type="password" class="form-control" name="password"id="password"required>
                 </div>
 
@@ -79,7 +85,7 @@
                 <div class="form-group">
 
                     <label for="password-confirm">Confirmar senha</label>
-                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required valuye>
 
                 </div>
 
