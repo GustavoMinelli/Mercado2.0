@@ -25,32 +25,31 @@ Route::group([ 'middleware' => [ 'auth', 'user']], function () {
 });
 
 // Route::group([], function(){ //Categorias
-    Route::group([ 'middleware' => [ 'auth', 'user', 'admin']], function () {
+Route::group([ 'middleware' => [ 'auth', 'user', 'admin']], function () {
 
-        Route::get('/categories', 'CategoryController@index');
-        Route::get('/categories/create', 'CategoryController@create');
-        Route::post('/categories',       'CategoryController@insert');
-        Route::get('/categories/{id}/edit',   'CategoryController@edit');
-        Route::put('/categories',        'CategoryController@update');
-        Route::get('/categories/{id}/delete', 'CategoryController@delete');
-        Route::get('/categories/{id}/products', 'CategoryController@show');
+    Route::get('/categories', 'CategoryController@index');
+    Route::get('/categories/create', 'CategoryController@create');
+    Route::post('/categories',       'CategoryController@insert');
+    Route::get('/categories/{id}/edit',   'CategoryController@edit');
+    Route::put('/categories',        'CategoryController@update');
+    Route::get('/categories/{id}/delete', 'CategoryController@delete');
+    Route::get('/categories/{id}/products', 'CategoryController@show');
     });
 
-    // Route::group([ 'middleware' => [ 'auth']], function () {
-    // Route::group([], function(){ //User
+// Route::group([ 'middleware' => [ 'auth']], function () {
+// Route::group([], function(){ //User
 
 
-        // Route::group([], function() { //Funcionários
+// Route::group([], function() { //Funcionários
 
 Route::group([ 'middleware' => [ 'auth', 'admin']], function () {
 
     Route::get('/employees',            'EmployeeController@index');
     Route::get('/employees/create',      'EmployeeController@create');
-    Route::post('/employees',       'EmployeeController@insert');
     Route::get('/employees/{id}/delete', 'EmployeeController@delete');
     Route::get('/employees/{id}/show', 'EmployeeController@show');
+    Route::post('/employees',       'EmployeeController@insert');
 });
-
 
 
 Route::group([ 'middleware' => [ 'auth', 'user']], function () {
@@ -62,56 +61,56 @@ Route::group([ 'middleware' => [ 'auth', 'user']], function () {
 
 
 
-    // Route::group([], function(){ // Produtos
-        Route::group([ 'middleware' => [ 'auth', 'user']], function () {
+// Route::group([], function(){ // Produtos
+Route::group([ 'middleware' => [ 'auth', 'user']], function () {
 
-            Route::get('/products',             'ProductController@index');
-            Route::get('/products/create',       'ProductController@create');
-            Route::post('/products',        'ProductController@insert');
-            Route::get('/products/{id}/edit',    'ProductController@edit');
-            Route::put('/products',         'ProductController@update');
-            Route::get('/products/{id}/delete',  'ProductController@delete');
+    Route::get('/products',             'ProductController@index');
+    Route::get('/products/create',       'ProductController@create');
+    Route::post('/products',        'ProductController@insert');
+    Route::get('/products/{id}/edit',    'ProductController@edit');
+    Route::put('/products',         'ProductController@update');
+    Route::get('/products/{id}/delete',  'ProductController@delete');
 
-            // });
+// });
 
-            // Route::group([], function(){ //Estoque
+// Route::group([], function(){ //Estoque
 
 
-                Route::get('/inventories',          'InventoryController@index');
-                Route::get('/inventories/create',     'InventoryController@create');
-                Route::post('/inventories',      'InventoryController@insert');
-                Route::get('/inventories/{id}/delete',     'InventoryController@delete');
+    Route::get('/inventories',          'InventoryController@index');
+    Route::get('/inventories/create',     'InventoryController@create');
+    Route::post('/inventories',      'InventoryController@insert');
+    Route::get('/inventories/{id}/delete',     'InventoryController@delete');
 
-                // });
+// });
 
-                // Route::group([], function(){ //Promoções
+// Route::group([], function(){ //Promoções
 
-                    Route::get('/promotions',           'PromotionController@index');
-                    Route::get('/promotions/create',     'PromotionController@create');
-                    Route::post('/promotions',      'PromotionController@insert');
-                    Route::get('/promotions/{id}/edit',  'PromotionController@edit');
-                    Route::put('/promotions',       'PromotionController@update');
-                    Route::get('/promotions/{id}/delete', 'PromotionController@delete');
+    Route::get('/promotions',           'PromotionController@index');
+    Route::get('/promotions/create',     'PromotionController@create');
+    Route::post('/promotions',      'PromotionController@insert');
+    Route::get('/promotions/{id}/edit',  'PromotionController@edit');
+    Route::put('/promotions',       'PromotionController@update');
+    Route::get('/promotions/{id}/delete', 'PromotionController@delete');
 
-                    // });
+// });
 
-                    // Route::group([], function(){ //Vendas
+// Route::group([], function(){ //Vendas
 
-                        Route::get('/sales',                'SaleController@index');
-                        Route::get('sales/create',             'SaleController@create');
-                        Route::post('sales',           'SaleController@insert');
-                        Route::get('/sales/{id}/delete/',     'SaleController@delete');
-                        Route::get('/sales/{id}/products',   'SaleController@show');
+    Route::get('/sales',                'SaleController@index');
+    Route::get('sales/create',             'SaleController@create');
+    Route::post('sales',           'SaleController@insert');
+    Route::get('/sales/{id}/delete/',     'SaleController@delete');
+    Route::get('/sales/{id}/products',   'SaleController@show');
 
-                        // });
-                    });
-                    Route::get('/admins',            'AdminController@index');
-                    Route::get('/admins/create',      'AdminController@create');
-                    Route::post('/admins',       'AdminController@insert');
-                    Route::get('/admins/{id}/edit',   'AdminController@edit');
-                    Route::put('/admins',        'AdminController@update');
-                    Route::get('/admins/{id}/delete', 'AdminController@delete');
-                    Route::get('/admins/{id}/show', 'AdminController@show');
+// });
+});
+    Route::get('/admins',            'AdminController@index');
+    Route::get('/admins/create',      'AdminController@create');
+    Route::post('/admins',       'AdminController@insert');
+    Route::get('/admins/{id}/edit',   'AdminController@edit');
+    Route::put('/admins',        'AdminController@update');
+    Route::get('/admins/{id}/delete', 'AdminController@delete');
+    Route::get('/admins/{id}/show', 'AdminController@show');
 
 
     // Route::get('/login',                'LoginController@showLoginForm');

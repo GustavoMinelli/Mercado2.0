@@ -229,6 +229,7 @@ class EmployeeController extends Controller
             'cpf' => ['required', 'string', 'max:14'],
             'address' => ['required', 'string', 'max:250'],
             'phone' => ['required', 'string', 'max:14'],
+            'work_code' => ['required', 'string'],
 
         ];
 
@@ -248,7 +249,6 @@ class EmployeeController extends Controller
      * @return void
      */
     private function save(Employee $employee, Request $request, User $user){
-
 
         $user->name = $request->name;
         $user->email = $request->email;

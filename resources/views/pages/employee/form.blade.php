@@ -6,6 +6,7 @@
 
     @php
         $isEdit = !empty($employee->id);
+        $user = $employee->user ?? $employee;
     @endphp
 
     <div class="page page-employee page-form">
@@ -28,6 +29,7 @@
 
                 <input type="hidden" name="id" value="{{ $employee->id }}">
 
+                {{-- @dd($employee) --}}
 
                 <div class="form-group">
                     <label>Nome: </label>
