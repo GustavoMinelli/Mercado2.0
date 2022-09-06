@@ -30,22 +30,19 @@ class EmployeeMiddleware
                 if (Auth::user()->employee->is_new == true && !$request->is('employees/'.Auth::user()->employee->id.'/edit')) {
 
                     // dd('oi');
+
                     return redirect('/employees/'.Auth::user()->employee->id.'/edit');
+
 
                 } else{
 
                     return $next($request);
                 }
 
-            }// } else {
+            }
 
-            //     return route('login');
 
-            // }
         }
-
-            // return redirect('login');
-
             return $next($request);
 
     }

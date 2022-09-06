@@ -63,7 +63,7 @@ Route::group(['middleware' => ['auth', 'user']], function () {
 
 
 // Route::group([], function(){ // Produtos
-Route::group(['middleware' => ['auth', 'employee']], function () {
+Route::group(['middleware' => ['auth', 'employee', 'customer']], function () {
 
     Route::get('/products',             'ProductController@index');
     Route::get('/products/create',       'ProductController@create');
