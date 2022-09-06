@@ -15,12 +15,17 @@ class CreateCustomersTable extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 50);
-            $table->string('address', 300);
-            $table->string('rg', 11)->unique();
-            $table->string('cpf', 14)->unique();
-            $table->string('email', 50)->unique();
+            $table->bigInteger('user_id');
+            $table->string('address', 300)->nullable();
+            $table->string('rg', 11)->unique()->nullable();
+            $table->string('cpf', 14)->unique()->nullable();
+            $table->boolean('is_new')->default(true);
             $table->timestamps();
+            $table->string('role')->default(2);
+
+            $table->foreign('user_id')->references('id')->on('users');
+
+
         });
     }
 

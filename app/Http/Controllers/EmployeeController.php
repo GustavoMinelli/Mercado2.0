@@ -82,6 +82,8 @@ class EmployeeController extends Controller
      * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
      */
     public function insert(Request $request){
+
+        // dd('ola');
         return $this->insertOrUpdate($request);
     }
 
@@ -118,7 +120,7 @@ class EmployeeController extends Controller
 
             $employee->delete();
 
-            $user->delete;
+            $user->delete();
 
             DB::commit();
 

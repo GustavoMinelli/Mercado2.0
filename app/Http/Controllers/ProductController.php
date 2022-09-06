@@ -216,7 +216,68 @@ class ProductController extends Controller
 
 
         }
-    private function preDelete(){
+
+    /*Carrinho Teste*/
+
+    public function addToCart($id) {
+
+        $product = Product::findOrFail($id);
+
+        $cart = Session::get('cart', []);
+
+        if(isset($cart[$id])) {
+            $cart[$id] ['current_qty']++;
+
+        } else {
+            $cart[$id] = [
+                "name" => $product->name,
+                "current_qty" => 1,
+                'price' => $product->price,
+
+            ];
+        }
+
+        Session::put('cart', $cart);
+        return redirect()->back()->with('success', 'Product adicionado no carrinho com sucesso.');
 
     }
+
+    public function updateCart(Request $request){
+
+        if($request->id && $request->current_qty){
+            $cart = session()->get('cart');
+
+            Session::put('cart', $cart);
+
+            Session::flash('success', 'Carrinho atualizado com sucesso.');
+        }
+    }
+
+    public function deleteCart(Request $request){
+        if($request->id) {
+            $cart = session()->get('cart');
+
+            if(isset($cart[$request->id])) {
+
+                unset($cart[$request->id]);
+                session()->put('cart', $cart);
+            }
+
+            Session::flash('success', 'Carrinho removido com sucesso');
+        }
+    }
+
+    public function indexCart(){
+
+
+        $products = Product::orderBy('id', 'asc')->get();
+
+        $data = [
+            'products' => $products
+        ];
+
+        return view('pages.cart.index', $data);
+    }
+
+
 }

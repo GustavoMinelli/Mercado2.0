@@ -19,13 +19,12 @@
 
             @include('components.alert')
 
-            <form action="{{url ('employees') }}" method="POST">
+            <form action="{{ url('employees') }}" method="POST">
+
 
                 @csrf
 
                 @method($isEdit ? "PUT" : "POST")
-
-
 
                 <input type="hidden" name="id" value="{{ $employee->id }}">
 

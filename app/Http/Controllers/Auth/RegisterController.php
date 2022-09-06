@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Customer;
 use App\Models\Employee;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
@@ -90,14 +92,19 @@ class RegisterController extends Controller
             $user->password =  Hash::make($request->password);
             $user->save();
 
-            $employee = new Employee();
+            $customer = new Customer();
 
-            $employee->user_id = $user->id;
-            $employee->cpf = $request->cpf;
-            $employee->save();
+            $customer->user_id = $user->id;
+            $customer->cpf = $request->cpf;
+            $customer->save();
 
+
+            // $employee = new Employee();
+
+            // $employee->user_id = $user->id;
+            // $employee->cpf = $request->cpf;
+            // $employee->save();
             DB::commit();
-
 
 
         }

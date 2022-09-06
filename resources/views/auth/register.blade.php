@@ -81,8 +81,11 @@
                                     {{ __('Register') }}
                                 </button>
                             </div>
+
                         </div>
+
                     </form>
+
                 </div>
             </div>
         </div>

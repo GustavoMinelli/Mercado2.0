@@ -3,13 +3,10 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session as FacadesSession;
 
-class UserMiddleware
+class EmployeeMiddleware
 {
     /**
      * Handle an incoming request.
@@ -18,10 +15,8 @@ class UserMiddleware
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next) {
-
-        // dd('ola');
-
+    public function handle(Request $request, Closure $next)
+    {
         if(Auth::check()) {
 
             //employee role == 0
@@ -55,7 +50,5 @@ class UserMiddleware
 
     }
 
+
 }
-
-
-

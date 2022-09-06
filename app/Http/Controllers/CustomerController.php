@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
@@ -161,6 +164,8 @@ class CustomerController extends Controller {
 
         $validator = $this->getInsertUpdateValidator($request);
 
+        $user = Auth::user();
+
         if ($validator->fails()) {
 
             $error = $validator->errors()->first();
@@ -180,7 +185,7 @@ class CustomerController extends Controller {
 				$customer = $isEdit ? Customer::find($request->id) : new Customer();
 
 				// Setar alterações
-				$this->save($customer, $request);
+				$this->save($customer, $request, $user);
 
 				DB::commit();
 
@@ -241,13 +246,25 @@ class CustomerController extends Controller {
      * @param Request $request
      * @return void
      */
-    private function save(Customer $customer, Request $request) {
+    private function save(Customer $customer, Request $request, User $user) {
+
+        $user->name = $request->name;
+        $user->email = $request->email;
+
+        if($request->password) {
+
+            $user->password = Hash::make($request->password);
+        }
+
+        $user->save();
 
         $customer->name = $request->name;
         $customer->email = $request->email;
         $customer->rg = $request->rg;
         $customer->cpf = $request->cpf;
         $customer->address = $request->address;
+        $customer->user_id = $user->id;
+        $customer->is_new = false;
 
         $customer->save();
     }
