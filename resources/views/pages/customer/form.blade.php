@@ -6,6 +6,7 @@
 
     @php
         $isEdit = !empty($customer->id);
+        $user = $customer->user ?? $customer;
     @endphp
 
     <div class="page page-customer page-form">
@@ -28,12 +29,12 @@
 
                 <div class="form-group">
                     <label>Nome</label>
-                    <input class="form-control" type="text" name="name" value="{{ $customer->name }}" maxlength="100" required />
+                    <input class="form-control" type="text" name="name" value="{{ $user->name }}" maxlength="100" required />
                 </div>
 
                 <div class="form-group">
                     <label>E-mail</label>
-                    <input class="form-control" type="email" name="email" value="{{ $customer->email }}" required />
+                    <input class="form-control" type="email" name="email" value="{{ $user->email }}" required />
                 </div>
 
                 <div class="form-group">
@@ -51,11 +52,37 @@
                     <input class="form-control" type="number" name="cpf" value="{{ $customer->cpf }}" required />
                 </div>
 
+                @if($isEdit)
+
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <input type="password" class="form-control" name="password"id="password"required>
+                </div>
+
+            @else
+
+                <div class="form-group">
+
+                    <label for="password">Senha</label>
+                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="password-confirm">Confirmar senha</label>
+                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required valuye>
+
+                </div>
+
                 <div class="page-controls">
 
                     <a class="btn btn-outline-primary" href="{{ url('customers') }}">Voltar</a>
 
                     <button type="submit" class="btn btn-outline-success">Enviar</button>
+                @endif
+
+
 
                 </div>
 

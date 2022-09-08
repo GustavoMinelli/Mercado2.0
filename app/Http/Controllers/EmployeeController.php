@@ -271,6 +271,7 @@ class EmployeeController extends Controller
         $employee->user_id = $user->id;
         $employee->is_new = false;
 
+
         $employee->save();
 
     }

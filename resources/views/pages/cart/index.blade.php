@@ -6,23 +6,77 @@
 
 
 
-@foreach ($products as $k => $product)
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 col-sm-12 col-12 main-section">
+            <div class="dropdown">
+                <button type="button" class="btn btn-info" data-toggle="dropdown">
+                    <i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart <span class="badge badge-pill badge-danger">{{ count((array) session('cart')) }}</span>
+                </button>
+                <div class="dropdown-menu">
+                    <div class="row total-header-section">
+                        <div class="col-lg-6 col-sm-6 col-6">
+                            <i class="fa fa-shopping-cart" aria-hidden="true"></i> <span class="badge badge-pill badge-danger">{{ count((array) session('cart')) }}</span>
+                        </div>
+                        @php $total = 0 @endphp
+                        @foreach((array) session('cart') as $id => $details)
+                            @php $total += $details['price'] * $details['quantity'] @endphp
+                        @endforeach
+                        <div class="col-lg-6 col-sm-6 col-6 total-section text-right">
+                            <p>Total: <span class="text-info">$ {{ $total }}</span></p>
+                        </div>
+                    </div>
+                    @if(session('cart'))
+                        @foreach(session('cart') as $id => $details)
+                            <div class="row cart-detail">
+                                <div class="col-lg-4 col-sm-4 col-4 cart-detail-img">
+                                    <img src="{{ $details['image'] }}" />
+                                </div>
+                                <div class="col-lg-8 col-sm-8 col-8 cart-detail-product">
+                                    <p>{{ $details['name'] }}</p>
+                                    <span class="price text-info"> ${{ $details['price'] }}</span> <span class="count"> Quantity:{{ $details['quantity'] }}</span>
+                                </div>
+                            </div>
+                        @endforeach
+                    @endif
+                    <div class="row">
+                        <div class="col-lg-12 col-sm-12 col-12 text-center checkout">
+                            {{-- <a href="{{ route('/') }}" class="btn btn-primary btn-block">View all</a> --}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<tbody>
+<br/>
+<div class="container">
 
-    {{-- @dd($product->category()->get()) --}}
+    @if(session('success'))
+        <div class="alert alert-success">
+          {{ session('success') }}
+        </div>
+    @endif
 
-    <tr>
-        <td>{{ $product->id }}</td>
-        <td>{{ $product->name }}</td>
-        <td><a class="btn btn-outline-secondary" href="{{url('categories/'.$product->category->id.'/products')}}">{{ $product->category->name }}</td>
-        <td>{{ $product->current_qty }}</td>
-        {{-- @dd($product->current_qty) --}}
-        <td>
-            <a class="btn btn-primary btn-sm" href={{ url ('products/'.$product->id. '/edit') }}>Editar</a>
-            <a class="btn btn-danger btn-sm" href="{{ url ('products/'.$product->id. '/delete') }}">Remover</a>
-        </td>
+    @yield('content')
+</div>
 
-    </tr>
+@<div class="row">
+    @foreach($products as $product)
+        <div class="col-xs-18 col-sm-6 col-md-3">
+            <div class="thumbnail">
+                <img src="{{ $product->image }}" alt="">
+                <div class="caption">
+                    <h4>{{ $product->name }}</h4>
+                    <p>{{ $product->description }}</p>
+                    <p><strong>Price: </strong> {{ $product->price }}$</p>
+                    <p class="btn-holder"><a href="{{ route('add.to.cart', $product->id) }}" class="btn btn-warning btn-block text-center" role="button">Add to cart</a> </p>
+                </div>
+            </div>
+        </div>
+    @endforeach
+</div>
 
-</tbody>
+        @endsection
+

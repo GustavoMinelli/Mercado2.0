@@ -30,7 +30,11 @@
                             <th>Data inicial</th>
                             <th>Data final</th>
                             <th>Estado</th>
+                            @if(Auth::check() && (Auth::user()->role == 0 || Auth::check() && (Auth::user()->role == 1 )))
+
                             <th>Ações</th>
+
+                            @endif
 
                         </tr>
 
@@ -48,10 +52,15 @@
                                 <td>{{$promotion->started_at->format('d/m/Y')}}</td>
                                 <td>{{$promotion->ended_at->format('d/m/Y')}}</td>
                                 <td>{{$promotion->is_active ? "Ativo" : "Inativo"}}</td>
-                                <td>
-                                    <a  class="btn btn-primary btn-sm" href="{{ url('promotions/'.$promotion->id. '/edit') }}">Editar</a>
-                                    <a  class="btn btn-danger btn-sm" href="{{ url('promotions/'.$promotion->id. '/delete') }}">Remover</a>
-                                </td>
+
+                                @if(Auth::check() && (Auth::user()->role == 0 || Auth::check() && (Auth::user()->role == 1 )))
+
+                                    <td>
+                                        <a  class="btn btn-primary btn-sm" href="{{ url('promotions/'.$promotion->id. '/edit') }}">Editar</a>
+                                        <a  class="btn btn-danger btn-sm" href="{{ url('promotions/'.$promotion->id. '/delete') }}">Remover</a>
+                                    </td>
+
+                                @endif
 
                             </tr>
 
@@ -70,7 +79,7 @@
             @endif
 
             <div class="page-controls">
-                <a class="btn btn-primary" href="{{ url('promotion/create') }}">Nova Promoção</a>
+                <a class="btn btn-primary" href="{{ url('promotions/create') }}">Nova Promoção</a>
             </div>
 
         </div>

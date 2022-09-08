@@ -59,7 +59,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'cpf' => ['required', 'string', 'max:255', 'unique:employees'],
+            // 'cpf' => ['required', 'string', 'max:255', 'unique:employees'],
         ]);
     }
 
@@ -95,7 +95,7 @@ class RegisterController extends Controller
             $customer = new Customer();
 
             $customer->user_id = $user->id;
-            $customer->cpf = $request->cpf;
+            // $customer->cpf = $request->cpf;
             $customer->save();
 
 

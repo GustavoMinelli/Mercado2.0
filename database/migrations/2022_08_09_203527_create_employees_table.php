@@ -26,7 +26,7 @@ class CreateEmployeesTable extends Migration
             $table->boolean('is_new')->default(true);
             $table->string('work_code')->unique()->nullable();
 
-            $table->foreign('user_id')->references('id')->on('users');
+            // return redirect('login');
 
 
         });

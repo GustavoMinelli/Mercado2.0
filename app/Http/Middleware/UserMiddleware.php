@@ -30,12 +30,11 @@ class UserMiddleware
 
             // dd('ola');
 
-            if(Auth::user()->role == 0  ) {
+            if(Auth::user()->role == 2  ) {
 
-                if (Auth::user()->employee->is_new == true && !$request->is('employees/'.Auth::user()->employee->id.'/edit')) {
+                if (Auth::user()->customer->is_new == true && !$request->is('customers/'.Auth::user()->customer->id.'/edit')) {
 
-                    // dd('oi');
-                    return redirect('/employees/'.Auth::user()->employee->id.'/edit');
+                    return redirect('/customers/'.Auth::user()->customer->id.'/edit');
 
                 } else{
 

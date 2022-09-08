@@ -164,8 +164,6 @@ class CustomerController extends Controller {
 
         $validator = $this->getInsertUpdateValidator($request);
 
-        $user = Auth::user();
-
         if ($validator->fails()) {
 
             $error = $validator->errors()->first();
@@ -184,8 +182,14 @@ class CustomerController extends Controller {
 				// Instanciar um novo cliente ou obter referência já salva no banco de dados
 				$customer = $isEdit ? Customer::find($request->id) : new Customer();
 
+                $customerUser = $customer->user;
+
+                if (!$customer->id) {
+                    $customerUser = new User();
+                }
+
 				// Setar alterações
-				$this->save($customer, $request, $user);
+				$this->save($customer, $request, $customerUser);
 
 				DB::commit();
 
@@ -251,21 +255,20 @@ class CustomerController extends Controller {
         $user->name = $request->name;
         $user->email = $request->email;
 
-        if($request->password) {
-
+        if ($request->password) {
             $user->password = Hash::make($request->password);
         }
 
         $user->save();
 
-        $customer->name = $request->name;
-        $customer->email = $request->email;
+        if (!$customer->user_id) {
+            $customer->user_id = $user->id;
+        }
+
         $customer->rg = $request->rg;
         $customer->cpf = $request->cpf;
         $customer->address = $request->address;
-        $customer->user_id = $user->id;
         $customer->is_new = false;
-
         $customer->save();
     }
 }

@@ -41,11 +41,24 @@
 
                                 <td>{{ $category->id }}</td>
                                 <td>{{ $category->name }}</td>
+
+                                @if(Auth::check() && (Auth::user()->role == 0 && Auth::check() && (Auth::user()->role == 1 )))
+
                                 <td>
                                     <a  class="btn btn-primary btn-sm" href="{{ url('categories/'.$category->id. '/products') }}">Produtos</a>
                                     <a  class="btn btn-primary btn-sm" href="{{ url('categories/'.$category->id. '/edit') }}">Editar</a>
                                     <a  class="btn btn-danger btn-sm" href="{{ url('categories/'.$category->id. '/delete') }}">Remover</a>
                                 </td>
+
+                                @else
+                                <td> <a  class="btn btn-primary btn-sm" href="{{ url('categories/'.$category->id. '/products') }}">Produtos</a></td>
+                                @endif
+{{--
+                                <td>
+                                    <a  class="btn btn-primary btn-sm" href="{{ url('categories/'.$category->id. '/products') }}">Produtos</a>
+                                    <a  class="btn btn-primary btn-sm" href="{{ url('categories/'.$category->id. '/edit') }}">Editar</a>
+                                    <a  class="btn btn-danger btn-sm" href="{{ url('categories/'.$category->id. '/delete') }}">Remover</a>
+                                </td> --}}
                             </tr>
 
                         </tbody>
@@ -61,9 +74,16 @@
                 </div>
             @endif
 
+            @if(Auth::check() && (Auth::user()->role == 0 || Auth::check() && (Auth::user()->role == 1 )))
             <div class="page-controls">
                 <a class="btn btn-primary" href="{{ url('categories/create') }}">Nova Categoria</a>
             </div>
+
+            @else
+            <div class="page-controls">
+                <a class="btn btn-primary" href="{{ url('/') }}">Voltar</a>
+            </div>
+            @endif
 
         </div>
 

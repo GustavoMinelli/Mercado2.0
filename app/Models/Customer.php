@@ -16,4 +16,8 @@ class Customer extends Model
         'rg',
         'cpf'
     ];
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

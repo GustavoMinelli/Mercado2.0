@@ -278,6 +278,7 @@ class ProductController extends Controller
 
         return view('pages.cart.index', $data);
     }
+            // return redirect('login');
 
 
 }
