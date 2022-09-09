@@ -176,17 +176,31 @@ class CustomerControllerBackup extends Controller
      * @param $customer
      * @return void
      */
-    private function save(Customer $customer, Request $request)
+    private function save(Customer $customer, Request $request, User $user, Person $person)
     {
         DB::beginTransaction();
 
         try{
 
-            $customer->name = $request->name;
-            $customer->email = $request->email;
-            $customer->rg = $request->rg;
-            $customer->cpf = $request->cpf;
-            $customer->address = $request->address;
+            $user->email = $request->email;
+            if($request->password) {
+
+                $user->password = Hash::make($request->password); 
+            }
+
+            $user->save();
+
+
+            $person->name = $request->name;
+            $person->rg = $request->rg;
+            $person->phone = $request->phone;
+            $person->gender = $request->gender;
+            $person->address = $request->address;
+
+            $person->save();
+
+            $customer->person_id = $person->id;
+            $customer->is_new = false;
 
             $customer->save();
 

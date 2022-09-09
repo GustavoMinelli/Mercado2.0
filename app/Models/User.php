@@ -44,4 +44,10 @@ class User extends Authenticatable
         return $this->hasOne(Customer::class);
 
     }
+
+    protected function manager(){
+
+        return $this->hasOne(Manager::class);
+
+    }
 }

@@ -13,11 +13,11 @@
         <div class="page-body">
 
             <ul>
-                <li><b>Nome: </b>{{ $customer->name }}</li>
-                <li><b>E-mail: </b>{{ $customer->email }}</li>
-                <li><b>Endereço: </b>{{ $customer->address }}</li>
-                <li><b>CPF: </b>{{ $customer->cpf }}</li>
-                <li><b>RG: </b>{{ $customer->rg }}</li>
+                <li><b>Nome: </b>{{ $customer->user->name }}</li>
+                <li><b>E-mail: </b>{{ $customer->user->email }}</li>
+                <li><b>Endereço: </b>{{ $customer->person->address }}</li>
+                <li><b>CPF: </b>{{ $customer->person->cpf }}</li>
+                <li><b>RG: </b>{{ $customer->person->rg }}</li>
             </ul>
 
             <div class="page-controls">

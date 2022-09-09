@@ -250,9 +250,8 @@ class CustomerController extends Controller {
      * @param Request $request
      * @return void
      */
-    private function save(Customer $customer, Request $request, User $user) {
+    private function save(Customer $customer, Request $request, User $user, Person $person) {
 
-        $user->name = $request->name;
         $user->email = $request->email;
 
         if ($request->password) {
@@ -260,12 +259,20 @@ class CustomerController extends Controller {
         }
 
         $user->save();
+        
+        // if (!$customer->person_id) {
+        //     $customer->person_id = $person->id;
+        // }
 
-        if (!$customer->user_id) {
-            $customer->user_id = $user->id;
-        }
+        $person->name = $request->name;
+        $person->rg = $request->rg;
+        $person->cpf = $request->cpf;
+        $person->phone = $request->phone;
+        $person->address = $request->address;
 
-        $customer->rg = $request->rg;
+        $person->save();
+
+        $customer->person_id = $person->id;
         $customer->cpf = $request->cpf;
         $customer->address = $request->address;
         $customer->is_new = false;

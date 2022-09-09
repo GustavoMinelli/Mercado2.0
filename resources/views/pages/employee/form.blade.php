@@ -38,7 +38,7 @@
 
                 <div class="form-group">
                     <label>Endereço: </label>
-                    <input type="text" class="form-control" name="address" required value="{{ old('adress', $employee->address) }}">
+                    <input type="text" class="form-control" name="address" required value="{{ old('adress', $person->address) }}">
                 </div>
 
                 <div class="form-group">
@@ -49,17 +49,17 @@
 
                 <div class="form-group">
                     <label>Telefone: </label>
-                    <input type="number" class="form-control" name="phone" required value="{{ old('phone', $employee->phone) }}">
+                    <input type="number" class="form-control" name="phone" required value="{{ old('phone', $person->phone) }}">
                 </div>
 
                 <div class="form-group">
                     <label>CPF: </label>
-                    <input type="number" class="form-control" name="cpf" required value="{{ old('cpf', $employee->cpf ) }}">
+                    <input type="number" class="form-control" name="cpf" required value="{{ old('cpf', $person->cpf ) }}">
                 </div>
 
                 <div class="form-group">
                     <label>RG: </label>
-                    <input type="number" class="form-control" name="rg" required value="{{ old('rg', $employee->rg ) }}">
+                    <input type="number" class="form-control" name="rg" required value="{{ old('rg', $person->rg ) }}">
                 </div>
 
                 <div class="form-group">

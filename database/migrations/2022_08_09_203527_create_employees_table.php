@@ -18,7 +18,7 @@ class CreateEmployeesTable extends Migration
             $table->id();
             $table->bigInteger('person_id');
             $table->timestamps();
-            $table->string('role')->default(0);
+            // $table->string('role')->default(0);
             $table->boolean('is_new')->default(true);
             $table->string('work_code')->unique()->nullable();
 

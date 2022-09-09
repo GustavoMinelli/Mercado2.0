@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
             'name' =>'Sysout',
             'email' => 'admin@sysout.com',
             'password' => Hash::make('sysout'),
-            'role' => 1,
+            // 'role' => 1,
         ]);
 
 

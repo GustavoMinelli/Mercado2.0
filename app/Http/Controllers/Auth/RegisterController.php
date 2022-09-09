@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use App\Models\Person;
 use App\Models\Employee;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
@@ -87,17 +88,22 @@ class RegisterController extends Controller
 
             $user = new User();
 
-            $user->name = $request->name;
             $user->email = $request->email;
             $user->password =  Hash::make($request->password);
             $user->save();
 
-            $customer = new Customer();
+            $person = new Person();
 
-            $customer->user_id = $user->id;
+            $person->name = $request->name;
+
+            $person->save();
+            
+            $customer = new Customer();
+            
+            $customer->person_id = $person->id;
             // $customer->cpf = $request->cpf;
             $customer->save();
-
+            
 
             // $employee = new Employee();
 

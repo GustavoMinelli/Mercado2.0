@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Employee;
+use App\Models\Person;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 
-class EmployeeController extends Controller
+class PersonController extends Controller
 {
     /**
      * Exibir clientes cadastrados
@@ -20,15 +20,15 @@ class EmployeeController extends Controller
      * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
      */
     public function index(){
-        $employees = Employee::orderBy('id','asc')->get();
+        $persons = Person::orderBy('id','asc')->get();
         $users = User::orderBy('id','asc')->get();
 
         $data = [
-            'employees' => $employees,
+            'persons' => $persons,
             'users' => $users
         ];
 
-        return view('pages.employee.index', $data);
+        return view('pages.person.index', $data);
     }
 
     /**
@@ -38,13 +38,13 @@ class EmployeeController extends Controller
      * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
      */
     public function show(int $id){
-        $employee = Employee::find($id);
+        $person = Person::find($id);
 
         $data = [
-            'employee' => $employee
+            'person' => $person
         ];
 
-        return view('pages.employee.details', $data);
+        return view('pages.person.details', $data);
 
     }
 
@@ -55,10 +55,10 @@ class EmployeeController extends Controller
      */
     public function create(){
 
-        $employee = new Employee();
+        $person = new Person();
 
 
-        return $this->form($employee);
+        return $this->form($person);
     }
 
     /**
@@ -69,10 +69,10 @@ class EmployeeController extends Controller
      */
     public function edit(int $id) {
 
-        $employee = Employee::find($id);
+        $person = Person::find($id);
 
 
-        return $this->form($employee);
+        return $this->form($person);
     }
 
     /**
@@ -109,16 +109,16 @@ class EmployeeController extends Controller
 
             DB::beginTransaction();
 
-            $employee = Employee::find($id);
+            $person = Person::find($id);
 
-            if (!$employee) {
+            if (!$person) {
                 throw new \Exception('Funcionario não encontrado');
             }
 
-            $user = $employee->user;
+            $user = $person->user;
 
 
-            $employee->delete();
+            $person->delete();
 
             $user->delete();
 
@@ -134,30 +134,29 @@ class EmployeeController extends Controller
 
         }
 
-        return redirect('employees');
+        return redirect('persons');
 
 
     }
 
     /**
-     * Carrega um formulario para criar/editar um cliente
+     * Carrega um formulario para criar/editar uma pessoa
      *
-     * @param Employee $employee
+     * @param Person $person
      * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
      */
-    private function form(Employee $employee){
+    private function form(Person $person){
 
         $user = User::get();
 
-        // dd($employee);
 
 
         $data = [
-            'employee' => $employee,
+            'person' => $person,
             'user' =>$user,
         ];
 
-        return view('pages.employee.form', $data);
+        return view('pages.person.form', $data);
     }
 
     /**
@@ -187,18 +186,18 @@ class EmployeeController extends Controller
 
 				$isEdit = $request->method() == 'PUT';
 
-				$employee = $isEdit ? Employee::where('id', $request->id)->first() : new Employee();
+				$person = $isEdit ? Person::where('id', $request->id)->first() : new Person();
 
-				$user = $isEdit ? User::find($employee->user->id) : new User();
+				$user = $isEdit ? User::find($person->user->id) : new User();
 
-				$this->save($employee, $request, $user);
+				$this->save($person, $request, $user);
 
 				DB::commit();
 
 				Session::flash('success', 'O funcionario foi '.($isEdit ? 'alterado' : 'criado'). ' com sucesso!');
 
 				// Redirecionar para a listagem de clientes
-				return redirect('employees');
+				return redirect('person');
 
 			} catch (\Exception $e) {
 
@@ -236,7 +235,7 @@ class EmployeeController extends Controller
 
         $validator = Validator::make($data, $rules);
 
-        $validator->sometimes('id', ['required', 'integer', 'exists:employees,id'], function() use ($method){
+        $validator->sometimes('id', ['required', 'integer', 'exists:persons,id'], function() use ($method){
             return $method =='PUT';
         });
 
@@ -245,11 +244,11 @@ class EmployeeController extends Controller
     /**
      * Salvar alteraçoes do funcionario
      *
-     * @param Employee $employee
+     * @param Person $person
      * @param Request $request
      * @return void
      */
-    private function save(Employee $employee, Request $request, User $user, Person $person){
+    private function save(Request $request, User $user, Person $person){
 
 
         $user->email = $request->email;
@@ -270,45 +269,6 @@ class EmployeeController extends Controller
 
         $person->save();
 
-
-        $employee->person_id = $person->id;
-        $employee->is_new = false;
-
-
-        $employee->save();
-
     }
 
 }
-
-        // private function validator(Request $request){
-
-        //     $rules = [
-        //         'name' => 'required|max:100',
-        //         'address' => 'required|max:250',
-        //         'cpf' => 'required|string|max:14',
-        //         'rg' => 'required|string|max:14',
-        //         'email' => 'required|email',
-        //         'phone' => 'required|string',
-        //         'work_code' => 'required|string'
-        //     ];
-
-        //     $msg = [
-        //         'name.required' => 'nome necessário',
-        //         'name.max' => 'nome inválido',
-        //         'email.required' => 'necessário um email para o cadastro',
-        //         'email.email' => 'email inválido',
-        //         'rg.required' => 'necessário um RG para o cadastro',
-        //         'rg.max' => 'RG inválido',
-        //         'cpf.required' => 'necessário um CPF para o cadastro',
-        //         'cpf.max' => 'CPF inválido',
-        //         'address.required' => 'necessário um endereço para o cadastro',
-        //         'address.max' => 'endereço inválido',
-        //         'work_code.required' => '',
-        //         'work_code.' => ''
-        //     ];
-
-        //     $validator = Validator::make($request->all(), $rules, $msg);
-
-        //     return $validator;
-        // }

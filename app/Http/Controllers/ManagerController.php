@@ -12,39 +12,47 @@ use Illuminate\Support\Facades\Validator;
 class ManagerController extends Controller
 {
 
+    /**
+     * Exibir gerentes cadastrados
+     *
+     * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
+     */ 
     public function index(){
-        $user = User::where('role',1)->orderBy('id', 'asc')->get();
+        $managers = Manager::orderBy('id', 'asc')->get();
+        $user = User::orderBy('id', 'asc')->get();
 
         $data = [
+            'managers' => $managers,
             'user' => $user
         ];
 
-        return view('pages.admin.index', $data);
+        return view('pages.manager.index', $data);
 
     }
 
     public function show(int $id){
 
-        $user = User::find($id);
+        $manager =  Manager::find($id);
         // dd($users);
 
         $data = [
-            'user' => $user
+            'manager' => $manager
         ];
 
-        return view('pages.admin.details', $data);
+        return view('pages.manager.details', $data);
 
     }
 
     public function create(){
 
-        $admin = new User();
+        $manager = new Manager();
 
-        return $this->form($admin);
+        return $this->form($manager);
     }
+
     public function edit(int $id){
 
-        $admin = User::find($id);
+        $manager = Manager::find($id);
 
         return $this->form($admin);
 
@@ -64,36 +72,42 @@ class ManagerController extends Controller
 
             DB::beginTransaction();
 
-            $user = User::find($id);
+            $manager = Manager::find($id);
 
-            if (!$user) {
-                throw new \Exception('Admin não encontrado');
+            if (!$manager) {
+                throw new \Exception('Gerente não encontrado');
 
             }
+            $user = $manager->user;
+
+            $manager->delete();
+
             $user->delete();
 
             DB::commit();
 
-            Session::flash('success', 'Admin removido com sucesso');
+            Session::flash('success', 'Gerente removido com sucesso');
 
         } catch(\Exception $e){
 
             DB::rollBack();
 
-            Session::flash('error', 'Nao foi possivel remover o Admin:' .$e->getMessage());
+            Session::flash('error', 'Nao foi possivel remover o gerente:' .$e->getMessage());
         }
 
         return redirect('/admins');
 
     }
 
-    private function form(User $user){
+    private function form(Manager $manager){
+
+        $user = User::get();
 
         $data = [
             'user' => $user
         ];
 
-        return view('pages.admin.form', $data);
+        return view('pages.manager.form', $data);
     }
 
     private function insertOrUpdate(Request $request) {
@@ -114,9 +128,12 @@ class ManagerController extends Controller
 
                 $isEdit = $request->method() == 'PUT';
 
-                $admin = $isEdit ? User::find('id'. $request->id) : new User();
+                $manager = $isEdit ? Manager::find('id'. $request->id) : new Manager();
 
-                $this->save($admin, $request);
+                $user = $isEdit ? User::find($manager->user->id) : new Manager();
+
+
+                $this->save($manager, $request, $user);
 
                 DB::commit();
 
@@ -158,20 +175,31 @@ class ManagerController extends Controller
         return $validator;
     }
 
-    private function save(User $user, Request $request) {
+    private function save(Manager $manager, User $user, Request $request, Person $person) {
 
-        $user->name = $request ->name;
         $user->email = $request ->email;
          if ($request->password) {
              $user->password =  Hash::make($request->password);
-         }
+        }
 
-        $user->role = 1;
         $user->save();
+
+
+        $person->name = $request->name;
+        $person->rg = $request->rg;
+        $person->phone = $request->phone;
+        $person->gender = $request->gender;
+        $person->address = $request->address;
+
+        $person->save();
+
+        $manager->person_id = $person->id;
+
+        $manager->is_new = false;
+        $manager->save();
+
+
+
     }
-
-
-
-
 }
 

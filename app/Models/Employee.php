@@ -15,7 +15,6 @@ class Employee extends Model
         'cpf',
         'rg',
         'phone',
-        'work_code'
     ];
 
     public function user(){
@@ -28,6 +27,11 @@ class Employee extends Model
     public function person(){
 
         return $this->belongsTo(Person::class);
+    }
+
+    public function employeeroles(){
+        return $this->hasMany(EmployeeRoles::class);
+
     }
 }
 

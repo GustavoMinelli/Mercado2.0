@@ -29,7 +29,8 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 /* Rotas para gerenciar clientes */
-// Route::group([], function() { //Clientes
+// Route::group([], function() { //Clientes|sudo apt-get remove code
+
 
 Route::group(['middleware' => ['auth', 'employee']], function () {
 

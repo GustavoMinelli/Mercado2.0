@@ -15,19 +15,19 @@
         <ul>
             <li><b>Nome: </b>{{ $employee->user->name }}</li>
             <li><b>E-mail: </b>{{ $employee->user->email }}</li>
-            <li><b>Endereço: </b>{{ $employee->address }}</li>
-            <li><b>CPF: </b>{{ $employee->cpf }}</li>
-            <li><b>RG: </b>{{ $employee->rg }}</li>
+            <li><b>Endereço: </b>{{ $employee->person->address }}</li>
+            <li><b>CPF: </b>{{ $employee->person->cpf }}</li>
+            <li><b>RG: </b>{{ $employee->person->rg }}</li>
         </ul>
 
         <div class="page-controls">
-            @if (Auth::user()->role == 0)
+            {{-- @if (Auth::user()->role == 0)
                 <a class="btn btn-outline-primary" href="{{ url('employees') }}">Voltar</a>
                 <a class="btn btn-primary" href="{{ url('/employee/'. $employee->id .'/edit') }}">Editar</a>
             @else
                 <a class="btn btn-outline-primary" href="{{ url('employees') }}">Voltar</a>
 
-            @endif
+            @endif --}}
 
             </div>
 

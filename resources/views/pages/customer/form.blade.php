@@ -39,17 +39,17 @@
 
                 <div class="form-group">
                     <label>Endereço</label>
-                    <input class="form-control" type="text" name="address" value="{{ $customer->address }}" maxlength="250" required />
+                    <input class="form-control" type="text" name="address" value="{{ $person->address }}" maxlength="250" required />
                 </div>
 
                 <div class="form-group">
                     <label>RG</label>
-                    <input class="form-control" type="number" name="rg" value="{{ $customer->rg }}" required />
+                    <input class="form-control" type="number" name="rg" value="{{ $person->rg }}" required />
                 </div>
 
                 <div class="form-group">
                     <label>CPF</label>
-                    <input class="form-control" type="number" name="cpf" value="{{ $customer->cpf }}" required />
+                    <input class="form-control" type="number" name="cpf" value="{{ $person->cpf }}" required />
                 </div>
 
                 @if($isEdit)
