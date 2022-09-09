@@ -3,9 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use phpDocumentor\Reflection\Types\Nullable;
 
-class CreateEmployeesTable extends Migration
+class CreateCustomersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,16 +13,13 @@ class CreateEmployeesTable extends Migration
      */
     public function up()
     {
-        Schema::create('employees', function (Blueprint $table) {
+        Schema::create('customers', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('person_id');
             $table->timestamps();
-            $table->string('role')->default(0);
-            $table->boolean('is_new')->default(true);
-            $table->string('work_code')->unique()->nullable();
+            $table->string('role')->default(2);
 
-            $table->foreign('person_id')->references('id')->on('persons');
-
+            // $table->foreign('user_id')->references('id')->on('users');
 
 
         });
@@ -36,6 +32,6 @@ class CreateEmployeesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('employees');
+        Schema::dropIfExists('customers');
     }
 }
