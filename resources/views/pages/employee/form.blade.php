@@ -61,11 +61,11 @@
                     <label>RG: </label>
                     <input type="number" class="form-control" name="rg" required value="{{ old('rg', $person->rg ) }}">
                 </div>
-
+{{-- 
                 <div class="form-group">
                     <label>Carteira de trabalho</label>
                     <input type="text" class="form-control" name="work_code" required value="{{ old('work_code', $employee->work_code) }}">
-                </div>
+                </div> --}}
 
             @if($isEdit)
 

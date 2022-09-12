@@ -6,14 +6,14 @@
 <div class="page page-admin page-index">
 
     <div class="page-header">
-        <h1>Admin <small>Listagem de Admins</small></h1>
+        <h1>Gerente <small>Listagem de Gerentes     </small></h1>
     </div>
 
     <div class="page-body">
 
         @include('components.alert')
 
-        @if (count($user) > 0)
+        @if (count($managers) > 0)
 
            <table class="table table-striped">
 
@@ -29,18 +29,18 @@
 
                 </thead>
 
-                @foreach ($user as $user)
+                @foreach ($managers as $manager)
 
                     <tbody>
 
                         <tr>
 
-                            <td>{{ $user->id }}</td>
-                            <td>{{ $user->name }}</td>
+                            <td>{{ $manager->id }}</td>
+                            <td>{{ $manager->name }}</td>
                             <td>
-                                <a class="btn btn-primary btn-sm" role="button" href="{{ url('admins/'.$user->id.'/show') }}">Visualizar</a>
-                                <a  class="btn btn-primary btn-sm" href="{{ url('admins/'.$user->id. '/edit') }}">Editar</a>
-                                <a  class="btn btn-danger btn-sm" href="{{ url('admins/'.$user->id. '/delete') }}">Remover</a>
+                                <a class="btn btn-primary btn-sm" role="button" href="{{ url('managers/'.$user->id.'/show') }}">Visualizar</a>
+                                <a  class="btn btn-primary btn-sm" href="{{ url('managers/'.$manager->id. '/edit') }}">Editar</a>
+                                <a  class="btn btn-danger btn-sm" href="{{ url('managers/'.$manager->id. '/delete') }}">Remover</a>
 
                             </td>
                         </tr>
@@ -59,7 +59,7 @@
         @endif
 
         <div class="page-controls">
-            <a class="btn btn-primary" href="{{ url('admins/create') }}">Novo Admin</a>
+            <a class="btn btn-primary" href="{{ url('managers/create') }}">Novo Admin</a>
         </div>
 
     </div>

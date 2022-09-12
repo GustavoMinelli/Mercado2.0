@@ -7,6 +7,7 @@
     @php
         $isEdit = !empty($customer->id);
         $user = $customer->user ?? $customer;
+        $person = $customer->person ?? $customer;
     @endphp
 
     <div class="page page-customer page-form">
@@ -29,7 +30,7 @@
 
                 <div class="form-group">
                     <label>Nome</label>
-                    <input class="form-control" type="text" name="name" value="{{ $user->name }}" maxlength="100" required />
+                    <input class="form-control" type="text" name="name" value="{{ $person->name }}" maxlength="100" required />
                 </div>
 
                 <div class="form-group">

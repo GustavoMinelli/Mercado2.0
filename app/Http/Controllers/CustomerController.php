@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Person;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,9 +29,14 @@ class CustomerController extends Controller {
     public function index() {
 
         $customers = Customer::orderBy('id','asc')->get();
+        $people = Person::orderBy('id','asc')->get();
+        $users = User::orderBy('id','asc')->get();
 
         $data = [
-            'customers' => $customers
+            'customers' => $customers,
+            'people' => $people,
+            'users' => $users,
+
         ];
 
         return view('pages.customer.index', $data);
@@ -45,9 +51,13 @@ class CustomerController extends Controller {
     public function show(int $id) {
 
         $customer = Customer::find($id);
+        $user = User::find($id);
+        $person = Person::find($id);
 
         $data = [
-            'customer' => $customer
+            'customer' => $customer,
+            'user' => $user,
+            'person' => $person,
         ];
 
         return view('pages.customer.details', $data);
@@ -62,7 +72,11 @@ class CustomerController extends Controller {
 
         $customer = new Customer();
 
-        return $this->form($customer);
+        $person = new Person();
+
+        $user = new User();
+
+        return $this->form($customer, $person, $user);
     }
 
     /**
@@ -182,16 +196,24 @@ class CustomerController extends Controller {
 				// Instanciar um novo cliente ou obter referência já salva no banco de dados
 				$customer = $isEdit ? Customer::find($request->id) : new Customer();
 
+                $person = $isEdit ? Person::find($request->id) : new Person();
+
                 $customerUser = $customer->user;
+
+                $customerPerson = $customer->person;
 
                 if (!$customer->id) {
                     $customerUser = new User();
                 }
 
-				// Setar alterações
-				$this->save($customer, $request, $customerUser);
+                if (!$person->id) {
+                    $customerPerson = new Person();
+                }
 
-				DB::commit();
+				// Setar alterações
+				$this->save($customer, $request, $customerUser, $customerPerson);
+
+				DB::commit();   
 
 				Session::flash('success', 'O cliente foi '.($isEdit ? 'alterado' : 'criado'). ' com sucesso!');
 
@@ -252,14 +274,16 @@ class CustomerController extends Controller {
      */
     private function save(Customer $customer, Request $request, User $user, Person $person) {
 
+        
+        
         $user->email = $request->email;
+        $user->customer_id = $customer->id;
 
         if ($request->password) {
             $user->password = Hash::make($request->password);
         }
 
         $user->save();
-        
         // if (!$customer->person_id) {
         //     $customer->person_id = $person->id;
         // }
@@ -269,12 +293,12 @@ class CustomerController extends Controller {
         $person->cpf = $request->cpf;
         $person->phone = $request->phone;
         $person->address = $request->address;
+        $person->gender = $request->gender;
 
         $person->save();
 
+    
         $customer->person_id = $person->id;
-        $customer->cpf = $request->cpf;
-        $customer->address = $request->address;
         $customer->is_new = false;
         $customer->save();
     }

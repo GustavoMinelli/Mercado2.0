@@ -18,24 +18,24 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        // if(Auth::check()) {
+        if(Auth::check()) {
 
-        //     //admin role == 1
-        //     //user role == 0
+            //admin role == 1
+            //user role == 0
 
-        //     if(Auth::user()->role == 1) {
+            if(Auth::user()->role == 1) {
 
-        //     return $next($request);
+            return $next($request);
 
-        //     } else {
-        //         Session::flash('error', 'Acesso negado');
-        //         return redirect('/');
+            } else {
+                Session::flash('error', 'Acesso negado');
+                return redirect('/');
 
-        //     }
-        // } else {
-        //     Session::flash('error', 'Logar no site');
-        //     return redirect('/login');
-        // }
+            }
+        } else {
+            Session::flash('error', 'Logar no site');
+            return redirect('/login');
+        }
 
         return $next($request);
     }

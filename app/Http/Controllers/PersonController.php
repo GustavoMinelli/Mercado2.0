@@ -20,11 +20,11 @@ class PersonController extends Controller
      * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
      */
     public function index(){
-        $persons = Person::orderBy('id','asc')->get();
+        $people = Person::orderBy('id','asc')->get();
         $users = User::orderBy('id','asc')->get();
 
         $data = [
-            'persons' => $persons,
+            'people' => $people,
             'users' => $users
         ];
 
@@ -134,7 +134,7 @@ class PersonController extends Controller
 
         }
 
-        return redirect('persons');
+        return redirect('people');
 
 
     }
@@ -235,7 +235,7 @@ class PersonController extends Controller
 
         $validator = Validator::make($data, $rules);
 
-        $validator->sometimes('id', ['required', 'integer', 'exists:persons,id'], function() use ($method){
+        $validator->sometimes('id', ['required', 'integer', 'exists:people,id'], function() use ($method){
             return $method =='PUT';
         });
 

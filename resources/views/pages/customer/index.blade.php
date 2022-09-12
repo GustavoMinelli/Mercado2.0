@@ -4,6 +4,8 @@
 
 @section('content')
 
+
+
     <div class="page page-customer page-index">
 
         <div class="page-header">
@@ -29,28 +31,32 @@
 
                     </thead>
 
+                    
                     @foreach ($customers as $customer)
-
-                        <tbody>
-
-                            <tr>
-                                <td>{{ $customer->id }}</td>
-                                <td>{{ $user->name }}</td>
-                                <td>{{ $customer->email }}</td>
-                                <td>
-                                    <a class="btn btn-primary btn-sm" role="button" href="{{ url('customers/'.$customer->id.'/show') }}">Visualizar</a>
-                                    <a class="btn btn-primary btn-sm" role="button" href="{{ url('customers/'.$customer->id.'/edit') }}">Editar</a>
-                                    <a class="btn btn-danger btn-sm" role="button" href="{{ url('customers/'.$customer->id.'/delete') }}">Remover</a>
-                                </td>
-                            </tr>
-
-                        </tbody>
+           
+                    <tbody>
+                        
+                        <tr>
+                            <td>{{ $customer->id }}</td>
+                            <td>{{ $customer->person->name }}</td>
+                            <td>{{ $customer->email }}</td>
+                            
+                            <td>
+                                <a class="btn btn-primary btn-sm" role="button" href="{{ url('customers/'.$customer->id.'/show') }}">Visualizar</a>
+                                <a class="btn btn-primary btn-sm" role="button" href="{{ url('customers/'.$customer->id.'/edit') }}">Editar</a>
+                                <a class="btn btn-danger btn-sm" role="button" href="{{ url('customers/'.$customer->id.'/delete') }}">Remover</a>
+                            </td>
+                        </tr>
+                            
+                    </tbody>
+                    
 
                     @endforeach
+                        
+                        
+                    </table>
 
-                </table>
-
-            @else
+                    @else
 
                 <div class="page-message">
                     <h3>Nenhum cliente cadastrado</h3>

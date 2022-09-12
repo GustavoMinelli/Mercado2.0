@@ -18,8 +18,8 @@ class CreateCustomersTable extends Migration
             $table->bigInteger('person_id');
             $table->timestamps();
             // $table->string('role')->default(2);
-
-            $table->foreign('person_id')->references('id')->on('persons');
+            $table->boolean('is_new')->default(true);
+            $table->foreign('person_id')->references('id')->on('people');
 
 
         });

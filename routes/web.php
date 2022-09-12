@@ -29,24 +29,30 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 /* Rotas para gerenciar clientes */
-// Route::group([], function() { //Clientes|sudo apt-get remove code
+Route::group(['middleware' => ['auth']], function () {
 
-
-Route::group(['middleware' => ['auth', 'employee']], function () {
-
+    /*Rotas liberadas para funcionarios e gerentes */
     Route::get('/customers', 'CustomerController@index');
     Route::get('/customers/{id}/show', 'CustomerController@show');
     Route::get('/customers/create',  'CustomerController@create');
     Route::post('/customers', 'CustomerController@insert');
     Route::get('/customers/{id}/delete', 'CustomerController@delete');
+
 });
 
+/* Rotas para editar um cliente onde quando se cria a conta se redireciona para essas rotas*/
+Route::group([], function(){  
+
+    /* Rotas liberadas para funcionários, gerentes e clientes */
     Route::get('/customers/{id}/edit', 'CustomerController@edit');
     Route::put('/customers', 'CustomerController@update');
 
-// Route::group([], function(){ //Categorias
-Route::group(['middleware' => ['auth', 'employee']], function () {
+});
 
+/*Rotas para gerenciar categorias */
+Route::group(['middleware' => ['auth']], function () {
+
+    /* Rotas liberadas para funcionários e gerentes */
     Route::get('/categories/create', 'CategoryController@create');
     Route::post('/categories',       'CategoryController@insert');
     Route::get('/categories/{id}/edit',   'CategoryController@edit');
@@ -54,17 +60,15 @@ Route::group(['middleware' => ['auth', 'employee']], function () {
     Route::get('/categories/{id}/delete', 'CategoryController@delete');
     Route::get('/categories/{id}/products', 'CategoryController@show');
 });
+//
+Route::group([], function(){
 
+    Route::get('/categories', 'CategoryController@index');
 
-Route::get('/categories', 'CategoryController@index');
+});
 
-// Route::group([ 'middleware' => [ 'auth']], function () {
-// Route::group([], function(){ //User
-
-
-// Route::group([], function() { //Funcionários
-
-Route::group(['middleware' => ['auth', 'admin']], function () {
+/*Rotas para gerenciar funcionarios */
+Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/employees',            'EmployeeController@index');
     Route::get('/employees/create',      'EmployeeController@create');
@@ -75,16 +79,16 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::post('/employees',       'EmployeeController@insert');
     Route::put('/employees',        'EmployeeController@update');
 
-Route::group(['middleware' => ['auth', 'user']], function () {
+
+Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/employees/{id}/edit',   'EmployeeController@edit');
-    // Route::group([], function() { //Usuarios
 });
 
 
 
 // Route::group([], function(){ // Produtos
-Route::group(['middleware' => ['auth', 'employee', 'customer']], function () {
+Route::group(['middleware' => ['auth', 'employee']], function () {
 
     Route::get('/products/create',       'ProductController@create');
     Route::post('/products',        'ProductController@insert');
@@ -93,7 +97,7 @@ Route::group(['middleware' => ['auth', 'employee', 'customer']], function () {
     Route::get('/products/{id}/delete',  'ProductController@delete');
 
 });
-Route::group(['middleware' => ['auth', 'customer']], function () {
+Route::group(['middleware' => ['auth']], function () {
 
     Route::get('/products',             'ProductController@index');
 
@@ -128,20 +132,33 @@ Route::group(['middleware' => ['auth', 'customer']], function () {
     Route::get('/sales/{id}/products',   'SaleController@show');
 
     });
-Route::group(['middleware' => ['auth', 'admin']], function () {
 
-    Route::get('/admins',            'AdminController@index');
-    Route::get('/admins/create',      'AdminController@create');
-    Route::post('/admins',       'AdminController@insert');
-    Route::get('/admins/{id}/edit',   'AdminController@edit');
-    Route::put('/admins',        'AdminController@update');
-    Route::get('/admins/{id}/delete', 'AdminController@delete');
-    Route::get('/admins/{id}/show', 'AdminController@show');
+Route::group(['middleware' => ['auth']], function () {
+
+    Route::get('/managers',            'ManagerController@index');
+    Route::get('/managers/create',      'ManagerController@create');
+    Route::post('/managers',       'ManagerController@insert');
+    Route::get('/managers/{id}/edit',   'ManagerController@edit');
+    Route::put('/managers',        'ManagerController@update');
+    Route::get('/managers/{id}/delete', 'ManagerController@delete');
+    Route::get('/managers/{id}/show', 'ManagerController@show');
 
 });
-// Route::group([], function(){ //Carrinho
 
-    Route::get('/cart', 'ProductController@indexCart');
+Route::group(['middleware' => ['auth']], function () {
+
+    Route::get('/roles',            'EmployeeRoleController@index');
+    Route::get('/roles/create', 'EmployeeRoleController@create');
+    Route::post('/roles',       'EmployeeRoleController@insert');
+    Route::get('/roles/{id}/edit',   'EmployeeRoleController@edit');
+    Route::put('/roles',        'EmployeeRoleController@update');
+    Route::get('/roles/{id}/delete', 'EmployeeRoleController@delete');
+    Route::get('/roles/{id}/products', 'EmployeeRoleController@show');
+
+});
+
+// Route::group([], function(){ //Carrinho
+Route::get('/cart', 'ProductController@indexCart');
 // Route::get('/login',                'LoginController@showLoginForm');
 // Route::post('/login',                'LoginController@login');
 // Route::post('/login',                'LoginController@login');

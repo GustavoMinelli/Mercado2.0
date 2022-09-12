@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Manager;
+use App\Models\Person;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -19,11 +21,13 @@ class ManagerController extends Controller
      */ 
     public function index(){
         $managers = Manager::orderBy('id', 'asc')->get();
-        $user = User::orderBy('id', 'asc')->get();
+        $users = User::orderBy('id', 'asc')->get();
+        $people = Person::orderBy('id', 'asc')->get();
 
         $data = [
             'managers' => $managers,
-            'user' => $user
+            'users' => $users,
+            'people' => $people
         ];
 
         return view('pages.manager.index', $data);
@@ -32,11 +36,15 @@ class ManagerController extends Controller
 
     public function show(int $id){
 
-        $manager =  Manager::find($id);
+        $people = Person::find($id);
+        $managers =  Manager::find($id);
+        $users = User::find();
         // dd($users);
 
         $data = [
-            'manager' => $manager
+            'managers' => $managers,
+            'people' => $people,
+            'users' => $users,
         ];
 
         return view('pages.manager.details', $data);
@@ -54,7 +62,7 @@ class ManagerController extends Controller
 
         $manager = Manager::find($id);
 
-        return $this->form($admin);
+        return $this->form($manager);
 
     }
 
@@ -78,11 +86,15 @@ class ManagerController extends Controller
                 throw new \Exception('Gerente não encontrado');
 
             }
+            $person = $manager->person;
+
             $user = $manager->user;
 
             $manager->delete();
-
+            
             $user->delete();
+            
+            $person->delete();
 
             DB::commit();
 
@@ -95,16 +107,19 @@ class ManagerController extends Controller
             Session::flash('error', 'Nao foi possivel remover o gerente:' .$e->getMessage());
         }
 
-        return redirect('/admins');
+        return redirect('/managers');
 
     }
 
     private function form(Manager $manager){
 
         $user = User::get();
+        $person = Person::get();
 
         $data = [
-            'user' => $user
+            'user' => $user,
+            'manager'=>$manager,
+            'person' => $person
         ];
 
         return view('pages.manager.form', $data);
@@ -130,16 +145,18 @@ class ManagerController extends Controller
 
                 $manager = $isEdit ? Manager::find('id'. $request->id) : new Manager();
 
-                $user = $isEdit ? User::find($manager->user->id) : new Manager();
+                $user = $isEdit ? User::find($manager->user->id) : new User();
+
+                $person = $isEdit ? Person::find($manager->person->id) : new Person();
 
 
-                $this->save($manager, $request, $user);
+                $this->save($manager, $request, $user, $person);
 
                 DB::commit();
 
-                Session ::flash('sucess', 'O admin foi ', ($isEdit ? 'aleterado' : 'criado'). ' com sucesso!');
+                Session ::flash('sucess', 'O gerente foi ', ($isEdit ? 'aleterado' : 'criado'). ' com sucesso!');
 
-                return redirect('/admins');
+                return redirect('/managers');
 
             } catch(\Exception $e) {
                 DB::rollBack();

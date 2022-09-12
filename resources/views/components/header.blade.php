@@ -8,8 +8,9 @@
 		['Estoque', 'inventories'],
 		['Vendas', 'sales'],
 		['Promoções', 'promotions'],
-        ['Pag do Admin', 'admins'],
-        ['Carrinho', 'cart']
+        ['Gerente', 'managers'],
+        ['Carrinho', 'cart'],
+        ['Cargo', 'roles'],
 	];
 
 @endphp

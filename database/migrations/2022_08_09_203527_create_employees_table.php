@@ -22,7 +22,7 @@ class CreateEmployeesTable extends Migration
             $table->boolean('is_new')->default(true);
             $table->string('work_code')->unique()->nullable();
 
-            $table->foreign('person_id')->references('id')->on('persons');
+            $table->foreign('person_id')->references('id')->on('people');
 
 
 

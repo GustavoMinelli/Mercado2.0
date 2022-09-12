@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
+use App\Models\Person;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -191,7 +192,9 @@ class EmployeeController extends Controller
 
 				$user = $isEdit ? User::find($employee->user->id) : new User();
 
-				$this->save($employee, $request, $user);
+                $person = $isEdit ? Person::where('id', $request->id)->first() : new Person();
+
+				$this->save($employee, $request, $user, $person);
 
 				DB::commit();
 
@@ -256,6 +259,7 @@ class EmployeeController extends Controller
         if ($request->password) {
 
         $user->password = Hash::make($request->password);
+        $user->user_id = $request->user_id;
 
         }
 

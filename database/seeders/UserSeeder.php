@@ -16,10 +16,8 @@ class UserSeeder extends Seeder
     public function run()
     {
         User::insert([
-            'name' =>'Sysout',
             'email' => 'admin@sysout.com',
             'password' => Hash::make('sysout'),
-            // 'role' => 1,
         ]);
 
 
