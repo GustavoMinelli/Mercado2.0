@@ -6,6 +6,8 @@
 
     @php
         $isEdit = !empty($user->id);
+        $user = $manager->user ?? $manager;
+        $person = $manager->person ?? $manager;
     @endphp
 
     <div class = "page page-manager page-form">
@@ -28,12 +30,12 @@
 
                 <div class="form-group">
                     <label>Nome: </label>
-                    <input type="text" class="form-control" name="name" required value="{{ old('name', $manager->person->name) }}">
+                    <input type="text" class="form-control" name="name" required value="{{ old('name', $person->name) }}">
                 </div>
 
                 <div class="form-group">
                     <label>Email: </label>
-                    <input type="email" class="form-control" name="email" required value="{{ old('email', $manager->user->email) }}">
+                    <input type="email" class="form-control" name="email" required value="{{ old('email', $user->email) }}">
                 </div>
 
                 <div class="form-group">

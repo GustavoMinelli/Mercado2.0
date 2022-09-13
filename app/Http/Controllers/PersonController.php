@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
 use App\Models\Person;
 use App\Models\User;
 use Exception;
@@ -38,10 +39,15 @@ class PersonController extends Controller
      * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
      */
     public function show(int $id){
+
+        $customer = Customer::find($id);
         $person = Person::find($id);
+        $user = User::find($id);
 
         $data = [
-            'person' => $person
+            'person' => $person,
+            'customer' => $customer,
+            'user' => $user
         ];
 
         return view('pages.person.details', $data);
@@ -57,8 +63,12 @@ class PersonController extends Controller
 
         $person = new Person();
 
+        $customer = new Customer();
 
-        return $this->form($person);
+        $user = new User();
+
+
+        return $this->form($person, $customer, $user);
     }
 
     /**
@@ -115,12 +125,11 @@ class PersonController extends Controller
                 throw new \Exception('Funcionario não encontrado');
             }
 
-            $user = $person->user;
 
+            $this->preDelete($person);
 
             $person->delete();
 
-            $user->delete();
 
             DB::commit();
 
@@ -139,6 +148,13 @@ class PersonController extends Controller
 
     }
 
+    private function preDelete(Person $person){
+
+        $user = $person->user;
+
+        $user->each->delete();
+
+    }
     /**
      * Carrega um formulario para criar/editar uma pessoa
      *
@@ -147,13 +163,9 @@ class PersonController extends Controller
      */
     private function form(Person $person){
 
-        $user = User::get();
-
-
 
         $data = [
             'person' => $person,
-            'user' =>$user,
         ];
 
         return view('pages.person.form', $data);
@@ -194,10 +206,10 @@ class PersonController extends Controller
 
 				DB::commit();
 
-				Session::flash('success', 'O funcionario foi '.($isEdit ? 'alterado' : 'criado'). ' com sucesso!');
+				Session::flash('success', 'A pessoa foi '.($isEdit ? 'alterado' : 'criado'). ' com sucesso!');
 
 				// Redirecionar para a listagem de clientes
-				return redirect('person');
+				return redirect('people');
 
 			} catch (\Exception $e) {
 
@@ -248,18 +260,7 @@ class PersonController extends Controller
      * @param Request $request
      * @return void
      */
-    private function save(Request $request, User $user, Person $person){
-
-
-        $user->email = $request->email;
-        if ($request->password) {
-
-        $user->password = Hash::make($request->password);
-
-        }
-
-        $user->save();
-
+    private function save(Person $person, Request $request, User $user){
 
         $person->name = $request->name;
         $person->rg = $request->rg;
@@ -268,6 +269,16 @@ class PersonController extends Controller
         $person->address = $request->address;
 
         $person->save();
+
+        $user->email = $request->email;
+
+        if ($request->password) {
+        
+        $user->password = Hash::make($request->password);
+
+        }
+
+        $user->save();
 
     }
 

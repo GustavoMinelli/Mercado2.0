@@ -18,20 +18,15 @@ class Employee extends Model
     ];
 
     public function user(){
-
         return $this->belongsTo(User::class);
-
-
     }
 
     public function person(){
-
         return $this->belongsTo(Person::class);
     }
 
     public function employeeroles(){
-        return $this->hasMany(EmployeeRoles::class);
-
+        return $this->belongsTo(EmployeeRoles::class);
     }
 }
 

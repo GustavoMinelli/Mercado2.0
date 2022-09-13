@@ -157,6 +157,19 @@ Route::group(['middleware' => ['auth']], function () {
 
 });
 
+Route::group(['middleware' => ['auth']], function () {
+
+    Route::get('/people',            'PersonController@index');
+    Route::get('/people/create', 'PersonController@create');
+    Route::post('/people',       'PersonController@insert');
+    Route::get('/people/{id}/edit',   'PersonController@edit');
+    Route::put('/people',        'PersonController@update');
+    Route::get('/people/{id}/delete', 'PersonController@delete');
+    Route::get('/people/{id}/products', 'PersonController@show');
+
+});
+
+
 // Route::group([], function(){ //Carrinho
 Route::get('/cart', 'ProductController@indexCart');
 // Route::get('/login',                'LoginController@showLoginForm');

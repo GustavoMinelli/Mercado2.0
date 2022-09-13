@@ -88,7 +88,7 @@ class CustomerController extends Controller {
     public function edit(int $id) {
 
         $customer = Customer::find($id);
-
+        
         return $this->form($customer);
     }
 
@@ -101,7 +101,7 @@ class CustomerController extends Controller {
     public function insert(Request $request) {
         return $this->insertOrUpdate($request);
     }
-
+    
     /**
      * Persistir atualizações de um cliente no banco de dados
      *
@@ -111,7 +111,7 @@ class CustomerController extends Controller {
     public function update(Request $request) {
         return $this->insertOrUpdate($request);
     }
-
+    
     /**
      * Remover cliente
      *
@@ -119,40 +119,47 @@ class CustomerController extends Controller {
      * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
      */
     public function delete(int $id) {
-
+        
         try {
-
+            
             // Iniciar transação
             DB::beginTransaction();
-
+            
             $customer = Customer::find($id);
-
+            
             if (!$customer) {
                 throw new \Exception('Cliente não encontrado!');
             }
-
+            
             // É necessário fazer algo antes de remover o registro?
             // $this->preDelete(...);
-
+            $this->preDelete($customer);
+            
             $customer->delete();
-
+            
             // É necessário fazer algo após remover o registro?
             // $this->postDelete(...);
-
+            
             DB::commit();
-
+            
             Session::flash('success', 'Cliente removido com sucesso!');
-
+            
         } catch (\Exception $e) {
-
+            
             DB::rollBack();
-
+            
             Session::flash('error', 'Não foi possível remover o cliente: '.$e->getMessage());
         }
-
+        
         return redirect('customers');
     }
+    
+    private function preDelete(Customer $customer){
+        
+        $user = $customer->user;
 
+        $user->each->delete();
+    }
     /**
      * Carregar formulário para criar/editar um cliente
      *
@@ -160,14 +167,14 @@ class CustomerController extends Controller {
      * @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\View\Factory
      */
     private function form(Customer $customer) {
-
+        
         $data = [
             'customer' => $customer
         ];
-
+        
         return view('pages.customer.form', $data);
     }
-
+    
     /**
      * Inserir ou atualizar cliente no banco de dados
      *
@@ -175,33 +182,33 @@ class CustomerController extends Controller {
      * @return \Illuminate\Routing\Redirector|\Illuminate\Http\RedirectResponse
      */
     private function insertOrUpdate(Request $request) {
-
+        
         $validator = $this->getInsertUpdateValidator($request);
-
+        
         if ($validator->fails()) {
-
+            
             $error = $validator->errors()->first();
-
+            
 			// Retornar para a tela do formulário alertando um erro na validação da requisição
             return back()->withInput()->withErrors($error);
-
+            
         } else {
-
+            
             try {
-
-				DB::beginTransaction();
-
+                
+                DB::beginTransaction();
+                
 				$isEdit = $request->method() == 'PUT';
-
+                
 				// Instanciar um novo cliente ou obter referência já salva no banco de dados
 				$customer = $isEdit ? Customer::find($request->id) : new Customer();
-
+                
                 $person = $isEdit ? Person::find($request->id) : new Person();
-
+                
                 $customerUser = $customer->user;
-
+                
                 $customerPerson = $customer->person;
-
+                
                 if (!$customer->id) {
                     $customerUser = new User();
                 }
@@ -209,29 +216,29 @@ class CustomerController extends Controller {
                 if (!$person->id) {
                     $customerPerson = new Person();
                 }
-
+                
 				// Setar alterações
 				$this->save($customer, $request, $customerUser, $customerPerson);
-
+                
 				DB::commit();   
-
+                
 				Session::flash('success', 'O cliente foi '.($isEdit ? 'alterado' : 'criado'). ' com sucesso!');
-
+                
 				// Redirecionar para a listagem de clientes
 				return redirect('customers');
-
+                
 			} catch (\Exception $e) {
-
-				DB::rollBack();
-
+                
+                DB::rollBack();
+                
 				$error = $e->getMessage();
-
+                
 				// Retornar para a tela de formulário alertando um erro interno
 				return back()->withInput()->withErrors($error);
 			}
         }
     }
-
+    
     /**
      * Valida os dados do $request
      *
@@ -239,11 +246,11 @@ class CustomerController extends Controller {
      * @return \Illuminate\Contracts\Validation\Validator $validator
      */
     private function getInsertUpdateValidator(Request $request) {
-
+        
         $data = $request->all();
-
+        
         $method = $request->method();
-
+        
         $rules = [
             'name' => ['required', 'max:250'],
             'email' => ['required', 'email'],
@@ -251,20 +258,20 @@ class CustomerController extends Controller {
             'cpf' => ['required', 'string', 'max:14'],
             'address' => ['required', 'string', 'max:250']
         ];
-
+        
         $validator = Validator::make($data, $rules);
-
+        
         $validator->sometimes('id', ['required', 'integer', 'exists:customers,id'], function() use ($method) {
             return $method == 'PUT';
         });
-
+        
         // Regras mais específicas (menos genéricas)
         /* $validator->after(function($validator) use ($request) {
         }); */
-
+        
         return $validator;
     }
-
+    
     /**
      * Salvar alterações do cliente
      *
@@ -273,33 +280,35 @@ class CustomerController extends Controller {
      * @return void
      */
     private function save(Customer $customer, Request $request, User $user, Person $person) {
-
         
         
-        $user->email = $request->email;
-        $user->customer_id = $customer->id;
-
-        if ($request->password) {
-            $user->password = Hash::make($request->password);
-        }
-
-        $user->save();
-        // if (!$customer->person_id) {
-        //     $customer->person_id = $person->id;
-        // }
-
         $person->name = $request->name;
         $person->rg = $request->rg;
         $person->cpf = $request->cpf;
         $person->phone = $request->phone;
         $person->address = $request->address;
         $person->gender = $request->gender;
-
         $person->save();
-
-    
+        
         $customer->person_id = $person->id;
         $customer->is_new = false;
         $customer->save();
-    }
+        
+        $user->email = $request->email;
+        $user->customer_id = $customer->id;
+        
+        if ($request->password) {
+            $user->password = Hash::make($request->password);
+        }
+        
+        $user->save();
+        // if (!$customer->person_id) {
+            //     $customer->person_id = $person->id;
+            // }
+            
+            
+            
+        }
+        
+        
 }

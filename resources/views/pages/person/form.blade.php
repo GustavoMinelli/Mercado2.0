@@ -1,35 +1,32 @@
 @extends('layouts.main', [
-    'pageTitle' => 'Funcionarios'
+    'pageTitle' => 'Pessoa'
 ])
 
 @section('content')
 
     @php
-        $isEdit = !empty($employee->id);
-        $user = $employee->user ?? $employee;
-        $person = $employee->person ?? $employee;
+        $isEdit = !empty($person->id);
+        $user = $person->user ?? $person;
     @endphp
 
     <div class="page page-employee page-form">
 
         <div class="page-header">
-            <h1>Funcionarios<small>{{ $isEdit ? 'Editar funcionario' : 'Novo Funcionario' }}</small></h1>
+            <h1>Pessoa<small>{{ $isEdit ? ' Editar pessoa' : ' Nova pessoa' }}</small></h1>
         </div>
 
         <div class="page-body">
 
             @include('components.alert')
 
-            <form action="{{ url('employees') }}" method="POST">
+            <form action="{{ url('people') }}" method="POST">
 
 
                 @csrf
 
                 @method($isEdit ? "PUT" : "POST")
 
-                <input type="hidden" name="id" value="{{ $employee->id }}">
-
-                {{-- @dd($employee) --}}
+                <input type="hidden" name="id" value="{{ $person->id }}">
 
                 <div class="form-group">
                     <label>Nome: </label>
@@ -44,7 +41,7 @@
 
                 <div class="form-group">
                     <label>Email: </label>
-                    <input type="email" class="form-control" name="email" required value="{{ $user->email}}">
+                    <input type="email" class="form-control" name="email" required value="{{ old('email', $user->email) }}">
                 </div>
 
 
@@ -64,34 +61,17 @@
                 </div>
 
                 <div class="form-group">
-                    <label>Cargo: </label>
-                    <select name="role_id" required>
-
-                        @if (count($roles) > 0)
-
-                            @foreach ($roles as $role)
-
-                            <option>Selecione seu cargo</option>
-
-
-                            <option value="{{ $employee->role_id }}">{{ $role->name }}</option>
-
-                            @endforeach
-
-                        @else
-
-                            <option>Nenhum cargo criado</option>
-
-                        @endif
-
-                    </select>
+                        <select class="form-select" name="gender" >
+                            <option>Selecione seu genero</option>
+                            <option>Masculino</option>
+                            <option>Feminino</option>
+                            <option>Prefiro nao dizer</option>
+                        </select>
 
                 </div>
-{{-- 
-                <div class="form-group">
-                    <label>Carteira de trabalho</label>
-                    <input type="text" class="form-control" name="work_code" required value="{{ old('work_code', $employee->work_code) }}">
-                </div> --}}
+
+                {{-- <input type="checkbox" name="funcionario" value="{{$employee->id}}"> --}}
+
 
             @if($isEdit)
 
@@ -119,7 +99,7 @@
             @endif
                 <div class="page-controls">
 
-                    <a class="btn btn-outline-primary" href="{{ url('employees') }}">Voltar</a>
+                    <a class="btn btn-outline-primary" href="{{ url('people') }}">Voltar</a>
 
                     <button type="submit" class="btn btn-outline-success">Enviar</button>
 

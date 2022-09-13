@@ -4,6 +4,7 @@
         ['Funcionários', 'employees'],
 		['Clientes', 'customers'],
 		['Categorias', 'categories'],
+        ['Pessoas', 'people'],
 		['Produtos', 'products'],
 		['Estoque', 'inventories'],
 		['Vendas', 'sales'],

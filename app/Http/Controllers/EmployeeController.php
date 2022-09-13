@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
+use App\Models\EmployeeRole;
 use App\Models\Person;
 use App\Models\User;
 use Exception;
@@ -150,11 +151,13 @@ class EmployeeController extends Controller
 
         $user = User::get();
 
-        // dd($employee);
+        $roles = EmployeeRole::get();
+
 
 
         $data = [
             'employee' => $employee,
+            'roles' => $roles,
             'user' =>$user,
         ];
 
@@ -194,7 +197,10 @@ class EmployeeController extends Controller
 
                 $person = $isEdit ? Person::where('id', $request->id)->first() : new Person();
 
-				$this->save($employee, $request, $user, $person);
+                $role = $isEdit ? EmployeeRole::find($employee->role_id) : new EmployeeRole();
+
+
+				$this->save($employee, $request, $user, $person, $role);
 
 				DB::commit();
 
@@ -228,6 +234,7 @@ class EmployeeController extends Controller
         $method = $request->method();
 
         $rules = [
+
             'name' => ['required', 'max:250'],
             'email' => ['required', 'email'],
             'rg' => ['required', 'string', 'max:14'],
@@ -252,18 +259,7 @@ class EmployeeController extends Controller
      * @param Request $request
      * @return void
      */
-    private function save(Employee $employee, Request $request, User $user, Person $person){
-
-
-        $user->email = $request->email;
-        if ($request->password) {
-
-        $user->password = Hash::make($request->password);
-        $user->user_id = $request->user_id;
-
-        }
-
-        $user->save();
+    private function save(Employee $employee, Request $request, User $user, Person $person, EmployeeRole $role){
 
 
         $person->name = $request->name;
@@ -275,12 +271,23 @@ class EmployeeController extends Controller
         $person->save();
 
 
+        $employee->role_id = $request->role_id;
         $employee->person_id = $person->id;
         $employee->is_new = false;
-
-
+        
+        
         $employee->save();
 
+        
+        $user->email = $request->email;
+        if ($request->password) {
+
+        $user->password = Hash::make($request->password);
+        // $user->user_id = $request->user_id;
+
+        }
+
+        $user->save();
     }
 
 }

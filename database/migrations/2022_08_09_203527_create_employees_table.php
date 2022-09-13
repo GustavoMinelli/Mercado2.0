@@ -18,11 +18,12 @@ class CreateEmployeesTable extends Migration
             $table->id();
             $table->bigInteger('person_id');
             $table->timestamps();
-            // $table->string('role')->default(0);
+            $table->bigInteger('role_id');
             $table->boolean('is_new')->default(true);
             $table->string('work_code')->unique()->nullable();
 
             $table->foreign('person_id')->references('id')->on('people');
+            $table->foreign('role_id')->references('id')->on('employee_roles');
 
 
 

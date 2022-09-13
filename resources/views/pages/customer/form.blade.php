@@ -55,9 +55,23 @@
 
                 @if($isEdit)
 
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <label for="password">Senha</label>
                     <input type="password" class="form-control" name="password"id="password"required>
+                </div>
+
+                  <div class="form-group">
+
+                    <label for="password-confirm">Confirmar senha</label>
+                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required valuye>
+
+                </div> --}}
+
+                <div class="page-controls">
+
+                    {{-- <a class="btn btn-outline-primary" href="{{ url('customers') }}">Voltar</a> --}}
+
+                    <button type="submit" class="btn btn-outline-success">Enviar</button>
                 </div>
 
             @else
