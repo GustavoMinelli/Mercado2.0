@@ -30,7 +30,7 @@
                 <input type="hidden" name="id" value="{{ $employee->id }}">
 
                 {{-- @dd($employee) --}}
-
+{{-- 
                 <div class="form-group">
                     <label>Nome: </label>
                     <input type="text" class="form-control" name="name" required value="{{ old('name', $person->name) }}">
@@ -61,20 +61,25 @@
                 <div class="form-group">
                     <label>RG: </label>
                     <input type="number" class="form-control" name="rg" required value="{{ old('rg', $person->rg ) }}">
+                </div> --}}
+
+                <div class="form-group">
+                    <label>Carteira de trabalho</label>
+                    <input class="form-control" type="number" name="work_cde" value="{{ $employee->work_code }}" required />
                 </div>
 
                 <div class="form-group">
                     <label>Cargo: </label>
-                    <select name="role_id" required>
+                    <select name="role_id" class="form-select" required>
 
                         @if (count($roles) > 0)
 
                             @foreach ($roles as $role)
 
-                            <option>Selecione seu cargo</option>
+                            <option>Selecione o cargo</option>
 
 
-                            <option value="{{ $employee->role_id }}">{{ $role->name }}</option>
+                            <option value="{{ $role->id }}">{{ $role->name }}</option>
 
                             @endforeach
 
@@ -87,12 +92,37 @@
                     </select>
 
                 </div>
+
+                <div class="form-group">
+                    <label>Pessoa </label>
+                    <select name="person_id" class="form-select" required>
+
+                        @if (count($people) > 0)
+
+                            @foreach ($people as $person)
+
+                            <option>Selecione a pessoa</option>
+
+
+                            <option value="{{ $person->id }}">{{ $person->name }}</option>
+
+                            @endforeach
+
+                        @else
+
+                            <option>Nenhuma pessoa criado</option>
+
+                        @endif
+
+                    </select>
+
+                </div>
 {{-- 
                 <div class="form-group">
                     <label>Carteira de trabalho</label>
                     <input type="text" class="form-control" name="work_code" required value="{{ old('work_code', $employee->work_code) }}">
                 </div> --}}
-
+{{-- 
             @if($isEdit)
 
                 <div class="form-group">
@@ -116,7 +146,7 @@
 
                 </div>
 
-            @endif
+            @endif --}}
                 <div class="page-controls">
 
                     <a class="btn btn-outline-primary" href="{{ url('employees') }}">Voltar</a>

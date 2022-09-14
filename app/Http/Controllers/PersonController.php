@@ -40,13 +40,13 @@ class PersonController extends Controller
      */
     public function show(int $id){
 
-        $customer = Customer::find($id);
+        // $customer = Customer::find($id);
         $person = Person::find($id);
         $user = User::find($id);
 
         $data = [
             'person' => $person,
-            'customer' => $customer,
+            // 'customer' => $customer,
             'user' => $user
         ];
 
@@ -126,7 +126,7 @@ class PersonController extends Controller
             }
 
 
-            $this->preDelete($person);
+            // $this->preDelete($person);
 
             $person->delete();
 
@@ -148,13 +148,15 @@ class PersonController extends Controller
 
     }
 
-    private function preDelete(Person $person){
+    // private function preDelete(Person $person){
 
-        $user = $person->user;
+    //     $person->users()->detach();
 
-        $user->each->delete();
+    //     $users = $person->users;
 
-    }
+    //     $users->each->delete();
+
+    // }
     /**
      * Carrega um formulario para criar/editar uma pessoa
      *
@@ -237,7 +239,7 @@ class PersonController extends Controller
 
         $rules = [
             'name' => ['required', 'max:250'],
-            'email' => ['required', 'email'],
+            // 'email' => ['required', 'email'],
             'rg' => ['required', 'string', 'max:14'],
             'cpf' => ['required', 'string', 'max:14'],
             'address' => ['required', 'string', 'max:250'],
@@ -263,6 +265,7 @@ class PersonController extends Controller
     private function save(Person $person, Request $request, User $user){
 
         $person->name = $request->name;
+        $person->cpf = $request->cpf;
         $person->rg = $request->rg;
         $person->phone = $request->phone;
         $person->gender = $request->gender;
@@ -270,15 +273,15 @@ class PersonController extends Controller
 
         $person->save();
 
-        $user->email = $request->email;
+        // $user->email = $request->email;
 
-        if ($request->password) {
+        // if ($request->password) {
         
-        $user->password = Hash::make($request->password);
+        // $user->password = Hash::make($request->password);
 
-        }
+        // }
 
-        $user->save();
+        // $user->save();
 
     }
 

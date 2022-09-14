@@ -168,8 +168,11 @@ class CustomerController extends Controller {
      */
     private function form(Customer $customer) {
         
+        $people = Person::get();
+
         $data = [
-            'customer' => $customer
+            'customer' => $customer,
+            'people' => $people
         ];
         
         return view('pages.customer.form', $data);
@@ -203,7 +206,7 @@ class CustomerController extends Controller {
 				// Instanciar um novo cliente ou obter referência já salva no banco de dados
 				$customer = $isEdit ? Customer::find($request->id) : new Customer();
                 
-                $person = $isEdit ? Person::find($request->id) : new Person();
+                $person = $isEdit ? Person::where('id', $request->id)->first() : new Person();
                 
                 $customerUser = $customer->user;
                 
@@ -252,11 +255,11 @@ class CustomerController extends Controller {
         $method = $request->method();
         
         $rules = [
-            'name' => ['required', 'max:250'],
-            'email' => ['required', 'email'],
-            'rg' => ['required', 'string', 'max:14'],
-            'cpf' => ['required', 'string', 'max:14'],
-            'address' => ['required', 'string', 'max:250']
+            // 'name' => ['required', 'max:250'],
+            // 'email' => ['required', 'email'],
+            // 'rg' => ['required', 'string', 'max:14'],
+            // 'cpf' => ['required', 'string', 'max:14'],
+            // 'address' => ['required', 'string', 'max:250']
         ];
         
         $validator = Validator::make($data, $rules);
@@ -282,26 +285,26 @@ class CustomerController extends Controller {
     private function save(Customer $customer, Request $request, User $user, Person $person) {
         
         
-        $person->name = $request->name;
-        $person->rg = $request->rg;
-        $person->cpf = $request->cpf;
-        $person->phone = $request->phone;
-        $person->address = $request->address;
-        $person->gender = $request->gender;
-        $person->save();
+        // $person->name = $request->name;
+        // $person->rg = $request->rg;
+        // $person->cpf = $request->cpf;
+        // $person->phone = $request->phone;
+        // $person->address = $request->address;
+        // $person->gender = $request->gender;
+        // $person->save();
         
-        $customer->person_id = $person->id;
+        $customer->person_id = $request->person_id;
         $customer->is_new = false;
         $customer->save();
         
-        $user->email = $request->email;
-        $user->customer_id = $customer->id;
+        // $user->email = $request->email;
+        // $user->customer_id = $customer->id;
         
-        if ($request->password) {
-            $user->password = Hash::make($request->password);
-        }
+        // if ($request->password) {
+        //     $user->password = Hash::make($request->password);
+        // }
         
-        $user->save();
+        // $user->save();
         // if (!$customer->person_id) {
             //     $customer->person_id = $person->id;
             // }

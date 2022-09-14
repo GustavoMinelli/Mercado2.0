@@ -17,6 +17,7 @@ class CreateManagersTable extends Migration
             $table->id();
             $table->string('person_id');
             $table->string('role')->default(1);
+            $table->boolean('is_new')->default(false);;
             $table->timestamps();
         });
     }

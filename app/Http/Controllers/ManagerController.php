@@ -114,12 +114,12 @@ class ManagerController extends Controller
     private function form(Manager $manager){
 
         $user = User::get();
-        $person = Person::get();
+        $people = Person::get();
 
         $data = [
             'user' => $user,
             'manager'=>$manager,
-            'person' => $person
+            'people' => $people
         ];
 
         return view('pages.manager.form', $data);
@@ -147,10 +147,10 @@ class ManagerController extends Controller
 
                 $user = $isEdit ? User::find($manager->user->id) : new User();
 
-                $person = $isEdit ? Person::find($manager->person->id) : new Person();
+                $person = $isEdit ? Person::where($request->id) : new Person();
 
 
-                $this->save($manager, $request, $user, $person);
+                $this->save($manager, $user, $request, $person);
 
                 DB::commit();
 
@@ -176,9 +176,10 @@ class ManagerController extends Controller
         $method = $request->method();
 
         $rules = [
-            'name' => ['required'],
-            'email' => ['required', 'email'],
-            'password' => ['required', 'confirmed']
+            // 'name' => ['required'],
+            // 'email' => ['required', 'email'],
+            // 'password' => ['required', 'confirmed']
+            'person_id' => ['required']
 
         ];
 
@@ -194,23 +195,23 @@ class ManagerController extends Controller
 
     private function save(Manager $manager, User $user, Request $request, Person $person) {
 
-        $user->email = $request ->email;
-         if ($request->password) {
-             $user->password =  Hash::make($request->password);
-        }
+        // $user->email = $request ->email;
+        //  if ($request->password) {
+        //      $user->password =  Hash::make($request->password);
+        // }
 
-        $user->save();
+        // $user->save();
 
 
-        $person->name = $request->name;
-        $person->rg = $request->rg;
-        $person->phone = $request->phone;
-        $person->gender = $request->gender;
-        $person->address = $request->address;
+        // $person->name = $request->name;
+        // $person->rg = $request->rg;
+        // $person->phone = $request->phone;
+        // $person->gender = $request->gender;
+        // $person->address = $request->address;
 
-        $person->save();
+        // $person->save();
 
-        $manager->person_id = $person->id;
+        $manager->person_id = $request->person_id;
 
         $manager->is_new = false;
         $manager->save();

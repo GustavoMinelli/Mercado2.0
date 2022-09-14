@@ -113,6 +113,8 @@ class EmployeeController extends Controller
 
             $employee = Employee::find($id);
 
+            $user = User::find($id);
+
             if (!$employee) {
                 throw new \Exception('Funcionario não encontrado');
             }
@@ -122,7 +124,7 @@ class EmployeeController extends Controller
 
             $employee->delete();
 
-            $user->delete();
+            // $user->delete();
 
             DB::commit();
 
@@ -149,16 +151,19 @@ class EmployeeController extends Controller
      */
     private function form(Employee $employee){
 
-        $user = User::get();
+        $users = User::get();
 
         $roles = EmployeeRole::get();
+
+        $people = Person::get();
 
 
 
         $data = [
             'employee' => $employee,
             'roles' => $roles,
-            'user' =>$user,
+            'users' =>$users,
+            'people' =>$people,
         ];
 
         return view('pages.employee.form', $data);
@@ -234,13 +239,14 @@ class EmployeeController extends Controller
         $method = $request->method();
 
         $rules = [
-
-            'name' => ['required', 'max:250'],
-            'email' => ['required', 'email'],
-            'rg' => ['required', 'string', 'max:14'],
-            'cpf' => ['required', 'string', 'max:14'],
-            'address' => ['required', 'string', 'max:250'],
-            'phone' => ['required', 'string', 'max:14'],
+            'work_code' => ['required'],
+            'role_id' => ['required'],
+            // 'name' => ['required', 'max:250'],
+            // 'email' => ['required', 'email'],
+            // 'rg' => ['required', 'string', 'max:14'],
+            // 'cpf' => ['required', 'string', 'max:14'],
+            // 'address' => ['required', 'string', 'max:250'],
+            // 'phone' => ['required', 'string', 'max:14'],
             
         ];
 
@@ -262,32 +268,35 @@ class EmployeeController extends Controller
     private function save(Employee $employee, Request $request, User $user, Person $person, EmployeeRole $role){
 
 
-        $person->name = $request->name;
-        $person->rg = $request->rg;
-        $person->phone = $request->phone;
-        $person->gender = $request->gender;
-        $person->address = $request->address;
+        // $person->name = $request->name;
+        // $person->rg = $request->rg;
+        // $person->phone = $request->phone;
+        // $person->gender = $request->gender;
+        // $person->address = $request->address;
 
-        $person->save();
+        // $person->save();
+        // dd($request->all());
 
 
         $employee->role_id = $request->role_id;
-        $employee->person_id = $person->id;
+        $employee->work_code = $request->work_code;
+        $employee->person_id = $request->person_id; 
         $employee->is_new = false;
         
         
         $employee->save();
 
         
-        $user->email = $request->email;
-        if ($request->password) {
+        // $user->email = $request->email;
+        // $user->employee_id = $employee->id;
+        // if ($request->password) {
 
-        $user->password = Hash::make($request->password);
+        // $user->password = Hash::make($request->password);
         // $user->user_id = $request->user_id;
+        // }
+        
 
-        }
-
-        $user->save();
+        // $user->save();
     }
 
 }

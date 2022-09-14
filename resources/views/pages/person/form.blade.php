@@ -39,10 +39,10 @@
                     <input type="text" class="form-control" name="address" required value="{{ old('adress', $person->address) }}">
                 </div>
 
-                <div class="form-group">
+                {{-- <div class="form-group">
                     <label>Email: </label>
                     <input type="email" class="form-control" name="email" required value="{{ old('email', $user->email) }}">
-                </div>
+                </div> --}}
 
 
                 <div class="form-group">
@@ -73,7 +73,7 @@
                 {{-- <input type="checkbox" name="funcionario" value="{{$employee->id}}"> --}}
 
 
-            @if($isEdit)
+            {{-- @if($isEdit)
 
                 <div class="form-group">
                     <label for="password">Senha</label>
@@ -96,7 +96,7 @@
 
                 </div>
 
-            @endif
+            @endif --}}
                 <div class="page-controls">
 
                     <a class="btn btn-outline-primary" href="{{ url('people') }}">Voltar</a>

@@ -20,7 +20,7 @@
 
             @include('components.alert')
 
-            <form method="POST" action="{{ url('customers') }}">
+            <form method="POST" action="{{ url('managers') }}">
 
                 @csrf
 
@@ -29,6 +29,31 @@
                 <input type="hidden" name="id" value="{{ $customer->id }}">
 
                 <div class="form-group">
+                    <label>Pessoa </label>
+                    <select name="person_id" class="form-select" required>
+
+                        @if (count($people) > 0)
+
+                            @foreach ($people as $person)
+
+                            <option>Selecione a pessoa</option>
+
+
+                            <option value="{{ $person->id }}">{{ $person->name }}</option>
+
+                            @endforeach
+
+                        @else
+
+                            <option>Nenhuma pessoa criado</option>
+
+                        @endif
+
+                    </select>
+
+                </div>
+
+                {{-- <div class="form-group">
                     <label>Nome</label>
                     <input class="form-control" type="text" name="name" value="{{ $person->name }}" maxlength="100" required />
                 </div>
@@ -51,11 +76,11 @@
                 <div class="form-group">
                     <label>CPF</label>
                     <input class="form-control" type="number" name="cpf" value="{{ $person->cpf }}" required />
-                </div>
+                </div> --}}
 
-                @if($isEdit)
-
-                {{-- <div class="form-group">
+                {{-- @if($isEdit) --}}
+{{-- 
+                <div class="form-group">
                     <label for="password">Senha</label>
                     <input type="password" class="form-control" name="password"id="password"required>
                 </div>
@@ -67,15 +92,15 @@
 
                 </div> --}}
 
-                <div class="page-controls">
+                {{-- <div class="page-controls">
 
-                    {{-- <a class="btn btn-outline-primary" href="{{ url('customers') }}">Voltar</a> --}}
+                    <a class="btn btn-outline-primary" href="{{ url('customers') }}">Voltar</a>
 
                     <button type="submit" class="btn btn-outline-success">Enviar</button>
                 </div>
 
-            @else
-
+            @else --}}
+{{-- 
                 <div class="form-group">
 
                     <label for="password">Senha</label>
@@ -88,14 +113,14 @@
                     <label for="password-confirm">Confirmar senha</label>
                     <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required valuye>
 
-                </div>
+                </div> --}}
 
                 <div class="page-controls">
 
                     <a class="btn btn-outline-primary" href="{{ url('customers') }}">Voltar</a>
 
                     <button type="submit" class="btn btn-outline-success">Enviar</button>
-                @endif
+                {{-- @endif --}}
 
 
 

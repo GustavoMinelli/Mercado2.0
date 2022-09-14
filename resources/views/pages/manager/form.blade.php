@@ -29,6 +29,31 @@
                 <input type="hidden" name="id" value="{{$manager->id }}">
 
                 <div class="form-group">
+                    <label>Pessoa </label>
+                    <select name="person_id" class="form-select" required>
+
+                        @if (count($people) > 0)
+
+                            @foreach ($people as $person)
+
+                            <option>Selecione a pessoa</option>
+
+
+                            <option value="{{ $person->id }}">{{ $person->name }}</option>
+
+                            @endforeach
+
+                        @else
+
+                            <option>Nenhuma pessoa criado</option>
+
+                        @endif
+
+                    </select>
+
+                </div>
+
+                {{-- <div class="form-group">
                     <label>Nome: </label>
                     <input type="text" class="form-control" name="name" required value="{{ old('name', $person->name) }}">
                 </div>
@@ -46,7 +71,7 @@
                 <div class="form-group">
                     <label>Confirmar senha: </label>
                     <input type="password" name="password_confirmation" id="password-confirm" class="form-control" >
-                </div>
+                </div> --}}
                 <div class="page-controls">
 
                     <a class="btn btn-outline-primary" href="{{ url('managers') }}">Voltar</a>

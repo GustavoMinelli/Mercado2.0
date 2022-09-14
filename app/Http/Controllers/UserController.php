@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Person;
 use App\Models\User;
 use Dotenv\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator as FacadesValidator;
 use PhpParser\Node\Expr\FuncCall;
@@ -15,10 +17,13 @@ class UserController extends Controller
 
 
     public function index(){
+
         $users = User::orderBy('id', 'asc')->get();
+        // $people = Person::orderBy('id', 'asc')->get();
 
         $data = [
-            'users' => $users
+            'users' => $users,
+            // 'people' => $people
         ];
 
         return view('pages.user.index', $data);
@@ -27,15 +32,17 @@ class UserController extends Controller
     public function show($id){
 
         $user = User::find($id);
+        // $person = Person::find($id);
 
-        $employees = $user->employees;
+
+        // $employees = $user->employees;
 
 
 
         $data = [
             'user' => $user,
-            'employees' => $employees
-
+            // 'employees' => $employees
+            // 'person' => $person
         ];
 
         return view('pages.user.details', $data);
@@ -45,6 +52,8 @@ class UserController extends Controller
     public function create(){
 
         $user = new User();
+
+        // $person = new Person();
 
         return $this->form($user);
     }
@@ -78,7 +87,7 @@ class UserController extends Controller
                 throw new \Exception('Usuario nao encontrado');
 
             }
-            $this->preDelete($user);
+            // $this->preDelete($user);
 
             $user->delete();
 
@@ -99,9 +108,9 @@ class UserController extends Controller
 
     private function preDelete(User $user){
 
-        $employees = $user->employees;
+        $people = $user->people;
 
-        $employees->each->delete();
+        $people->each->delete();
 
 
         // if($user->employees=[]){
@@ -145,6 +154,9 @@ class UserController extends Controller
 
                 $user = $isEdit ? User::find($request->id) : new User();
 
+                // $person = $isEdit ? Person::where('id', $request->id)->first() : new Person();
+
+
                 $this->save($user, $request);
 
                 DB::commit();
@@ -171,9 +183,8 @@ class UserController extends Controller
         $data = $request->all();
 
         $method =  $request->method();
-
+        
         $rules = [
-            'name' => ['required'],
             'email' => ['required'],
             'password' => ['required']
         ];
@@ -187,5 +198,20 @@ class UserController extends Controller
         return $validator;
 
 
+    }
+
+    public function save(User $user, Request $request) {
+
+        $user->email = $request->email;
+
+        $user->employee_id = $request->employee_id;
+
+        if ($request->password) {
+        
+        $user->password = Hash::make($request->password);
+
+        }
+
+        $user->save();
     }
 }

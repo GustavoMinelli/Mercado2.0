@@ -37,8 +37,8 @@
                             <tr>
 
                                 <td>{{$employee->id}}</td>
-                                <td>{{$employee->user->name}}</td>
-                                <td>{{$employee->phone}}</td>
+                                <td>{{$employee->person->name}}</td>
+                                <td>{{$employee->person->phone}}</td>
                                 <td>
                                     <a class="btn btn-primary" href="{{url('employees/'.$employee->id. '/show') }}">Perfil</a>
                                     <a class="btn btn-primary" href="{{url('employees/'.$employee->id. '/edit') }}">Editar</a>

@@ -23,6 +23,7 @@
 
                         <th>ID</th>
                         <th>Nome</th>
+                        <th>Funcionarios</th>
                         <th>Ações</th>
 
                     </tr>
@@ -36,9 +37,9 @@
                         <tr>
 
                             <td>{{ $manager->id }}</td>
-                            <td>{{ $manager->name }}</td>
+                            <td>{{ $manager->person->name }}</td>
                             <td>
-                                <a class="btn btn-primary btn-sm" role="button" href="{{ url('managers/'.$user->id.'/show') }}">Visualizar</a>
+                                <a class="btn btn-primary btn-sm" role="button" href="{{ url('managers/'.$manager->id.'/show') }}">Visualizar</a>
                                 <a  class="btn btn-primary btn-sm" href="{{ url('managers/'.$manager->id. '/edit') }}">Editar</a>
                                 <a  class="btn btn-danger btn-sm" href="{{ url('managers/'.$manager->id. '/delete') }}">Remover</a>
 
