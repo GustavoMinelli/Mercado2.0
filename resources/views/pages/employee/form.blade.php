@@ -65,8 +65,8 @@
 
                 <div class="form-group">
                     <label>Carteira de trabalho</label>
-                    <input class="form-control" type="number" name="work_cde" value="{{ $employee->work_code }}" required />
-                </div>
+                    <input class="form-control" type="number" name="work_code" value="{{ $employee->work_code }}" required />
+                </div>  
 
                 <div class="form-group">
                     <label>Cargo: </label>

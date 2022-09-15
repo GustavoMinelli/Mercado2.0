@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Customer;
+use App\Models\Employee;
+use App\Models\Manager;
 use App\Models\Person;
 use App\Models\User;
 use Dotenv\Validator;
@@ -32,7 +35,7 @@ class UserController extends Controller
     public function show($id){
 
         $user = User::find($id);
-        // $person = Person::find($id);
+        $person = Person::find($id);
 
 
         // $employees = $user->employees;
@@ -42,7 +45,7 @@ class UserController extends Controller
         $data = [
             'user' => $user,
             // 'employees' => $employees
-            // 'person' => $person
+            'person' => $person
         ];
 
         return view('pages.user.details', $data);
@@ -122,8 +125,17 @@ class UserController extends Controller
 
     public function form(User $user){
 
+        $people = Person::get();
+        $employees = Employee::get();
+        $managers = Manager::get();
+        $customers = Customer::get();
+
         $data = [
             'user'=>$user,
+            'people'=>$people,
+            'employees'=>$employees,
+            'managers'=>$managers,
+            'customers' => $customers
         ];
 
         return view('pages.user.form', $data);
@@ -205,6 +217,10 @@ class UserController extends Controller
         $user->email = $request->email;
 
         $user->employee_id = $request->employee_id;
+
+        $user->customer_id = $request->customer_id;
+
+        $user->manager_id = $request->manager_id;
 
         if ($request->password) {
         

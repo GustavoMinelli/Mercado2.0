@@ -25,7 +25,7 @@
                         <tr>
                             <th>ID</th>
                             <th>Nome</th>
-                            <th>E-mail</th>
+                            {{-- <th>E-mail</th> --}}
                             <th>Ações</th>
                         </tr>
 
@@ -39,7 +39,7 @@
                         <tr>
                             <td>{{ $customer->id }}</td>
                             <td>{{ $customer->person->name }}</td>
-                            <td>{{ $customer->email }}</td>
+                            {{-- <td>{{ $customer->user->email }}</td> --}}
                             
                             <td>
                                 <a class="btn btn-primary btn-sm" role="button" href="{{ url('customers/'.$customer->id.'/show') }}">Visualizar</a>

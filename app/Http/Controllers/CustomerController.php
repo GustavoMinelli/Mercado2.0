@@ -133,7 +133,7 @@ class CustomerController extends Controller {
             
             // É necessário fazer algo antes de remover o registro?
             // $this->preDelete(...);
-            $this->preDelete($customer);
+            // $this->preDelete($customer);
             
             $customer->delete();
             
@@ -154,12 +154,12 @@ class CustomerController extends Controller {
         return redirect('customers');
     }
     
-    private function preDelete(Customer $customer){
+    // private function preDelete(Customer $customer){
         
-        $user = $customer->user;
+    //     $user = $customer->user;
 
-        $user->each->delete();
-    }
+    //     $user->each->delete();
+    // }
     /**
      * Carregar formulário para criar/editar um cliente
      *

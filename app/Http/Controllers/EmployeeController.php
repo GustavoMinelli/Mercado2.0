@@ -198,14 +198,14 @@ class EmployeeController extends Controller
 
 				$employee = $isEdit ? Employee::where('id', $request->id)->first() : new Employee();
 
-				$user = $isEdit ? User::find($employee->user->id) : new User();
+				// $user = $isEdit ? User::find($employee->user->id) : new User();
 
                 $person = $isEdit ? Person::where('id', $request->id)->first() : new Person();
 
                 $role = $isEdit ? EmployeeRole::find($employee->role_id) : new EmployeeRole();
 
 
-				$this->save($employee, $request, $user, $person, $role);
+				$this->save($employee, $request, $person, $role);
 
 				DB::commit();
 
@@ -239,7 +239,7 @@ class EmployeeController extends Controller
         $method = $request->method();
 
         $rules = [
-            'work_code' => ['required'],
+            'work_code' => ['required'],    
             'role_id' => ['required'],
             // 'name' => ['required', 'max:250'],
             // 'email' => ['required', 'email'],
@@ -265,7 +265,7 @@ class EmployeeController extends Controller
      * @param Request $request
      * @return void
      */
-    private function save(Employee $employee, Request $request, User $user, Person $person, EmployeeRole $role){
+    private function save(Employee $employee, Request $request){
 
 
         // $person->name = $request->name;

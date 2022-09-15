@@ -13,8 +13,8 @@
         <div class="page-body">
 
             <ul>
-                <li><b>Nome: </b>{{ $customer->user->name }}</li>
-                <li><b>E-mail: </b>{{ $customer->user->email }}</li>
+                <li><b>Nome: </b>{{ $customer->person->name }}</li>
+                {{-- <li><b>E-mail: </b>{{ $customer->user->email }}</li> --}}
                 <li><b>Endereço: </b>{{ $customer->person->address }}</li>
                 <li><b>CPF: </b>{{ $customer->person->cpf }}</li>
                 <li><b>RG: </b>{{ $customer->person->rg }}</li>

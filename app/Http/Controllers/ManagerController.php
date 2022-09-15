@@ -36,15 +36,15 @@ class ManagerController extends Controller
 
     public function show(int $id){
 
-        $people = Person::find($id);
-        $managers =  Manager::find($id);
-        $users = User::find();
+        $person = Person::find($id);
+        $manager =  Manager::find($id);
+        // $users = User::find();
         // dd($users);
 
         $data = [
-            'managers' => $managers,
-            'people' => $people,
-            'users' => $users,
+            'manager' => $manager,
+            'person' => $person,
+            // 'users' => $users,
         ];
 
         return view('pages.manager.details', $data);
@@ -86,15 +86,15 @@ class ManagerController extends Controller
                 throw new \Exception('Gerente não encontrado');
 
             }
-            $person = $manager->person;
+            // $person = $manager->person;
 
-            $user = $manager->user;
+            // $user = $manager->user;
 
             $manager->delete();
             
-            $user->delete();
+            // $user->delete();
             
-            $person->delete();
+            // $person->delete();
 
             DB::commit();
 
@@ -145,12 +145,12 @@ class ManagerController extends Controller
 
                 $manager = $isEdit ? Manager::find('id'. $request->id) : new Manager();
 
-                $user = $isEdit ? User::find($manager->user->id) : new User();
+                // $user = $isEdit ? User::find($manager->user->id) : new User();
 
                 $person = $isEdit ? Person::where($request->id) : new Person();
 
 
-                $this->save($manager, $user, $request, $person);
+                $this->save($manager, $request, $person);
 
                 DB::commit();
 
@@ -193,7 +193,7 @@ class ManagerController extends Controller
         return $validator;
     }
 
-    private function save(Manager $manager, User $user, Request $request, Person $person) {
+    private function save(Manager $manager, Request $request, Person $person) {
 
         // $user->email = $request ->email;
         //  if ($request->password) {

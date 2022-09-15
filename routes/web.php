@@ -59,12 +59,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('/categories',        'CategoryController@update');
     Route::get('/categories/{id}/delete', 'CategoryController@delete');
     Route::get('/categories/{id}/products', 'CategoryController@show');
-});
-//
-Route::group([], function(){
-
     Route::get('/categories', 'CategoryController@index');
-
 });
 
 /*Rotas para gerenciar funcionarios */
@@ -74,18 +69,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/employees/create',      'EmployeeController@create');
     Route::get('/employees/{id}/delete', 'EmployeeController@delete');
     Route::get('/employees/{id}/show', 'EmployeeController@show');
-});
-
     Route::post('/employees',       'EmployeeController@insert');
     Route::put('/employees',        'EmployeeController@update');
-
-
-Route::group(['middleware' => ['auth']], function () {
-
     Route::get('/employees/{id}/edit',   'EmployeeController@edit');
 });
-
-
 
 // Route::group([], function(){ // Produtos
 Route::group(['middleware' => ['auth', 'employee']], function () {
@@ -95,24 +82,20 @@ Route::group(['middleware' => ['auth', 'employee']], function () {
     Route::get('/products/{id}/edit',    'ProductController@edit');
     Route::put('/products',         'ProductController@update');
     Route::get('/products/{id}/delete',  'ProductController@delete');
+    Route::get('/products',             'ProductController@index');
 
 });
 Route::group(['middleware' => ['auth']], function () {
-
-    Route::get('/products',             'ProductController@index');
-
-
-    // Route::group([], function(){ //Estoque
-
 
     Route::get('/inventories',          'InventoryController@index');
     Route::get('/inventories/create',     'InventoryController@create');
     Route::post('/inventories',      'InventoryController@insert');
     Route::get('/inventories/{id}/delete',     'InventoryController@delete');
 
-    // });
 
-    // Route::group([], function(){ //Promoções
+});
+
+Route::group([], function(){ //Promoções
 
     Route::get('/promotions',           'PromotionController@index');
     Route::get('/promotions/create',     'PromotionController@create');
@@ -121,9 +104,9 @@ Route::group(['middleware' => ['auth']], function () {
     Route::put('/promotions',       'PromotionController@update');
     Route::get('/promotions/{id}/delete', 'PromotionController@delete');
 
-    // });
+});
 
-    // Route::group([], function(){ //Vendas
+Route::group([], function(){ //Vendas
 
     Route::get('/sales',                'SaleController@index');
     Route::get('sales/create',             'SaleController@create');
@@ -131,7 +114,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/sales/{id}/delete/',     'SaleController@delete');
     Route::get('/sales/{id}/products',   'SaleController@show');
 
-    });
+});
 
 Route::group(['middleware' => ['auth']], function () {
 
@@ -145,7 +128,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 });
 
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth', 'manager']], function () {
 
     Route::get('/roles',            'EmployeeRoleController@index');
     Route::get('/roles/create', 'EmployeeRoleController@create');
@@ -153,7 +136,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/roles/{id}/edit',   'EmployeeRoleController@edit');
     Route::put('/roles',        'EmployeeRoleController@update');
     Route::get('/roles/{id}/delete', 'EmployeeRoleController@delete');
-    Route::get('/roles/{id}/products', 'EmployeeRoleController@show');
+    Route::get('/roles/{id}/show', 'EmployeeRoleController@show');
 
 });
 
@@ -165,7 +148,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/people/{id}/edit',   'PersonController@edit');
     Route::put('/people',        'PersonController@update');
     Route::get('/people/{id}/delete', 'PersonController@delete');
-    Route::get('/people/{id}/products', 'PersonController@show');
+    Route::get('/people/{id}/show', 'PersonController@show');
 
 });
 
@@ -176,6 +159,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/users/{id}/edit', 'UserController@edit');
     Route::put('/users', 'UserController@update');
     Route::get('/users/{id}/delete', 'UserController@delete');
+    Route::get('/users/{id}/show', 'UserController@show');
+
 
 });
 

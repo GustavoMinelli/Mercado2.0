@@ -1,5 +1,5 @@
 @extends('layouts.main', [
-    'pageTItle' => 'Admin'
+    'pageTItle' => 'Manager'
 ])
 
 @section('content')
@@ -16,15 +16,15 @@
             {{-- @foreach ($users as $user) --}}
 
             <ul>
-                <li><b>ID:</b>{{$user->id}}</li>
-                <li><b>Name:</b>{{$user->name}}</li>
-                <li><b>Email:</b>{{$user->email}}</li>
+                <li><b>ID:</b>{{$manager->id}}</li>
+                {{-- <li><b>Name:</b>{{$person->name}}</li> --}}
+                {{-- <li><b>Email:</b>{{$person->email}}</li> --}}
             </ul>
 
             {{-- @endforeach --}}
 
             <div class="page-controls">
-                <a class="btn btn-outline-primary" href="{{ url('admins') }}">Voltar</a>
+                <a class="btn btn-outline-primary" href="{{ url('managers') }}">Voltar</a>
 
             </div>
 

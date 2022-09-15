@@ -10,7 +10,7 @@
 		['Vendas', 'sales'],
 		['Promoções', 'promotions'],
         ['Gerente', 'managers'],
-        // ['Carrinho', 'cart'],
+        ['Carrinho', 'cart'],
         ['Cargos', 'roles'],
         ['Usuarios', 'users'],
 	];
