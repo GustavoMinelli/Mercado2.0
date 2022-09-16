@@ -1,23 +1,28 @@
 $(function(){
     $('.page.page-user.page-form').each(function(){
 
-    var $this = $(this);
-        var $checkbox = $this.find('checkbox');
+        var $self = $(this);
 
-        $checkbox.on('change', function(){
+
+
+        $self.find('.checkbox').on('change', function() {
+
+            var $checkbox = $(this);
+
             var $this = $(this);
 
             var type = $this.data('type');
 
-            var select= $this.find('select');
+            var $select = $this.parents('.row').find(`.${type}`);
 
-            if($checkbox.is(':checked')){
-                $checkbox.removeClass('d-none');
-            } else{
+            if ($checkbox.is(':checked')) {
 
-                $checkbox.addClass('d-none');
+                $select.removeClass('d-none');
+
+            } else {
+
+                $select.addClass('d-none');
             }
-        console.log();    
         })
     })
 })

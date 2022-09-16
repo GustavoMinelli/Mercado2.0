@@ -10,7 +10,7 @@
     @endphp
 
     <div class="page page-user page-form">
-        
+
 
         <div class="page-header">
             <h1>Usuario<small>{{ $isEdit ? ' Editar usuario' : ' Novo usuario' }}</small></h1>
@@ -28,7 +28,8 @@
 
                 <input type="hidden" name="id" value="{{ $user->id }}">
 
-               
+
+
 
                 <div class="form-group person">
                     <label>Pessoa </label>
@@ -36,54 +37,50 @@
 
                         @if (count($people) > 0)
 
-                            @foreach ($people as $person)
+                        @foreach ($people as $person)
 
-                            <option>Selecione a pessoa</option>
+                        <option>Selecione a pessoa</option>
 
 
-                            <option value="{{ $person->id }}">{{ $person->name }}</option>
+                        <option value="{{ $person->id }}">{{ $person->name }}</option>
 
-                            @endforeach
+                        @endforeach
 
                         @else
 
-                            <option>Nenhuma pessoa criada</option>
+                        <option>Nenhuma pessoa criada</option>
 
                         @endif
 
                     </select>
 
                 </div>
-                
-                {{-- <div class="form-check">
-                    <input class="form-check-input employee" type="checkbox" value="" required="employee_id">
-                    <label class="form-check-label" for="employee_id">
-                      Funcionario
-                    </label>
-                </div> --}}
-                <div class="form-group person">
-                    <label>Funcionario </label>
-                    <select name="employee_id" class="form-select" required>
 
-                        @if (count($employees) > 0)
+                <div class="row">
 
-                            @foreach ($employees as $employee)
+                    <div class="form-check checkbox-user">
+                        <input class="form-check-input checkbox" type="checkbox" id="manager_id" data-type="manager" name="checkboxManager">
+                        <label class="form-check-label" for="emloyee">Funcionario</label>
+                    </div>
 
-                            <option>Selecione o funcionario</option>
+                    <div class="form-check select manager d-none">
 
+                        <select name="manager_id" class="form-select">
 
-                            <option value="{{ $employee->id }}">{{ $person->name }}</option>
+                            <option value="">Selecione um funcionario</option>
+
+                            @foreach ($employees as $employees)
+
+                                <option value="{{ $people->id }}">{{ $person->name }}</option>
 
                             @endforeach
 
-                        @else
+                        </select>
 
-                            <option>Nenhum funcionario criado</option>
+                    </div>
 
-                        @endif
-
-                    </select>
                 </div>
+
 
                 {{-- <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
@@ -92,38 +89,39 @@
                     </label>
                 </div> --}}
 
-                <div class="form-group person">
-                    <label>Cliente </label>
-                    <select name="customer_id" class="form-select" required>
+                <div class="row">
 
-                        @if (count($customers) > 0)
+                    <div class="form-check checkbox-user">
+                        <input class="form-check-input checkbox" type="checkbox" id="manager_id" data-type="manager" name="checkboxManager">
+                        <label class="form-check-label" for="manager_id">Gerente</label>
+                    </div>
 
-                            @foreach ($customers as $customer)
+                    <div class="form-check select manager d-none">
 
-                            <option>Selecione o cliente</option>
+                        <select name="manager_id" class="form-select">
 
+                            <option value="">Selecione um gerente</option>
 
-                            <option value="{{ $customer->id }}">{{ $person->name }}</option>
+                            @foreach ($managers as $manager)
+
+                                <option value="{{ $manager->id }}">{{ $person->name }}</option>
 
                             @endforeach
 
-                        @else
+                        </select>
 
-                            <option>Nenhum cliente criado</option>
+                    </div>
 
-                        @endif
-
-                    </select>
                 </div>
 
-                
+
                 {{-- <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
                     <label class="form-check-label" for="defaultCheck1">
                         Cliente
                     </label>
                 </div> --}}
-                  
+
                 {{-- <div class="form-check">
                     <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
                     <label class="form-check-label" for="defaultCheck1">
@@ -131,49 +129,51 @@
                     </label>
                 </div> --}}
 
-                <div class="form-group person">
-                    <label>Gerente </label>
+                <div class="row">
 
-                    <select name="manager_id" class="form-select" required>
+                    <div class="form-check checkbox-user">
+                        <input class="form-check-input checkbox" type="checkbox" id="person" data-type="manager" name="checkboxPerson">
+                        <label class="form-check-label" for="person">Pessoa</label>
+                    </div>
 
-                        @if (count($managers) > 0)
+                    <div class="form-check select manager d-none">
 
-                            @foreach ($managers as $manager)
+                        <select name="manager_id" class="form-select">
 
-                            <option>Selecione o gerente</option>
+                            <option value="">Selecione uma pessoa</option>
 
+                            @foreach ($people as $person)
 
-                            <option value="{{ $manager->id }}">{{ $person->name }}</option>
+                                <option value="{{ $people->id }}">{{ $person->name }}</option>
 
                             @endforeach
 
-                        @else
+                        </select>
 
-                            <option>Nenhum gerente criado</option>
+                    </div>
 
-                        @endif
-
-                    </select>
                 </div>
-                
-                
-                
+
+
+
+
+
 
                 <div class="form-group">
                     <label>Email: </label>
                     <input type="email" class="form-control" name="email" required value="{{ old('email', $user->email) }}">
                 </div>
-                
+
                 {{-- <input type="checkbox" name="funcionario" value="{{$employee->id}}"> --}}
 
-                
+
                 @if($isEdit)
-                
+
                 <div class="form-group">
                     <label for="password">Senha</label>
                     <input type="password" class="form-control" name="password" id="password"required>
                 </div>
-                
+
             @else
 
                 <div class="form-group">
