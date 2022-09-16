@@ -20,15 +20,8 @@ class UserMiddleware
      */
     public function handle(Request $request, Closure $next) {
 
-        // dd('ola');
-
         if(Auth::check()) {
 
-            //employee role == 0
-            //admin role == 1
-            //user role == 2
-
-            // dd('ola');
 
             if(Auth::user()->role == 2  ) {
 
@@ -41,14 +34,9 @@ class UserMiddleware
                     return $next($request);
                 }
 
-            }// } else {
-
-            //     return route('login');
-
-            // }
+            }
         }
 
-            // return redirect('login');
 
             return $next($request);
 

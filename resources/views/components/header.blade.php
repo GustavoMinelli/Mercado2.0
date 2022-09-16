@@ -1,18 +1,18 @@
 @php
 
 	$pages = [
-        ['Funcionários', 'employees'],
-		['Clientes', 'customers'],
-		['Categorias', 'categories'],
         ['Pessoas', 'people'],
+        ['Clientes', 'customers'],
+        ['Funcionários', 'employees'],
+        ['Gerente', 'managers'],
+        ['Usuarios', 'users'],
+		['Categorias', 'categories'],
 		['Produtos', 'products'],
 		['Estoque', 'inventories'],
 		['Vendas', 'sales'],
 		['Promoções', 'promotions'],
-        ['Gerente', 'managers'],
         ['Carrinho', 'cart'],
         ['Cargos', 'roles'],
-        ['Usuarios', 'users'],
 	];
 
 @endphp

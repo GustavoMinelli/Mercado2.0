@@ -1,82 +1,48 @@
 @extends('layouts.main', [
-    'pageTitle ' => 'Carrinho',
+    'pageTitle' => 'Clientes'
 ])
 
 @section('content')
 
 
 
-<div class="container">
-    <div class="row">
-        <div class="col-lg-12 col-sm-12 col-12 main-section">
-            <div class="dropdown">
-                <button type="button" class="btn btn-info" data-toggle="dropdown">
-                    <i class="fa fa-shopping-cart" aria-hidden="true"></i> Cart <span class="badge badge-pill badge-danger">{{ count((array) session('cart')) }}</span>
-                </button>
-                <div class="dropdown-menu">
-                    <div class="row total-header-section">
-                        <div class="col-lg-6 col-sm-6 col-6">
-                            <i class="fa fa-shopping-cart" aria-hidden="true"></i> <span class="badge badge-pill badge-danger">{{ count((array) session('cart')) }}</span>
+@if(Session::has('cart'))
+<div class="row">
+    <div class="col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3">
+        <ul class="list-group">
+            @foreach($products as $product)
+                    <li class="list-group-item">
+                        <span class="badge">{{ $product['qty'] }}</span>
+                        <strong>{{ $product['item']['title'] }}</strong>
+                        <span class="label label-success">{{ $product['price'] }}</span>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-primary btn-xs dropdown-toogle" data-toggle="dropdown">Action <span class="caret"></span></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ route('product.reduceByOne', ['id' => $product['item']['id']]) }}">Reduce by 1</a></li>
+                                <li><a href="{{ route('product.remove', ['id' => $product['item']['id']]) }}">Reduce All</a></li>
+                            </ul>
                         </div>
-                        @php $total = 0 @endphp
-                        @foreach((array) session('cart') as $id => $details)
-                            @php $total += $details['price'] * $details['quantity'] @endphp
-                        @endforeach
-                        <div class="col-lg-6 col-sm-6 col-6 total-section text-right">
-                            <p>Total: <span class="text-info">$ {{ $total }}</span></p>
-                        </div>
-                    </div>
-                    @if(session('cart'))
-                        @foreach(session('cart') as $id => $details)
-                            <div class="row cart-detail">
-                                <div class="col-lg-4 col-sm-4 col-4 cart-detail-img">
-                                    <img src="{{ $details['image'] }}" />
-                                </div>
-                                <div class="col-lg-8 col-sm-8 col-8 cart-detail-product">
-                                    <p>{{ $details['name'] }}</p>
-                                    <span class="price text-info"> ${{ $details['price'] }}</span> <span class="count"> Quantity:{{ $details['quantity'] }}</span>
-                                </div>
-                            </div>
-                        @endforeach
-                    @endif
-                    <div class="row">
-                        <div class="col-lg-12 col-sm-12 col-12 text-center checkout">
-                            {{-- <a href="{{ route('/') }}" class="btn btn-primary btn-block">View all</a> --}}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                    </li>
+            @endforeach
+        </ul>
     </div>
 </div>
-
-<br/>
-<div class="container">
-
-    @if(session('success'))
-        <div class="alert alert-success">
-          {{ session('success') }}
-        </div>
-    @endif
-
-    @yield('content')
-</div>
-
 <div class="row">
-    @foreach($products as $product)
-        <div class="col-xs-18 col-sm-6 col-md-3">
-            <div class="thumbnail">
-                <img src="{{ $product->image }}" alt="">
-                <div class="caption">
-                    <h4>{{ $product->name }}</h4>
-                    <p>{{ $product->description }}</p>
-                    <p><strong>Price: </strong> {{ $product->price }}$</p>
-                    <p class="btn-holder"><a href="{{ route('add.to.cart', $product->id) }}" class="btn btn-warning btn-block text-center" role="button">Add to cart</a> </p>
-                </div>
-            </div>
-        </div>
-    @endforeach
+    <div class="col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3">
+        <strong>Total: {{ $totalPrice }}</strong>
+    </div>
 </div>
-
-        @endsection
-
+<hr>
+<div class="row">
+    <div class="col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3">
+        <a href="{{ route('checkout') }}" type="button" class="btn btn-success">Checkout</a>
+    </div>
+</div>
+@else
+<div class="row">
+    <div class="col-sm-6 col-md-6 col-md-offset-3 col-sm-offset-3">
+        <h2>No Items in Cart!</h2>
+    </div>
+</div>
+@endif
+@endsection

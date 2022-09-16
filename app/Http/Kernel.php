@@ -68,5 +68,6 @@ class Kernel extends HttpKernel
         'customer' =>   \App\Http\Middleware\UserMiddleware::class,
         'employee' => \App\Http\Middleware\EmployeeMiddleware::class,
         // 'customer' =>  \App\Http\Middleware\CustomerMiddleware::class
+        'PermissionCheck' => \App\Http\Middleware\PermissionCheckMiddleware::class
     ];
 }

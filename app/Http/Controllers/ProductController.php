@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Category;
 use App\Models\Product;
 use Exception;
@@ -215,30 +216,23 @@ class ProductController extends Controller
             $product->save();
 
 
-        }
+    }
 
     /*Carrinho Teste*/
 
-    public function addToCart($id) {
+    public function addToCart(Request $request, $id) {
 
-        $product = Product::findOrFail($id);
+        $product = Product::find($id);
 
-        $cart = Session::get('cart', []);
+        $oldCart = Session::has('cart') ? Session::get('cart') : null;
 
-        if(isset($cart[$id])) {
-            $cart[$id] ['current_qty']++;
+        $cart = new Cart($oldCart);
 
-        } else {
-            $cart[$id] = [
-                "name" => $product->name,
-                "current_qty" => 1,
-                'price' => $product->price,
+        $cart ->add($product, $product->id);
 
-            ];
-        }
+        $request->session()->put('cart', $cart);
 
-        Session::put('cart', $cart);
-        return redirect()->back()->with('success', 'Product adicionado no carrinho com sucesso.');
+        return redirect()->back()->with('success', 'Produto adicionado no carrinho com sucesso.');
 
     }
 
@@ -253,19 +247,20 @@ class ProductController extends Controller
         }
     }
 
-    public function deleteCart(Request $request){
-        if($request->id) {
-            $cart = session()->get('cart');
+    public function deleteCart($id){
 
-            if(isset($cart[$request->id])) {
+        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        $cart = new Cart($oldCart);
+        $cart->removeItem($id);
 
-                unset($cart[$request->id]);
-                session()->put('cart', $cart);
-            }
-
-            Session::flash('success', 'Carrinho removido com sucesso');
+        if (count($cart->items) > 0) {
+            Session::put('cart', $cart);
+        } else {
+            Session::forget('cart');
         }
+            Session::flash('success', 'Carrinho removido com sucesso');
     }
+    
 
     public function indexCart(){
 
@@ -278,7 +273,14 @@ class ProductController extends Controller
 
         return view('pages.cart.index', $data);
     }
-            // return redirect('login');
 
-
+    public function getCart()
+    {
+        if (!Session::has('cart')) {
+            return view('shop.shopping-cart');
+        }
+        $oldCart = Session::get('cart');
+        $cart = new Cart($oldCart);
+        return view('pages.cart.index', ['products' => $cart->items, 'totalPrice' => $cart->totalPrice]);
+    }
 }

@@ -69,9 +69,9 @@
 
                             <option value="">Selecione um funcionario</option>
 
-                            @foreach ($employees as $employees)
+                            @foreach ($employees as $employee)
 
-                                <option value="{{ $people->id }}">{{ $person->name }}</option>
+                                <option value="{{ $employee->id }}">{{ $employee->person->name }}</option>
 
                             @endforeach
 
@@ -104,7 +104,7 @@
 
                             @foreach ($managers as $manager)
 
-                                <option value="{{ $manager->id }}">{{ $person->name }}</option>
+                                <option value="{{ $manager->id }}">{{ $manager->person->name }}</option>
 
                             @endforeach
 
@@ -132,19 +132,19 @@
                 <div class="row">
 
                     <div class="form-check checkbox-user">
-                        <input class="form-check-input checkbox" type="checkbox" id="person" data-type="manager" name="checkboxPerson">
-                        <label class="form-check-label" for="person">Pessoa</label>
+                        <input class="form-check-input checkbox" type="checkbox" id="person" data-type="customer" name="checkboxCustomer">
+                        <label class="form-check-label" for="person">Cliente</label>
                     </div>
 
-                    <div class="form-check select manager d-none">
+                    <div class="form-check select customer d-none">
 
-                        <select name="manager_id" class="form-select">
+                        <select name="customer_id" class="form-select">
 
-                            <option value="">Selecione uma pessoa</option>
+                            <option value="">Selecione um cliente</option>
 
-                            @foreach ($people as $person)
+                            @foreach ($customers as $customer)
 
-                                <option value="{{ $people->id }}">{{ $person->name }}</option>
+                                <option value="{{ $customer->id }}">{{ $customer->person->name }}</option>
 
                             @endforeach
 
