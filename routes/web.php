@@ -96,7 +96,7 @@ Route::group(['middleware' => ['auth',  'PermissionCheck:employee']], function (
 });
 
 /* Rotas liberadas para gerentes */
-// Route::group(['middleware' => ['auth', 'PermissionCheck:manager']], function () {
+Route::group(['middleware' => ['auth', 'PermissionCheck:manager']], function () {
     
     Route::group([], function(){//Usuario
         Route::get('/users', 'UserController@index');
@@ -118,7 +118,6 @@ Route::group(['middleware' => ['auth',  'PermissionCheck:employee']], function (
         
     });
     
-    Route::group([], function(){//Cargos
         
         Route::get('/roles',            'EmployeeRoleController@index');
         Route::get('/roles/create', 'EmployeeRoleController@create');
@@ -160,14 +159,8 @@ Route::group(['middleware' => ['auth',  'PermissionCheck:employee']], function (
         Route::get('/managers/{id}/show', 'ManagerController@show');
         
     });
-// });
 
-Route::group(['middleware' => ['auth', 'PermissionCheck:customer']], function () {
-
-});
-
-
-Route::group([], function(){ //Carrinho
+    Route::group([], function(){ //Carrinho
     
     Route::get('/cart', ['uses'=> 'ProductController@indexCart', 'as' => 'product.index']);
     Route::get('/add-to-cart/{id}', ['uses' => 'ProductController@AddToCart','as' => 'product.addToCart']);
@@ -176,8 +169,13 @@ Route::group([], function(){ //Carrinho
 
 });
 
+Route::group(['middleware' => ['auth', 'PermissionCheck:customer']], function () {
 
-Auth::routes();
+});
+
+
+
+    Auth::routes();
 
     // Route::get('/login',                'LoginController@showLoginForm');
     // Route::post('/login',                'LoginController@login');
