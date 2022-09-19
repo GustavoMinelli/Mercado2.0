@@ -72,9 +72,11 @@
 
             @else
 
-                <div class="page-message"></div>
-                    <h3>Nenhuma promoção criada</h3>
-                </div>
+            <div class="page-message">
+
+                <h3>Nenhuma promoção criada</h3>
+                
+            </div>
 
             @endif
 

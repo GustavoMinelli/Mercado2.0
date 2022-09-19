@@ -44,6 +44,7 @@
                             <td>
                                 {{-- <a class="btn btn-primary btn-sm" role="button" href="{{ url('users/'.$user->id.'/show') }}">Visualizar</a> --}}
                                 <a class="btn btn-primary btn-sm" role="button" href="{{ url('users/'.$user->id.'/edit') }}">Editar</a>
+                                <a class="btn btn-primary btn-sm" role="button" href="{{ url('users/'.$user->id.'/show') }}">Detalhes</a>
                                 <a class="btn btn-danger btn-sm" role="button" href="{{ url('users/'.$user->id.'/delete') }}">Remover</a>
                             </td>
                         </tr>

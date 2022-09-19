@@ -1,10 +1,18 @@
 .page-header {
     margin-bottom: 30px;
+    /* color: #ff7b00; */
+}
+.page-header h1 {
+
+    font-size: 40px;
+    color: #FFD369;
+
 }
 
 .page-header h1 small {
     font-size: 24px;
     opacity: 0.6;
+    color: #EEEEEE;
 }
 
 .form-group {
@@ -19,7 +27,54 @@
     display: flex;
 }
 
+body {
+    background-color: #393E46;
+}
 
-.card {
-    /* border: none; */
+.page-welcome{
+    text-align: center;
+}
+
+.page-message {
+    color: #EEEEEE;
+
+}
+
+.dropdown-menu {
+    background-color: #222831;
+    
+}
+.dropdown-item{
+    color: #FFD369;
+}
+
+.table-striped th{
+    color: #FFD369;
+
+}
+
+.table{
+    background-color: #393E46;
+}
+
+.btn-danger {
+    border-color: #FFD369;
+    background-color: #FFD369;
+    color: #000 !important;
+}
+
+.btn-primary {
+    border-color: #000 !important;
+    background-color: #000 !important;
+    color: #fff !important;
+}
+
+.navbar-brand {
+    color: #FFD369 !important;
+}
+.fa-cart-shopping{
+    
+}
+.nav-link{
+
 }

@@ -4,8 +4,8 @@
         ['Pessoas', 'people'],
         ['Clientes', 'customers'],
         ['Funcionários', 'employees'],
-        ['Gerente', 'managers'],
-        ['Usuarios', 'users'],
+        // ['Gerente', 'managers'],
+        // ['Usuarios', 'users'],
 		['Categorias', 'categories'],
 		['Produtos', 'products'],
 		['Estoque', 'inventories'],
@@ -17,7 +17,9 @@
 
 @endphp
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+{{-- <nav class="navbar navbar-expand-lg navbar-light bg-light"> --}}
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #222831;">
+
 
 
     <div class="container-fluid">
@@ -39,24 +41,24 @@
 						<a class="nav-link" aria-current="page" href="{{ url($page[1]) }}">{{ $page[0] }}</a>
 					</li>
 
+                @endforeach
 
-                    @endforeach
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Gerencia</a>
 
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="/managers">Gerentes</a></li>
+                      <li><a class="dropdown-item" href="/users">Usuarios</a></li>
+                      {{-- <li><hr class="dropdown-divider"></li>
+                      <li><a class="dropdown-item" href="#">Something else here</a></li> --}}
+                    </ul>
+
+                </li>
                     
-                </ul>
+            </ul>
                 
-            </div>
+        </div>
             
-            {{-- <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Dropdown link
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-            </li> --}}
             
             
             
@@ -82,13 +84,13 @@
                     
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                        {{-- {{ Auth::user()->$person->name }} --}}
+                        {{-- {{ (Auth::user()->manager->person->name) }} --}}
                         "Username"
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 
-                        {{-- <a href="{{url('users/'.$user->id.'/show') }}" class="dropdown-item">Perfil</a> --}}
+                            {{-- <a href="{{url('users/'.$user->id.'/show') }}" class="dropdown-item">Perfil</a> --}}
                         <a class="dropdown-item" href="{{ route('logout') }}"
                            onclick="event.preventDefault();
                                          document.getElementById('logout-form').submit();">
