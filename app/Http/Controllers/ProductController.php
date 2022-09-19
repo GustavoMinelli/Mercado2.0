@@ -285,13 +285,13 @@ class ProductController extends Controller
     public function indexCart(){
 
 
-        // $products = Product::orderBy('id', 'asc')->get();
+        $products = Product::orderBy('id', 'asc')->get();
 
-        // $data = [
-        //     'products' => $products
-        // ];
+        $data = [
+            'products' => $products
+        ];
 
-        return view('pages.product.cart');
+        return view('pages.product.cart', $data);
     }
 
     public function getCart()
@@ -301,6 +301,6 @@ class ProductController extends Controller
         }
         $oldCart = Session::get('cart');
         $cart = new Cart($oldCart);
-        return view('pages.cart.index', ['products' => $cart->items, 'totalPrice' => $cart->totalPrice]);
+        return view('pages.product.cart', ['products' => $cart->items, 'totalPrice' => $cart->totalPrice]);
     }
 }

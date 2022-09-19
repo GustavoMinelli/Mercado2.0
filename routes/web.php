@@ -80,31 +80,31 @@ Route::group(['middleware' => ['auth',  'PermissionCheck:employee']], function (
 
     });
 
-    /*Rotas para gerenciar pessoas */
-    Route::group([], function(){//Pessoas
+});
+/*Rotas para gerenciar pessoas */
+Route::group([], function(){//Pessoas
 
-        Route::get('/people',            'PersonController@index');
-        Route::get('/people/create', 'PersonController@create');
-        Route::post('/people',       'PersonController@insert');
-        Route::get('/people/{id}/edit',   'PersonController@edit');
-        Route::put('/people',        'PersonController@update');
-        Route::get('/people/{id}/delete', 'PersonController@delete');
-        Route::get('/people/{id}/show', 'PersonController@show');
+    Route::get('/people',            'PersonController@index');
+    Route::get('/people/create', 'PersonController@create');
+    Route::post('/people',       'PersonController@insert');
+    Route::get('/people/{id}/edit',   'PersonController@edit');
+    Route::put('/people',        'PersonController@update');
+    Route::get('/people/{id}/delete', 'PersonController@delete');
+    Route::get('/people/{id}/show', 'PersonController@show');
 
-    });
 });
 
+Route::group([], function(){//Usuario
+    Route::get('/users', 'UserController@index');
+    Route::get('/users/create', 'UserController@create');
+    Route::get('/users/{id}/edit', 'UserController@edit');
+    Route::put('/users', 'UserController@update');
+    Route::get('/users/{id}/delete', 'UserController@delete');
+    Route::get('/users/{id}/show', 'UserController@show');
+});
 /* Rotas liberadas para gerentes */
 Route::group(['middleware' => ['auth', 'PermissionCheck:manager']], function () {
 
-    Route::group([], function(){//Usuario
-        Route::get('/users', 'UserController@index');
-        Route::get('/users/create', 'UserController@create');
-        Route::get('/users/{id}/edit', 'UserController@edit');
-        Route::put('/users', 'UserController@update');
-        Route::get('/users/{id}/delete', 'UserController@delete');
-        Route::get('/users/{id}/show', 'UserController@show');
-    });
 
     Route::group([], function(){ //Promoções
 
@@ -161,9 +161,9 @@ Route::group([], function(){//Estoque
 
     Route::group([], function(){ //Carrinho
 
-        Route::get   ('/remove/cart/{id}', 'ProductController@deleteCart');
+        Route::get   ('/products/remove/{id}/cart', 'ProductController@deleteCart');
         Route::get   ('/cart', 'ProductController@indexCart');
-        Route::get   ('/add/cart/{id}', 'ProductController@addToCart');
+        Route::get   ('/products/{id}/cart', 'ProductController@addToCart');
         // Route::post  ('/sale',           'SaleController@insert');
 
 
@@ -173,6 +173,7 @@ Route::group([], function(){//Estoque
     Route::group(['middleware'=>['auth', 'PermissionCheck:customer,manager,employee']], function() {
         //produtos
         Route::get('/products',             'ProductController@index');
+    
 
     });
 

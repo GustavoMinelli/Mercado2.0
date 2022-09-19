@@ -22,7 +22,6 @@
 
                         <tr>
 
-                            <th></th>
                             <th>Nome</th>
                             <th>Quantidade</th>
                             <th>Preço unitário</th>
@@ -40,38 +39,39 @@
 
                     @foreach (Session::get('cart') as $id => $details)
 
+                        @foreach ($products as $product )
+                            
+                        
                         <tbody>
 
                             <tr>
 
-                                <td>
-                                    <a data-fancybox data-src="{{ asset($details['image']) }}" data-caption="{{ $details['name'] }}">
-                                        <img src="{{ $details['image'] }}" alt="{{ $details['name'] }}" height="40"></td>
-                                    </a>
+                            
                                 <td>{{ $details['name'] }}</td>
                                 <td>{{ $details['qty'] }}</td>
                                 <td>R$ {{ number_format($details['price'], '2', ',', ' ') }}</td>
                                 <td>
 
                                     <div class="table-options">
-
-                                        <a href="{{ url('add/cart/'.$id) }}" class="btn btn-primary"><i class="bi bi-plus"></i></a>
-
-                                        <a href="{{ url('remove/cart/'.$id) }}" class="btn btn-danger removeCart"><i class="bi bi-x-lg"></i></a>
-
+                                        
+                                        <a href="{{ url ('products/'.$product->id. '/cart') }}" class="btn btn-success pull-right" role="button">+</a>
+                                        
+                                        <a href="{{ url ('products/remove/'.$product->id. '/cart') }}" class="btn btn-danger removeCart">-</a>
+                                        
                                     </div>
-
+                                    
                                 </td>
-
+                                
                             </tr>
-
+                            
                         </tbody>
-
+                        
                         @php
 
                             $total += $details['price']*$details['qty'];
 
                         @endphp
+                        @endforeach
 
                     @endforeach
 
@@ -79,7 +79,7 @@
                         <tr>
                             <td>Total: </td>
 
-                            <td></td>
+                            {{-- <td></td> --}}
                             <td></td>
                             <td></td>
                             <td>R$ {{ number_format($total, '2', ',', ' ') }}</td>
@@ -87,14 +87,13 @@
                     </tfoot>
 
                 </table>
-
-                <div class="page-controls d-flex justify-content-center">
-
-                    <a href="/products" class="btn btn-outline-primary buttons">Voltar aos produtos</a>
-
+               
                     <button type="button" class="btn btn-success buttons sale">Concluir venda</button>
 
-                </div>
+                    <a href="/products" class="btn btn-primary">Voltar aos produtos</a>
+
+
+            
 
             @else
 

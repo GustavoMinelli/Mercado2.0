@@ -14,15 +14,22 @@ class UserSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
-    {
-        $manager = Manager::first();
-        User::insert([
+    public function run() {
+        // $manager = Manager::first();
+        // User::insert([
 
-            'manager' => $manager->id,
-            'email' => 'admin@sysout.com',
-            'password' => Hash::make('123456789'),
-        ]);
+        //     'manager' => $manager->id,
+        //     'email' => 'admin@sysout.com',
+        //     'password' => Hash::make('123456789'),
+        // ]);
+
+            User::insert([
+
+                // 'name' =>'Sysout',
+                'email' => 'admin@sysout.com',
+                'password' => Hash::make('sysout'),
+
+            ]);
 
 
     }

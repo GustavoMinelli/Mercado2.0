@@ -59,14 +59,15 @@
 
                                 @else
                                 <td>
-                                    <a href="{{ route('product.addToCart', ['id' => $product->id]) }}" class="btn btn-success pull-right" role="button">Add to Cart</a>
+                                    <a href="{{ url ('products/'.$product->id. '/cart') }}" class="btn btn-success pull-right" role="button">+</a>
+
+                                    <a href="{{ url ('products/remove/'.$product->id. '/cart') }}" class="btn btn-danger" role="button">-</button>
+
                                 </td>
                                 @endif
+                                
 
-                                {{-- <td>
-                                    <a class="btn btn-primary btn-sm" href={{ url ('products/'.$product->id. '/edit') }}>Editar</a>
-                                    <a class="btn btn-danger btn-sm" href="{{ url ('products/'.$product->id. '/delete') }}">Remover</a>
-                                </td> --}}
+                                
 
                             </tr>
 
@@ -82,16 +83,16 @@
                 </div>
             @endif
 
-            @if(Auth::check() && (Auth::user()->role == 0 || Auth::check() && (Auth::user()->role == 1 )))
+            {{-- @if(Auth::check() && (Auth::user()->role == 0 || Auth::check() && (Auth::user()->role == 1 ))) --}}
             <div class="page-controls">
-                <a class="btn btn-primary btn-sm" href={{ url ('products/create') }}>Novo produto</a>
-            </div>
+                <a class="btn btn-primary" role="button" href={{ url ('products/create') }}>Novo produto</a>
+            {{-- </div> --}}
 
-            @else
-            <div class="page-controls">
+            {{-- @else --}}
+            {{-- <div class="page-controls"> --}}
                 <a class="btn btn-primary" href="{{ url('/') }}">Voltar</a>
             </div>
-            @endif
+            {{-- @endif --}}
 
         </div>
 
