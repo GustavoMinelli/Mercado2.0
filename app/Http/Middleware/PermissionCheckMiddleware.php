@@ -23,7 +23,7 @@ class PermissionCheckMiddleware
 
         $user = Auth::user();
 
-        foreach ($roles as $role)
+        foreach ($roles as $role) {
 
             if($role == 'manager')
 
@@ -40,7 +40,7 @@ class PermissionCheckMiddleware
 
                 // Session::flash('error', 'Acesso negado');
                 return redirect('/');
-            
+
             }
 
             if($role == 'employee')
@@ -66,36 +66,52 @@ class PermissionCheckMiddleware
                 } else {
 
                 return back()->with(FacadesSession::flash('error', 'Acesso negado'));
-            
-                }{
-
-                FacadesSession::flash('error', 'Acesso negado');
-                return redirect('/');
 
                 }
 
-            if($role == 'customer')
+            if ($role == 'customer') {
 
-                if(isset($user->customer_id)){
+                if (isset($user->customer_id)) {
+                    $data = [
+                        'customer' => true
+                    ];
 
-                $data = [
-                    'customer' => true
-                ];
-                $request->session()->put($data);
+                    if ($user->customer->is_new && !$request->is('person/'.$user->customer->person_id.'/edit') && !$request->rg) {
+                        return redirect('person/'.$user->customer->person_id.'/edit');
+                    }
 
-                return $next($request);
+                    $request->session()->put($data);
+
+                    return $next($request);
+
+                } else if (isset($user->manager_id)) {
+
+                    $data = [
+                        'manager' => true
+                    ];
+
+                    $request->session()->put($data);
+
+                    return $next($request);
+
+                } else if (isset($user->employee_id)) {
+
+                    $data = [
+                        'employee' => true
+                    ];
+
+                    $request->session()->put($data);
+
+                    return $next($request);
 
                 } else {
 
-                return back()->with(FacadesSession::flash('error', 'Acesso negado'));
-        
+                    return back()->with(FacadesSession::flash('error', 'Acesso negado'));
+                }
             }
-        
+            return $next($request);
+        }
     }
-
-        
-        // return $next($request);
-      
 }
 
 
@@ -103,5 +119,5 @@ class PermissionCheckMiddleware
 
 
 
-     
+
 

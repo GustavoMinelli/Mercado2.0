@@ -29,14 +29,8 @@ class EmployeeMiddleware
 
                 return $next($request);
 
-                } else {
-                    Session::flash('error', 'Acesso negado');
-                    return redirect('/');
 
                 }
-            } else {
-                Session::flash('error', 'Logar no site');
-                return redirect('/login');
             }
 
             return $next($request);

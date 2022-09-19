@@ -224,11 +224,29 @@ class ProductController extends Controller
 
         $product = Product::find($id);
 
-        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        $cart = Session::get('cart', []);
 
-        $cart = new Cart($oldCart);
+        if (isset($cart[$id])) {
 
-        $cart ->add($product, $product->id);
+            $cart[$id]['qty']++;
+
+        } else {
+
+            $cart[$id] = [
+
+                "name" => $product->name,
+                "qty" => 1,
+                "price" => $product->price,
+                "image" => $product->image
+
+            ];
+
+        }
+
+        Session::put('cart',$cart);
+
+        Session::flash('success', 'Produto adicionado ao carrinho!');
+
 
         $request->session()->put('cart', $cart);
 
@@ -236,42 +254,44 @@ class ProductController extends Controller
 
     }
 
-    public function updateCart(Request $request){
-
-        if($request->id && $request->current_qty){
-            $cart = session()->get('cart');
-
-            Session::put('cart', $cart);
-
-            Session::flash('success', 'Carrinho atualizado com sucesso.');
-        }
-    }
 
     public function deleteCart($id){
 
-        $oldCart = Session::has('cart') ? Session::get('cart') : null;
-        $cart = new Cart($oldCart);
-        $cart->removeItem($id);
+        $cart = Session::get('cart') ? Session::get('cart') : null;
+        Session::put('cart', $cart);
 
-        if (count($cart->items) > 0) {
-            Session::put('cart', $cart);
-        } else {
-            Session::forget('cart');
-        }
-            Session::flash('success', 'Carrinho removido com sucesso');
+
+            if ($cart[$id]['qty'] > 1) {
+
+                $cart[$id]['qty']--;
+
+
+            } else {
+
+                unset($cart[$id]);
+
+            }
+
+            Session::put('cart',$cart);
+
+
+            Session::flash('success', 'Produto removido do carrinho com sucesso!');
+
+            return redirect()->back();
+
     }
-    
+
 
     public function indexCart(){
 
 
-        $products = Product::orderBy('id', 'asc')->get();
+        // $products = Product::orderBy('id', 'asc')->get();
 
-        $data = [
-            'products' => $products
-        ];
+        // $data = [
+        //     'products' => $products
+        // ];
 
-        return view('pages.cart.index', $data);
+        return view('pages.product.cart');
     }
 
     public function getCart()
