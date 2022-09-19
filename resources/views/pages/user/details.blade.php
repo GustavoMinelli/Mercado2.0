@@ -3,18 +3,23 @@
 ])
 
 @section('content')
+
+@php
+        // $isEdit = !empty($user->id);
+        $person = $user->person ?? $user;
+    @endphp
     <div class="page page-admin page-details">
 
         <div class="page-header">
-            <h2>Usuario <small>Tabela da Usuario</small></h2>
+            <h2>Usuario <small>Detalhes da Usuario</small></h2>
         </div>
 
         <div class="page-body">
 
             <ul>
-                <li><b>ID:</b>{{$person->id}}</li>
-                <li><b>Name:</b>{{$user->name}}</li>
-                {{-- <li><b>Email:</b>{{$person->email}}</li> --}}
+                <li><b>ID:</b>{{$user->id}}</li>
+                <li><b>Name:</b>{{$person->name}}</li>
+                <li><b>Email:</b>{{$user->email}}</li>
                
 
 

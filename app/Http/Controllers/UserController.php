@@ -22,11 +22,11 @@ class UserController extends Controller
     public function index(){
 
         $users = User::orderBy('id', 'asc')->get();
-        // $people = Person::orderBy('id', 'asc')->get();
+        // $person = Person::get();
 
         $data = [
             'users' => $users,
-            // 'people' => $people
+            // 'person' => $person
         ];
 
         return view('pages.user.index', $data);

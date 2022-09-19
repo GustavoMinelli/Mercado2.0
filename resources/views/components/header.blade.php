@@ -11,13 +11,13 @@
 		['Estoque', 'inventories'],
 		['Vendas', 'sales'],
 		['Promoções', 'promotions'],
-        ['Carrinho', 'cart'],
+        // ['Carrinho', 'cart'],
         ['Cargos', 'roles'],
 	];
 
 @endphp
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
 
 
     <div class="container-fluid">
@@ -40,55 +40,55 @@
 					</li>
 
 
+                    @endforeach
 
-				@endforeach
-
-            </ul>
-
-        </div>
-
-        {{-- <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown link
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </li> --}}
-
-
-
-
-
-
-
-        <ul class="navbar-nav ms-auto">
+                    
+                </ul>
+                
+            </div>
+            
+            {{-- <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Dropdown link
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+            </li> --}}
+            
+            
+            
+            
+            
+            <a href="{{ url ('/cart')}}" class="fa-sharp fa-solid fa-cart-shopping"></a>
+            
+            <ul class="navbar-nav ms-auto">
             <!-- Authentication Links -->
             @guest
                 @if (Route::has('login'))
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                     </li>
-                @endif
-
-                @if (Route::has('register'))
+                    @endif
+                    
+                    @if (Route::has('register'))
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                     </li>
-                @endif
-            @else
-
-                <li class="nav-item dropdown">
-                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                    @endif
+                    @else
+                    
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                         {{-- {{ Auth::user()->$person->name }} --}}
-                        Profile
+                        "Username"
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 
-                        {{-- <a href="#" class="dropdown-item">Perfil</a> --}}
+                        {{-- <a href="{{url('users/'.$user->id.'/show') }}" class="dropdown-item">Perfil</a> --}}
                         <a class="dropdown-item" href="{{ route('logout') }}"
                            onclick="event.preventDefault();
                                          document.getElementById('logout-form').submit();">
