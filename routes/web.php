@@ -81,16 +81,16 @@ Route::group(['middleware' => ['auth',  'PermissionCheck:employee']], function (
     });
 
 });
-/*Rotas para gerenciar pessoas */
-Route::group([], function(){//Pessoas
+Route::get('/people',            'PersonController@index');
 
-    Route::get('/people',            'PersonController@index');
     Route::get('/people/create', 'PersonController@create');
     Route::post('/people',       'PersonController@insert');
     Route::get('/people/{id}/edit',   'PersonController@edit');
     Route::put('/people',        'PersonController@update');
     Route::get('/people/{id}/delete', 'PersonController@delete');
     Route::get('/people/{id}/show', 'PersonController@show');
+/*Rotas para gerenciar pessoas */
+Route::group([], function(){//Pessoas
 
 });
 
@@ -173,7 +173,7 @@ Route::group([], function(){//Estoque
     Route::group(['middleware'=>['auth', 'PermissionCheck:customer,manager,employee']], function() {
         //produtos
         Route::get('/products',             'ProductController@index');
-    
+
 
     });
 

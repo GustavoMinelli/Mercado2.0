@@ -51,10 +51,13 @@
                                 <td>{{ $product->price }}</td>
                                 {{-- @dd($product->current_qty) --}}
 
-                                @if(Auth::check() && (Auth::user()->role == 'manager' || Auth::check() && (Auth::user()->role == 'employee' )))
+                                @if(!Session::get('customer'))
                                 <td>
                                     <a class="btn btn-primary btn-sm" href={{ url ('products/'.$product->id. '/edit') }}>Editar</a>
                                     <a class="btn btn-danger btn-sm" href="{{ url ('products/'.$product->id. '/delete') }}">Remover</a>
+                                    <a href="{{ url ('products/'.$product->id. '/cart') }}" class="btn btn-success pull-right" role="button">+</a>
+
+                                    <a href="{{ url ('products/remove/'.$product->id. '/cart') }}" class="btn btn-danger" role="button">-</button>
                                 </td>
 
                                 @else
@@ -65,9 +68,9 @@
 
                                 </td>
                                 @endif
-                                
 
-                                
+
+
 
                             </tr>
 

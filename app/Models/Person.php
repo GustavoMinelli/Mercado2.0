@@ -23,4 +23,14 @@ class Person extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+    public function customer(){
+        return $this->hasOne(Customer::class);
+    }
+    public function employee(){
+        return $this->hasOne(Employee::class);
+    }
+    public function manager(){
+        return $this->hasOne(Manager::class);
+    }
+
 }
