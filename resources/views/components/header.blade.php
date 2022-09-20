@@ -18,14 +18,14 @@
 @endphp
 
 {{-- <nav class="navbar navbar-expand-lg navbar-light bg-light"> --}}
-<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #222831;">
-
+{{-- <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #222831;"> --}}
+<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #313131;">
 
 
     <div class="container-fluid">
 
 
-        <a class="navbar-brand" href="{{ url('/') }}">{{ config('app.app_name') }}</a>
+        <a class="navbar-brand" href="{{ url('/') }}"><i class="fa-sharp fa-solid fa-store"></i> {{ config('app.app_name') }}</a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -42,19 +42,17 @@
 					</li>
 
                 @endforeach
-
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Gerencia</a>
-
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="/managers">Gerentes</a></li>
-                      <li><a class="dropdown-item" href="/users">Usuarios</a></li>
-                      {{-- <li><hr class="dropdown-divider"></li>
-                      <li><a class="dropdown-item" href="#">Something else here</a></li> --}}
-                    </ul>
-
-                </li>
-
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                      Gerência
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="managers">Gerentes</a>
+                        <a class="dropdown-item" href="users">Usuarios</a>
+                      {{-- <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#">Something else here</a> --}}
+                    </div>
+                  </li>
             </ul>
 
         </div>

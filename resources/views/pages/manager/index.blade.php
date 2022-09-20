@@ -61,7 +61,7 @@
         @endif
 
         <div class="page-controls">
-            <a class="btn btn-primary" href="{{ url('managers/create') }}">Novo Admin</a>
+            <a class="btn btn-primary" href="{{ url('managers/create') }}">Novo gerente</a>
         </div>
 
     </div>

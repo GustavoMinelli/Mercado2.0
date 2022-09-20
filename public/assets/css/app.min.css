@@ -1,0 +1,125 @@
+.page-header {
+  margin-bottom: 30px;
+  /* color: #ff7b00; */
+}
+
+.page-header h1 {
+  font-size: 40px;
+  color: #EC625F;
+}
+
+.page-header h1 small {
+  font-size: 24px;
+  opacity: 0.6;
+  color: #EEEEEE;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+body {
+  background-color: #414141;
+}
+
+.form-group label {
+  font-weight: 500;
+  margin: 0 0 5px;
+}
+
+.td {
+  display: flex;
+}
+
+.page-message {
+  color: #EEEEEE;
+}
+
+.dropdown-menu {
+  background-color: #292929;
+}
+
+.dropdown-item {
+  color: #EC625F;
+}
+
+.table-striped th {
+  color: #EC625F;
+  border-top: 0 !important;
+  border-bottom: 0 !important;
+}
+
+.table-striped td {
+  color: white !important;
+  border-top: 0 !important;
+  border-bottom: 0 !important;
+}
+
+.table tbody + tbody {
+  border-top: 0 !important;
+}
+
+.table {
+  background-color: #313131;
+  border-color: #000 !important;
+  border-top: 0 !important;
+}
+
+.btn-danger {
+  border-color: #EC625F;
+  background-color: #EC625F;
+  color: #000 !important;
+}
+
+.btn-primary {
+  border-color: #000 !important;
+  background-color: #000 !important;
+  color: #fff !important;
+}
+
+.btn-primary:hover {
+  border-color: #313131 !important;
+  background-color: #474747 !important;
+  color: #fff !important;
+}
+
+.page-welcome {
+  text-align: center;
+}
+
+.navbar-brand, .fa-cart-shopping, i {
+  color: #EC625F !important;
+}
+
+.dropdown-item:hover {
+  background-color: #EC625F;
+}
+
+.form-control {
+  background-color: #313131;
+  border: 1px solid #484e58;
+  color: #9c9898;
+}
+
+.form-select {
+  background-color: #313131;
+  border: 1px solid #484e58;
+  color: #9c9898;
+}
+
+.form-check label {
+  color: #9c9898;
+}
+
+.form-control:focus {
+  border: 1px solid #505763;
+  background-color: #464b53;
+}
+
+.form-select:focus {
+  box-shadow: white !important;
+}
+
+.form-group label {
+  color: #9c9898;
+}

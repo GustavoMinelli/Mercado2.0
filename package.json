@@ -11,8 +11,37 @@
     },
     "devDependencies": {
         "axios": "^0.21",
-        "laravel-mix": "^6.0.6",
+        "del": "^3.0.0",
+        "gulp": "^4.0.2",
+        "gulp-clean": "^0.4.0",
+        "gulp-clean-css": "^4.2.0",
+        "gulp-concat": "^2.6.1",
+        "gulp-debug": "^4.0.0",
+        "gulp-rename": "^1.4.0",
+        "gulp-sass": "^4.1.0",
+        "gulp-terser": "^1.2.0",
         "lodash": "^4.17.19",
         "postcss": "^8.1.14"
+    },
+    "dependencies": {
+        "@fancyapps/fancybox": "^3.5.6",
+        "@fortawesome/fontawesome-free": "^6.1.1",
+        "@types/node": "^18.7.14",
+        "animate.css": "^4.1.1",
+        "autosize": "^4.0.2",
+        "bootbox": "^4.4.0",
+        "bootstrap": "^4.6.2",
+        "croppie": "^2.6.5",
+        "dropzone": "^6.0.0-beta.2",
+        "jquery": "^3.5.1",
+        "jquery-mask-plugin": "^1.14.15",
+        "jquery-maskmoney": "^3.0.2",
+        "jquery-ui-sortable": "^1.0.0",
+        "moment": "^2.27.0",
+        "parsleyjs": "^2.8.1",
+        "select2": "^4.0.13",
+        "superfish": "^1.7.10",
+        "tempusdominus-bootstrap-4": "^5.1.2",
+        "tempusdominus-core": "^5.0.3"
     }
 }
