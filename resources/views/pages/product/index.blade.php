@@ -46,7 +46,7 @@
                             <tr>
                                 <td>{{ $product->id }}</td>
                                 <td>{{ $product->name }}</td>
-                                <td><a class="btn btn-outline-secondary" href="{{url('categories/'.$product->category->id.'/products')}}">{{ $product->category->name }}</td>
+                                <td><a class="btn btn-primary btn-sm" href="{{url('categories/'.$product->category->id.'/products')}}">{{ $product->category->name }}</td>
                                 <td>{{ $product->current_qty }}</td>
                                 <td>{{ $product->price }}</td>
                                 {{-- @dd($product->current_qty) --}}
@@ -54,15 +54,15 @@
                                 @if(!Session::get('customer'))
                                 <td>
                                     <a class="btn btn-primary btn-sm" href={{ url ('products/'.$product->id. '/edit') }}>Editar</a>
-                                    <a class="btn btn-danger btn-sm" href="{{ url ('products/'.$product->id. '/delete') }}">Remover</a>
-                                    <a href="{{ url ('products/'.$product->id. '/cart') }}" class="btn btn-success pull-right" role="button">+</a>
+                                    <a class="btn btn-primary btn-sm" href="{{ url ('products/'.$product->id. '/delete') }}"><i class="fa-sharp fa-solid fa-trash"></i></a>
+                                    <a href="{{ url ('products/'.$product->id. '/cart') }}" class="btn btn-primary btn-sm" role="button"><i class="fa-sharp fa-solid fa-plus"></i></a>
 
-                                    <a href="{{ url ('products/remove/'.$product->id. '/cart') }}" class="btn btn-danger" role="button">-</button>
+                                    <a href="{{ url ('products/remove/'.$product->id. '/cart') }}" class="btn btn-primary btn-sm" role="button"><i class="fa-sharp fa-solid fa-minus"></i></button>
                                 </td>
 
                                 @else
                                 <td>
-                                    <a href="{{ url ('products/'.$product->id. '/cart') }}" class="btn btn-success pull-right" role="button">+</a>
+                                    <a href="{{ url ('products/'.$product->id. '/cart') }}" class="btn btn-success btn-sm" role="button">+</a>
 
                                     <a href="{{ url ('products/remove/'.$product->id. '/cart') }}" class="btn btn-danger" role="button">-</button>
 
@@ -93,7 +93,7 @@
 
             {{-- @else --}}
             {{-- <div class="page-controls"> --}}
-                <a class="btn btn-primary" href="{{ url('/') }}">Voltar</a>
+                {{-- <a class="btn btn-primary" href="{{ url('/') }}">Voltar</a> --}}
             </div>
             {{-- @endif --}}
 

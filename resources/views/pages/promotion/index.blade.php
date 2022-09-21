@@ -30,11 +30,6 @@
                             <th>Data inicial</th>
                             <th>Data final</th>
                             <th>Estado</th>
-                            @if(Auth::check() && (Auth::user()->role == 0 || Auth::check() && (Auth::user()->role == 1 )))
-
-                            <th>Ações</th>
-
-                            @endif
 
                         </tr>
 
@@ -57,7 +52,7 @@
 
                                     <td>
                                         <a  class="btn btn-primary btn-sm" href="{{ url('promotions/'.$promotion->id. '/edit') }}">Editar</a>
-                                        <a  class="btn btn-danger btn-sm" href="{{ url('promotions/'.$promotion->id. '/delete') }}">Remover</a>
+                                        <a  class="btn btn-primary btn-sm" href="{{ url('promotions/'.$promotion->id. '/delete') }}"><i class="fa-sharp fa-solid fa-trash"></i></a>
                                     </td>
 
                                 @endif

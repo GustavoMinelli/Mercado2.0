@@ -39,12 +39,11 @@
                     <tr>
                         <td>{{ $customer->id }}</td>
                         <td>{{ $customer->person->name }}</td>
-                        {{-- <td>{{ $customer->user->email }}</td> --}}
                         
                         <td>
                             <a class="btn btn-primary btn-sm" role="button" href="{{ url('customers/'.$customer->id.'/show') }}">Visualizar</a>
                             <a class="btn btn-primary btn-sm" role="button" href="{{ url('customers/'.$customer->id.'/edit') }}">Editar</a>
-                            <a class="btn btn-danger btn-sm" role="button" href="{{ url('customers/'.$customer->id.'/delete') }}">Remover</a>
+                            <a class="btn btn-primary btn-sm" role="button" href="{{ url('customers/'.$customer->id.'/delete') }}"><i class="fa-sharp fa-solid fa-trash"></i></a>
                         </td>
                     </tr>
                         

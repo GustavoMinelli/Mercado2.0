@@ -44,7 +44,7 @@
 
                 <div class="form-group">
                     <label>Preço: </label>
-                    <input type="number" step="0.01" name="price" required value="{{ $promotion->price ?? '' }}">
+                    <input type="number" step="0.01" name="price" class="form-control"required value="{{ $promotion->price ?? '' }}">
                 </div>
 
                 <div class="form-group">
@@ -54,20 +54,20 @@
 
                 <div class="form-group">
                     <label>Data inicial: </label>
-                    <input type="date" name="started_at" required
+                    <input type="date" name="started_at" required class="form-select"
                         value="{{ (string) $promotion->started_at ? $promotion->started_at->format('Y-m-d') : '' }}">
                 </div>
 
                 <div class="form-group">
                     <label>Data final: </label>
-                    <input type="date" name="ended_at" required
+                    <input type="date" name="ended_at" required class="form-select"
                         value="{{ (string) $promotion->ended_at ? $promotion->ended_at->format('Y-m-d') : '' }}">
                 </div>
 
 
                 <div class="page-controls">
 
-                    <button class="btn btn-outline-primary" type="submit">Enviar</button>
+                    <button class="btn btn-primary" type="submit">Enviar</button>
 
                 </div>
 

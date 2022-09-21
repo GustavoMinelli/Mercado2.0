@@ -61,6 +61,7 @@
                 </div>
 
                 <div class="form-group">
+                    <label>Genero: </label>
                         <select class="form-select" name="gender" >
                             <option>Selecione seu genero</option>
                             <option>Masculino</option>
@@ -99,9 +100,9 @@
             @endif --}}
                 <div class="page-controls">
 
-                    <a class="btn btn-outline-primary" href="{{ url('people') }}">Voltar</a>
+                    <a class="btn btn-primary" href="{{ url('people') }}">Voltar</a>
 
-                    <button type="submit" class="btn btn-outline-success">Enviar</button>
+                    <button type="submit" class="btn btn-primary">Enviar</button>
 
                 </div>
 

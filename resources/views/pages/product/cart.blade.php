@@ -54,9 +54,9 @@
 
                                     <div class="table-options">
                                         
-                                        <a href="{{ url ('products/'.$product->id. '/cart') }}" class="btn btn-success pull-right" role="button">+</a>
+                                        <a href="{{ url ('products/'.$product->id. '/cart') }}" class="btn btn-primary btn-sm pull-right" role="button"><i class="fa-sharp fa-solid fa-plus"></i></a>
                                         
-                                        <a href="{{ url ('products/remove/'.$product->id. '/cart') }}" class="btn btn-danger removeCart">-</a>
+                                        <a href="{{ url ('products/remove/'.$product->id. '/cart') }}" class="btn btn-primary btn-sm removeCart"><i class="fa-sharp fa-solid fa-minus"></i></a>
                                         
                                     </div>
                                     
@@ -88,9 +88,9 @@
 
                 </table>
                
-                    <button type="button" class="btn btn-success buttons sale">Concluir venda</button>
+                    <button type="button" class="btn btn-primary btn-sm buttons sale">Concluir venda</button>
 
-                    <a href="/products" class="btn btn-primary">Voltar aos produtos</a>
+                    <a href="/products" class="btn btn-primary btn-sm">Voltar aos produtos</a>
 
 
             

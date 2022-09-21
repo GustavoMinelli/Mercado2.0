@@ -9,7 +9,7 @@
         $isEdit = !empty($employeerole->id);
     @endphp
 
-    <div class="page page-employeerole" page-form">
+    <div class="page page-employeerole page-form">
 
         <div class="page-header">
             <h1>Cargo<small>{{ $isEdit ? 'Editar cargo' : 'Novo cargo' }}</small></h1>
@@ -34,9 +34,9 @@
 
                 <div class="page-controls">
 
-                    <a class="btn btn-outline-primary" href="{{ url('roles') }}">Voltar</a>
+                    <a class="btn btn-primary" href="{{ url('roles') }}">Voltar</a>
 
-                    <button type="submit" class="btn btn-outline-success">Enviar</button>
+                    <button type="submit" class="btn btn-primary">Enviar</button>
 
                 </div>
 

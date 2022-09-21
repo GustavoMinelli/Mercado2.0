@@ -1,3 +1,8 @@
+.alert-success {
+  background-color: #3d834d;
+  border-color: #4e835a;
+}
+
 .page-header {
   margin-bottom: 30px;
   /* color: #ff7b00; */
@@ -12,6 +17,16 @@
   font-size: 24px;
   opacity: 0.6;
   color: #EEEEEE;
+}
+
+.page-body h4, .page-body p {
+  opacity: 0.9 !important;
+  color: #eeeeeefa !important;
+}
+
+.page-body ul {
+  color: #eeeeeefa;
+  opacity: 0.6;
 }
 
 .form-group {
@@ -32,15 +47,7 @@ body {
 }
 
 .page-message {
-  color: #EEEEEE;
-}
-
-.dropdown-menu {
-  background-color: #292929;
-}
-
-.dropdown-item {
-  color: #EC625F;
+  color: #a2a2a2;
 }
 
 .table-striped th {
@@ -65,22 +72,32 @@ body {
   border-top: 0 !important;
 }
 
-.btn-danger {
+.btn-danger, .btn-primary {
   border-color: #EC625F;
   background-color: #EC625F;
   color: #000 !important;
 }
 
-.btn-primary {
-  border-color: #000 !important;
-  background-color: #000 !important;
+.btn-danger:hover, .btn-primary:hover {
+  border-color: #9f4241 !important;
+  background-color: #9f4241 !important;
+  color: #1e1e1e !important;
+}
+
+tbody .btn-primary {
+  border-color: #282828 !important;
+  background-color: #4e4c4c !important;
   color: #fff !important;
 }
 
-.btn-primary:hover {
+tbody .btn-primary:hover {
   border-color: #313131 !important;
   background-color: #474747 !important;
   color: #fff !important;
+}
+
+.hyperlink {
+  color: #EC625F !important;
 }
 
 .page-welcome {
@@ -92,18 +109,29 @@ body {
 }
 
 .dropdown-item:hover {
-  background-color: #EC625F;
+  background-color: #343434;
+  color: white;
+}
+
+.dropdown-menu {
+  background-color: #292929;
+}
+
+.dropdown-item {
+  color: #a19f9f;
 }
 
 .form-control {
   background-color: #313131;
-  border: 1px solid #484e58;
+  border: 1px solid #484848 !important;
+  border-radius: 0.25rem !important;
   color: #9c9898;
 }
 
 .form-select {
   background-color: #313131;
-  border: 1px solid #484e58;
+  border-radius: 0.25rem !important;
+  border: 1px solid #484848 !important;
   color: #9c9898;
 }
 
@@ -112,8 +140,10 @@ body {
 }
 
 .form-control:focus {
-  border: 1px solid #505763;
-  background-color: #464b53;
+  border: 1px solid #313131;
+  background-color: #262626;
+  color: white;
+  box-shadow: 0 0 0.25rem black !important;
 }
 
 .form-select:focus {
@@ -122,4 +152,37 @@ body {
 
 .form-group label {
   color: #9c9898;
+}
+
+.card {
+  border: unset !important;
+}
+
+.card label {
+  color: white;
+}
+
+.card .btn-primary {
+  background-color: #EC625F !important;
+  color: #292929 !important;
+  border-color: #EC625F !important;
+}
+
+.card .btn-primary:hover {
+  background-color: #292929 !important;
+  color: #EC625F !important;
+  border-color: #292929 !important;
+}
+
+.card-header {
+  background-color: #292929 !important;
+  color: #EC625F !important;
+}
+
+.card-body {
+  background-color: #525252;
+}
+
+.btn-link, .btn-link:hover {
+  color: #EC625F;
 }

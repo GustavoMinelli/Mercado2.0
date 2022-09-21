@@ -42,14 +42,15 @@
                                 <td>{{ $category->id }}</td>
                                 <td>{{ $category->name }}</td>
 
-                                @if(Auth::check() && (Auth::user()->role == 0 && Auth::check() && (Auth::user()->role == 1 )))
+                                {{-- @if(Auth::check() && (Auth::user()->role == 0 && Auth::check() && (Auth::user()->role == 1 ))) --}}
+                                @if(!Session::get('customer'))
 
                                 <td>
                                     <a  class="btn btn-primary btn-sm" href="{{ url('categories/'.$category->id. '/products') }}">Produtos</a>
                                     <a  class="btn btn-primary btn-sm" href="{{ url('categories/'.$category->id. '/edit') }}">Editar</a>
-                                    <a  class="btn btn-danger btn-sm" href="{{ url('categories/'.$category->id. '/delete') }}">Remover</a>
+                                    <a  class="btn btn-primary btn-sm" href="{{ url('categories/'.$category->id. '/delete') }}"><i class="fa-sharp fa-solid fa-trash"></i></a>
                                 </td>
-
+                                
                                 @else
                                 <td> <a  class="btn btn-primary btn-sm" href="{{ url('categories/'.$category->id. '/products') }}">Produtos</a></td>
                                 @endif

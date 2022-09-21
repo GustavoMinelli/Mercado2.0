@@ -10,7 +10,7 @@
                 
                 <div class="card ">
                     
-                    <div class="card-header text-bg-dark mb-3">{{ __('Login') }}</div>
+                    <div class="card-header">{{ __('Login') }}</div>
                     
                     <div class="card-body">
 

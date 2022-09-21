@@ -6,7 +6,7 @@
 <div class="page page-admin page-index">
 
     <div class="page-header">
-        <h1>Gerente <small>Listagem de Gerentes     </small></h1>
+        <h1>Gerente <small>Listagem de Gerentes</small></h1>
     </div>
 
     <div class="page-body">
@@ -23,12 +23,12 @@
 
                         <th>ID</th>
                         <th>Nome</th>
-                        {{-- <th>Funcionarios</th> --}}
                         <th>Ações</th>
 
                     </tr>
 
                 </thead>
+                {{-- @dd($person) --}}
 
                 @foreach ($managers as $manager)
 
@@ -42,7 +42,7 @@
                             <td>
                                 <a class="btn btn-primary btn-sm" role="button" href="{{ url('managers/'.$manager->id.'/show') }}">Visualizar</a>
                                 <a  class="btn btn-primary btn-sm" href="{{ url('managers/'.$manager->id. '/edit') }}">Editar</a>
-                                <a  class="btn btn-danger btn-sm" href="{{ url('managers/'.$manager->id. '/delete') }}">Remover</a>
+                                <a  class="btn btn-primary  btn-sm" href="{{ url('managers/'.$manager->id. '/delete') }}"><i class="fa-sharp fa-solid fa-trash"></i></a>
 
                             </td>
                         </tr>
@@ -56,7 +56,7 @@
         @else
 
             <div class="page-message">
-                <h3>Nenhuma categoria cadastrada</h3>
+                <h3>Nenhum gerente cadastrado</h3>
             </div>
         @endif
 

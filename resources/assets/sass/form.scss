@@ -1,12 +1,13 @@
 .form-control{
     background-color: #313131;
-    border: 1px solid #484e58;
+    border: 1px solid #484848!important;
+    border-radius: 0.25rem !important;
     color: #9c9898;
 }
 .form-select{
     background-color: #313131;
-
-    border: 1px solid #484e58;
+    border-radius: 0.25rem !important;
+    border: 1px solid #484848!important;
     color: #9c9898;
 
 }
@@ -16,8 +17,10 @@
 }
 
 .form-control:focus {
-    border: 1px solid #505763;
-    background-color: #464b53;
+    border: 1px solid #313131;
+    background-color: #262626;
+    color: white;
+    box-shadow:  0 0 .25rem rgb(0,0,0)!important;
 }
 
 .form-select:focus{

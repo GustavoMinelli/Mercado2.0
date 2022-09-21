@@ -22,12 +22,12 @@ class ManagerController extends Controller
     public function index(){
         $managers = Manager::orderBy('id', 'asc')->get();
         $users = User::orderBy('id', 'asc')->get();
-        $people = Person::orderBy('id', 'asc')->get();
+        // $people = Person::orderBy('id', 'asc')->get();
 
         $data = [
             'managers' => $managers,
             'users' => $users,
-            'people' => $people
+            // 'people' => $people,
         ];
 
         return view('pages.manager.index', $data);

@@ -9,7 +9,7 @@
     @endphp
 
 
-    <div class="page page-procut page-form">
+    <div class="page page-product page-form">
 
         <div class="page-header">
             <h1>Produtos<small>{{$isEdit ? 'Editar produto' : 'Novo produto' }}</small></h1>
@@ -29,18 +29,18 @@
 
                 <div class="form-group">
                     <label>Nome: </label>
-                    <input type="text" name="name" required value="{{ $product->name}}">
+                    <input class="form-control" type="text" name="name" required value="{{ $product->name}}">
                 </div>
 
                 <div class="form-group">
                     <label>Preço: </label>
-                    <input type="number" name="price" step="0.01" required value="{{ $product->price }}">
+                    <input class="form-control" type="number" name="price" step="0.01" required value="{{ $product->price }}">
                 </div>
 
 
                 <div class="form-group">
                     <label>Categorias</label>
-                    <select name="category_id" required>
+                    <select name="category_id" class="form-select" required>
 
                         @if (count($categories) > 0)
 
@@ -62,9 +62,9 @@
 
                 <div class="page-controls">
 
-                    <button class="btn btn-outline-primary" type="submit">Enviar</button>
+                    <a class="btn btn-primary" href="{{ url('products') }}">Voltar</a>
+                    <button class="btn btn-primary" type="submit">Enviar</button>
 
-                    <a class="btn btn-outline-primary" href="{{ url('products') }}">Voltar</a>
 
                 </div>
 

@@ -19,7 +19,7 @@
 
                 <div class="form-group">
                     <label>Cliente: </label>
-                    <select name="customer_id" required>
+                    <select name="customer_id" class="form-select" required>
                         <option selected>Selecione um cliente</option>
 
                         @foreach ($customers as $customer)
@@ -33,7 +33,7 @@
 
                 <div class="form-group">
                     <label>Funcionário: </label>
-                    <select name="employee_id" required>
+                    <select name="employee_id" class="form-select" required>
                         <option selected>Selecione um funcionário</option>
 
                         @foreach ($employees as $employee)
@@ -60,8 +60,8 @@
 
                     @else
 
-                        <h3>Nenhum produto cadastrado</h3>
-                        <p><a href="{{ url('products/create') }}">    Clique aqui</a> para criar um novo</p>
+                        <h4>Nenhum produto cadastrado</h4>
+                        <p>Clique <a href="{{ url('products/create') }}" class="hyperlink">aqui</a> para criar um novo</p>
 
 
 
@@ -71,9 +71,9 @@
 
                 <div class="page-controls">
 
-                    <a class="btn btn-outline-primary" href="{{ url('sales') }}">Voltar</a>
+                    <a class="btn btn-primary" href="{{ url('sales') }}">Voltar</a>
 
-                    <button type="submit" class="btn btn-outline-success">Enviar</button>
+                    <button type="submit" class="btn btn-primary">Enviar</button>
 
                 </div>
 

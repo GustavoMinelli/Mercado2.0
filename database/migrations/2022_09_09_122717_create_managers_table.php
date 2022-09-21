@@ -15,10 +15,13 @@ class CreateManagersTable extends Migration
     {
         Schema::create('managers', function (Blueprint $table) {
             $table->id();
-            $table->string('person_id');
+            $table->bigInteger('person_id');
             $table->string('role')->default(1);
-            $table->boolean('is_new')->default(false);;
+            $table->boolean('is_new')->default(true);;
             $table->timestamps();
+
+            $table->foreign('person_id')->references('id')->on('people');
+
         });
     }
 

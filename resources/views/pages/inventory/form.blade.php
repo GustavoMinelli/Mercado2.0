@@ -29,41 +29,39 @@
 
                 <div class="form-group">
                     <label>Produto: </label>
-                    <select name="product_id" required>
-                </div>
+                    <select name="product_id" class="form-select" required>
+                        
+                        @if (count($products) > 0)
 
-                <div class="form-group">
-
-                    @if (count($products) > 0)
-
-                        @foreach ($products as $product)
-
+                            @foreach ($products as $product)
+                            
                             <option value="{{ $product->id }}">{{ $product->name }}</option>
 
                         @endforeach
 
-                    @else
+                        @else
+                        
+                            <option>Nenhum produto criado</option>
+                        
+                        @endif
+                        
+                    </select>
 
-                        <option>Nenhum produto criado</option>
-
-                    @endif
-
-                </select>
                 </div>
-
+                
                 <div class="form-group">
                     <label>Quantidade: </label>
-                    <input type="number" name="qty" required value="{{ $inventory->qty }}">
+                    <input type="number" name="qty" class="form-control" required value="{{ $inventory->qty }}">
                 </div>
 
                 <div class="form-group">
                     <label>Data: </label>
-                    <input type="date" name="created_at" value="{{ $inventory->created_at }}">
+                    <input type="date" name="created_at" class="form-control" value="{{ $inventory->created_at }}">
                 </div>
 
                 <div class="page-controls">
 
-                <button class="btn btn-outline-success" type="submit">Enviar</button>
+                <button class="btn btn-primary" type="submit">Enviar</button>
 
                 </div>
 

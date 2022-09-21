@@ -19,6 +19,9 @@
         <div class="page-header">
             <h1>Bem vindo ao mercado</h1>
         </div>
+        <div class="spinner-border text-secondary" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
 
         {{-- <div class="row col-12">
 

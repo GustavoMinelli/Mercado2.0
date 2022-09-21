@@ -23,7 +23,6 @@
 
                             <th>Id</th>
                             <th>Nome</th>
-                            <th>Telefone</th>
                             <th>Ações</th>
 
                         </tr>
@@ -38,11 +37,10 @@
 
                                 <td>{{$person->id}}</td>
                                 <td>{{$person->name}}</td>
-                                <td>{{$person->phone}}</td>
                                 <td>
-                                    <a class="btn btn-primary" href="{{url('people/'.$person->id. '/show') }}">Perfil</a>
-                                    <a class="btn btn-primary" href="{{url('people/'.$person->id. '/edit') }}">Editar</a>
-                                    <a class="btn btn-danger" href="{{url('people/'.$person->id. '/delete') }}">Remover</a>
+                                    <a class="btn btn-primary btn-sm" href="{{url('people/'.$person->id. '/show') }}">Perfil</a>
+                                    <a class="btn btn-primary btn-sm" href="{{url('people/'.$person->id. '/edit') }}">Editar</a>
+                                    <a class="btn btn-primary btn-sm" href="{{url('people/'.$person->id. '/delete') }}"><i class="fa-sharp fa-solid fa-trash"></i></a>
                                 </td>
                             </tr>
 

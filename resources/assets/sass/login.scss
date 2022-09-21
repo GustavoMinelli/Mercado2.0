@@ -1,0 +1,33 @@
+.card {
+    border: unset !important;
+    label{
+        color:white;
+
+    }
+    .btn-primary{
+        background-color: #EC625F!important;
+        color: #292929!important;   
+        border-color: #EC625F!important;
+    }
+    .btn-primary:hover{
+        background-color: #292929!important;
+        color: #EC625F!important;   
+        border-color: #292929!important;
+
+    }
+}
+
+.card-header{
+    background-color: #292929 !important;
+    color: #EC625F !important;
+    
+}
+
+.card-body {
+    background-color: #525252;
+}
+
+.btn-link, .btn-link:hover{
+    color: #EC625F ;
+}
+

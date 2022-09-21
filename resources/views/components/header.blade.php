@@ -47,8 +47,8 @@
                       Gerência
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="managers">Gerentes</a>
-                        <a class="dropdown-item" href="users">Usuarios</a>
+                        <a class="dropdown-item" href="/managers">Gerentes</a>
+                        <a class="dropdown-item" href="/users">Usuarios</a>
                       {{-- <div class="dropdown-divider"></div>
                       <a class="dropdown-item" href="#">Something else here</a> --}}
                     </div>
@@ -77,21 +77,26 @@
                         <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                     </li>
                     @endif
-                    @else
+                @else
 
+                    {{-- @if(!Session::get('manager')) --}}
                     <li class="nav-item dropdown">
-                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                        {{-- {{ (Auth::user()->manager->person->name) }} --}}
-                        "Username"
-                    </a>
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false"> 
+                            {{-- @dd(Auth::user())                        --}}
+                            {{-- {{ (Auth::user()->manager->person->name) }} --}}
+                            "Username"
+                        </a>
+                    
+              {{-- @endif --}}
 
                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 
-                            {{-- <a href="{{url('users/'.$user->id.'/show') }}" class="dropdown-item">Perfil</a> --}}
+                            <a href="#" class="dropdown-item"><i class="fa-solid fa-user"></i> Perfil</a>
                         <a class="dropdown-item" href="{{ route('logout') }}"
                            onclick="event.preventDefault();
                                          document.getElementById('logout-form').submit();">
-                            {{ __('Sair') }}
+                                   <i class="fa-sharp fa-solid fa-right-from-bracket"></i> Sair      
+                            {{-- {{ __('Sair') }} --}}
                         </a>
 
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

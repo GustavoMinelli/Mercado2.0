@@ -7,7 +7,7 @@
 
     <div class="page page-inventory page-index">
         <div class="page-header">
-            <h1>Estoque<small>Listagem de Estoques</small></h1>
+            <h1>Estoque<small> Listagem de Estoques</small></h1>
         </div>
 
         <div class="page-body">
@@ -44,7 +44,7 @@
                                 <td>{{$inventory->qty}}</td>
 
                                 <td>
-                                    <a  class="btn btn-danger btn-sm" href="{{ url('inventories/'.$inventory->id. '/delete') }}">Remover</a>
+                                    <a  class="btn btn-primary btn-sm" href="{{ url('inventories/'.$inventory->id. '/delete') }}"><i class="fa-sharp fa-solid fa-trash"></i></a>
                                 </td>
 
                             </tr>
