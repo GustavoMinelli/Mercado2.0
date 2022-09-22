@@ -3,10 +3,10 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Contracts\Session\Session;
+// use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session as FacadesSession;
+use Illuminate\Support\Facades\Session as Session;
 
 class PermissionCheckMiddleware
 {
@@ -65,7 +65,7 @@ class PermissionCheckMiddleware
 
                 } else {
 
-                return back()->with(FacadesSession::flash('error', 'Acesso negado'));
+                return back()->with(Session::flash('error', 'Acesso negado, voce nao é um funcionario'));
 
                 }
 
@@ -106,7 +106,7 @@ class PermissionCheckMiddleware
 
                 } else {
 
-                    return back()->with(FacadesSession::flash('error', 'Acesso negado'));
+                    return back()->with(Session::flash('error', 'Acesso negado, voce nao é um cliente'));
                 }
             }
             return $next($request);

@@ -26,7 +26,7 @@
             @else
             
             @endif --}}
-            <a class="btn btn-outline-primary" href="{{ url('employees') }}">Voltar</a>
+            <a class="btn btn-primary" href="{{ url('employees') }}">Voltar</a>
 
             </div>
 

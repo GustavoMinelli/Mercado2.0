@@ -1,6 +1,8 @@
-.navbar-brand,  .fa-cart-shopping, i {
-    color: #EC625F !important;
+.navbar-brand, .fa-cart-shopping, i {
+    color: #007bff !important;
 }
+
+
 
 .dropdown-item:hover{
     background-color: #343434;
@@ -8,10 +10,61 @@
 }
 
 .dropdown-menu {
-   
-    background-color: #292929;
+
+    background-color: #e5e2e2;
+
+    a{
+        display:block;
+    }
 
 }
 .dropdown-item{
     color: #a19f9f;
+}
+
+.dropdown:hover .dropdown-menu{
+    display:block;
+}
+.navbar-expand-lg{
+
+    background-color: hsla(0, 0%, 99%, 0.877)!important; 
+}
+
+
+.dark{
+
+    .navbar-brand, .fa-cart-shopping, i {
+        color: #EC625F !important;
+    }
+    .nav-link{
+        color: rgba(255, 255, 255, 0.575);
+    }
+
+    .dropdown-item:hover{
+        background-color: #343434;
+        color: white;
+    }
+
+    .dropdown-menu {
+    
+        background-color: #292929;
+
+        a{
+            display:block;
+        }
+
+    }
+    .dropdown-item{
+        color: #a19f9f;
+    }
+
+    .dropdown:hover .dropdown-menu{
+        display:block;
+    }
+
+    .navbar-expand-lg{
+
+        background-color: #313131!important; 
+    }
+
 }

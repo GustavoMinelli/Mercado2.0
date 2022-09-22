@@ -21,7 +21,7 @@
             </ul>
 
             <div class="page-controls">
-                <a class="btn btn-outline-primary" ssshref="{{ url('customers') }}">Voltar</a>
+                <a class="btn btn-primary" ssshref="{{ url('customers') }}">Voltar</a>
             </div>
 
         </div>

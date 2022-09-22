@@ -14,7 +14,7 @@
             <ul>
                 <li><b>ID:</b>{{$person->id}}</li>
                 <li><b>Name:</b>{{$person->name}}</li>
-                <li><b>Email:</b>{{$user->email}}</li>
+                {{-- <li><b>Email:</b>{{$user->email}}</li> --}}
                 <li><b>Endereço:</b>{{$person->address}}</li>
                 <li><b>Telefone:</b>{{$person->phone}}</li>
                 <li><b>RG:</b>{{$person->rg}}</li>

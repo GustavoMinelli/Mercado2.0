@@ -23,7 +23,7 @@
             @endforeach
 
             <div class="page-controls">
-                <a class="btn btn-outline-primary" href="{{ url('categories') }}">Voltar</a>
+                <a class="btn btn-primary" href="{{ url('categories') }}">Voltar</a>
 
             </div>
 

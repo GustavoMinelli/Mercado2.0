@@ -1,6 +1,13 @@
+
+
 .alert-success {
     background-color: #3d834d;
     border-color: #4e835a;
+}
+
+.alert-danger {
+    background-color: #8b3139;
+    border-color: #85333c;
 }
 
 .page-header {
@@ -10,19 +17,19 @@
 .page-header h1 {
 
     font-size: 40px;
-    color: #EC625F;
 
 }
 
 .page-header h1 small {
     font-size: 24px;
     opacity: 0.6;
-    color: #EEEEEE;
+    color: #000000;
 }
 .page-body {
     h4, p{
     opacity: 0.9!important;
-    color: #eeeeeefa!important;
+    color: #000000fa!important;
+
     }
     ul{
         color: #eeeeeefa;
@@ -36,30 +43,30 @@
     margin-bottom: 15px;
 }
 
-body {
-    background-color: #414141;
-}
+
+
+
 .form-group label {
     font-weight: 500;
     margin: 0 0 5px;
 }
+
 .td {
     display: flex;
 }
-
 
 .page-message {
     color: #a2a2a2;
 
 }
 
-
 .table-striped th{
-    color: #EC625F;
+    // color: #EC625F;
     border-top: 0!important;
     border-bottom: 0!important;
 
 }
+
 .table-striped td{
     color: white!important;
     border-top: 0!important;
@@ -69,23 +76,23 @@ body {
 .table tbody + tbody {
     border-top: 0 !important;
 }
+
 .table{
-    background-color: #313131;
-    border-color: #000 !important;
+    background-color: #b3b3b3;
+    border-color: #b3b3b3 !important;
     border-top: 0!important;
 }
 
 .btn-danger, .btn-primary {
-    border-color: #EC625F;
-    background-color: #EC625F;
-    color: #000 !important;
+    border-color: #007bff ;
+    background-color: #007bff ;
+    color: rgb(255, 255, 255) !important;
 }
 .btn-danger:hover, .btn-primary:hover {
-    border-color: #9f4241!important;
-    background-color: #9f4241!important;
+    border-color: #3675b9!important;
+    background-color: #3675b9!important;
     color: #1e1e1e !important;
 }
-
 
 tbody{
 
@@ -104,7 +111,131 @@ tbody{
 }
 
 .hyperlink {
-    color: #EC625F !important;
+    color: #007bff  !important;
 
 }
 
+
+//DarkMode
+.dark{
+    body {
+        background-color: #414141!important;
+    }
+
+    .alert-success {
+        background-color: #3d834d;
+        border-color: #4e835a;
+    }
+
+    .alert-danger {
+        background-color: #8b3139;
+        border-color: #85333c;
+    }
+
+    .page-header {
+        margin-bottom: 30px;
+        /* color: #ff7b00; */
+    }
+    .page-header h1 {
+
+        font-size: 40px;
+        color: #EC625F;
+
+    }
+
+    .page-header h1 small {
+        font-size: 24px;
+        opacity: 0.6;
+        color: #EEEEEE;
+    }
+    .page-body {
+        h4, p{
+        opacity: 0.9!important;
+        color: #eeeeeefa!important;
+
+        }
+        ul{
+            color: #eeeeeefa;
+            opacity: 0.6;
+
+        }
+        
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+
+   
+
+    .form-group label {
+        font-weight: 500;
+        margin: 0 0 5px;
+    }
+
+    .td {
+        display: flex;
+    }
+
+    .page-message {
+        color: #a2a2a2;
+
+    }
+
+    .table-striped th{
+        color: #EC625F;
+        border-top: 0!important;
+        border-bottom: 0!important;
+
+    }
+
+    .table-striped td{
+        color: white!important;
+        border-top: 0!important;
+        border-bottom: 0!important;
+    }
+
+    .table tbody + tbody {
+        border-top: 0 !important;
+    }
+
+    .table{
+        background-color: #313131;
+        border-color: #000 !important;
+        border-top: 0!important;
+    }
+
+    .btn-danger, .btn-primary {
+        border-color: #EC625F;
+        background-color: #EC625F;
+        color: #000 !important;
+    }
+    .btn-danger:hover, .btn-primary:hover {
+        border-color: #9f4241!important;
+        background-color: #9f4241!important;
+        color: #1e1e1e !important;
+    }
+
+    tbody{
+
+        .btn-primary {
+            border-color:#282828 !important;
+            background-color: #4e4c4c !important;
+            color: #fff !important;
+        }
+
+        .btn-primary:hover {
+            border-color: #313131 !important;
+            background-color: #474747 !important;
+            color: #fff!important;
+        
+        }
+    }
+
+    .hyperlink {
+        color: #EC625F !important;
+
+    }
+
+}

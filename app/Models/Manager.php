@@ -10,15 +10,16 @@ class Manager extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'email',
-        'cpf',
-        'rg',
-        'phone',
+        'person_id',
+        'is_new',
+        // 'name',
+        // 'email',
+        // 'cpf',
+        // 'rg',
+        // 'phone',
     ];
 
     public function user(){
-
         return $this->belongsTo(User::class);
 
     }

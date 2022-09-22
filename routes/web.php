@@ -187,7 +187,14 @@ Route::group([], function(){//Estoque
 
     // Route::get('/login',                'LoginController@showLoginForm');
     // Route::post('/login',                'LoginController@login');
-    // Route::post('/login',                'LoginController@login');
+    // Route::post('/logout',   'LoginController@logout');
+    // Route::post('/password/confirm', 'ConfirmPasswordController@confirm');
+    // Route::get('/password/confirm', 'ConfirmPasswordController@showConfirmForm');
+    
+    // Route::post('/password/email', 'ForgotPasswordController@sendResetLinkEmail');
+    // Route::get('/password/reset', 'ForgotPasswordController@showLinkRequestForm');
+    // Route::post('/password/reset', 'ResetPasswordController@reset');
+    // Route::get('/password/reset/{token}', 'ForgotPasswordController@showResetForm');
 
 
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

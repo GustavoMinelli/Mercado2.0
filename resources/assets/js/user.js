@@ -3,7 +3,7 @@ $(function(){
 
         var $self = $(this);
 
-        console.log('Ola');
+        // console.log('Ola');
 
 
 
