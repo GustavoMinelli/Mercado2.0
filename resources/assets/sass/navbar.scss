@@ -5,13 +5,13 @@
 
 
 .dropdown-item:hover{
-    background-color: #343434;
-    color: white;
+    background-color: white;
+    color: rgb(58, 58, 58);
 }
 
 .dropdown-menu {
 
-    background-color: #e5e2e2;
+    background-color: white;
 
     a{
         display:block;
@@ -32,6 +32,10 @@
 
 
 .dark{
+
+    opacity: 100;
+    transition: opacity 2s;
+
 
     .navbar-brand, .fa-cart-shopping, i {
         color: #EC625F !important;

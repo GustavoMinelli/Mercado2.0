@@ -17,102 +17,120 @@ class PermissionCheckMiddleware
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next, ...$roles)
+    public function handle(Request $request, Closure $next)
     {
-        // $manager->user()->manager_id;
+        
+        
+        $role = $request->route()->getAction("role");
 
-        $user = Auth::user();
-
-        foreach ($roles as $role) {
-
-            if($role == 'manager')
-
-                if(isset($user->manager_id)){
-
-                $data = [
-                    'manager' => true
-                ];
-                $request->session()->put($data);
-
-                return $next($request);
-
-                } else {
-
-                // Session::flash('error', 'Acesso negado');
-                return redirect('/');
-
-            }
-
-            if($role == 'employee')
-
-                if(isset($user->employee_id)){
-
-                $data = [
-                    'employee' => true
-                ];
-                $request->session()->put($data);
-
-                return $next($request);
-
-            } else if(isset($user->manager_id)){
-
-                $data = [
-                    'manager' => true
-                ];
-                $request->session()->put($data);
-
-                return $next($request);
-
-                } else {
-
-                return back()->with(Session::flash('error', 'Acesso negado, voce nao é um funcionario'));
-
-                }
-
-            if ($role == 'customer') {
-
-                if (isset($user->customer_id)) {
-                    $data = [
-                        'customer' => true
-                    ];
-
-                    if ($user->customer->is_new && !$request->is('person/'.$user->customer->person_id.'/edit') && !$request->rg) {
-                        return redirect('person/'.$user->customer->person_id.'/edit');
-                    }
-
-                    $request->session()->put($data);
-
-                    return $next($request);
-
-                } else if (isset($user->manager_id)) {
-
-                    $data = [
-                        'manager' => true
-                    ];
-
-                    $request->session()->put($data);
-
-                    return $next($request);
-
-                } else if (isset($user->employee_id)) {
-
-                    $data = [
-                        'employee' => true
-                    ];
-
-                    $request->session()->put($data);
-
-                    return $next($request);
-
-                } else {
-
-                    return back()->with(Session::flash('error', 'Acesso negado, voce nao é um cliente'));
-                }
-            }
+        if (!$role || hasPermission($role)) {
             return $next($request);
         }
+
+        abort(401);
+
+        
+        
+
+
+
+
     }
 }
+    // Auth por id(utilizar no handle ...roles)
+
+        // $user = Auth::user();
+
+//         foreach ($roles as $role) {
+
+//             if($role == 'manager')
+
+//                 if(isset($user->manager_id)){
+
+//                 $data = [
+//                     'manager' => true
+//                 ];
+//                 $request->session()->put($data);
+
+//                 return $next($request);
+
+//                 } else {
+
+//                 // Session::flash('error', 'Acesso negado');
+//                 return redirect('/');
+
+//             }
+
+//             if($role == 'employee')
+
+//                 if(isset($user->employee_id)){
+
+//                 $data = [
+//                     'employee' => true
+//                 ];
+//                 $request->session()->put($data);
+
+//                 return $next($request);
+
+//             } else if(isset($user->manager_id)){
+
+//                 $data = [
+//                     'manager' => true
+//                 ];
+//                 $request->session()->put($data);
+
+//                 return $next($request);
+
+//                 } else {
+
+//                 return back()->with(Session::flash('error', 'Acesso negado, voce nao é um funcionario'));
+
+//                 }
+
+//             if ($role == 'customer') {
+
+//                 if (isset($user->customer_id)) {
+//                     $data = [
+//                         'customer' => true
+//                     ];
+
+//                     if ($user->customer->is_new && !$request->is('person/'.$user->customer->person_id.'/edit') && !$request->rg) {
+//                         return redirect('person/'.$user->customer->person_id.'/edit');
+//                     }
+
+//                     $request->session()->put($data);
+
+//                     return $next($request);
+
+//                 } else if (isset($user->manager_id)) {
+
+//                     $data = [
+//                         'manager' => true
+//                     ];
+
+//                     $request->session()->put($data);
+
+//                     return $next($request);
+
+//                 } else if (isset($user->employee_id)) {
+
+//                     $data = [
+//                         'employee' => true
+//                     ];
+
+//                     $request->session()->put($data);
+
+//                     return $next($request);
+
+//                 } else {
+
+//                     return back()->with(Session::flash('error', 'Acesso negado, voce nao é um cliente'));
+//                 }
+//             }
+            // return $next($request);
+//         }
+//     }
+// }
 
 
 

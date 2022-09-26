@@ -4,8 +4,9 @@
 }
 
 .alert-danger {
-  background-color: #8b3139;
-  border-color: #85333c;
+  background-color: #ee98a2;
+  border-color: #ee98a2;
+  color: white !important;
 }
 
 .page-header {
@@ -81,6 +82,10 @@
   border-color: #3675b9 !important;
   background-color: #3675b9 !important;
   color: #1e1e1e !important;
+}
+
+tbody {
+  background-color: #b5b5b57a;
 }
 
 tbody .btn-primary {
@@ -215,12 +220,12 @@ tbody .btn-primary:hover {
 }
 
 .dropdown-item:hover {
-  background-color: #343434;
-  color: white;
+  background-color: white;
+  color: #3a3a3a;
 }
 
 .dropdown-menu {
-  background-color: #e5e2e2;
+  background-color: white;
 }
 
 .dropdown-menu a {
@@ -237,6 +242,11 @@ tbody .btn-primary:hover {
 
 .navbar-expand-lg {
   background-color: rgba(252, 252, 252, 0.877) !important;
+}
+
+.dark {
+  opacity: 100;
+  transition: opacity 2s;
 }
 
 .dark .navbar-brand, .dark .fa-cart-shopping, .dark i {
@@ -303,37 +313,4 @@ tbody .btn-primary:hover {
 
 .dark .form-group label {
   color: #9c9898;
-}
-
-.card {
-  border: unset !important;
-}
-
-.card label {
-  color: white;
-}
-
-.card .btn-primary {
-  background-color: #EC625F !important;
-  color: #292929 !important;
-  border-color: #EC625F !important;
-}
-
-.card .btn-primary:hover {
-  background-color: #292929 !important;
-  color: #EC625F !important;
-  border-color: #292929 !important;
-}
-
-.card-header {
-  background-color: #292929 !important;
-  color: #EC625F !important;
-}
-
-.card-body {
-  background-color: #525252;
-}
-
-.btn-link, .btn-link:hover {
-  color: #EC625F;
 }

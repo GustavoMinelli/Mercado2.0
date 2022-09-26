@@ -10,11 +10,11 @@
                 
                 <div class="card ">
                     
-                    <div class="card-header">Login</div>
+                    <div class="card-header">PainelAdministrativo</div>
                     
                     <div class="card-body">
 
-                        <form method="POST" action="{{ route('login') }}">
+                        <form method="POST" action="{{ url('admin/login') }}">
                             @csrf
 
                             <div class="row mb-3">

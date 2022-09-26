@@ -30,7 +30,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password'
+        'password' 
     ];
 
     protected function employee(){
@@ -45,11 +45,11 @@ class User extends Authenticatable
 
     }
 
-    protected function manager(){
+    // protected function manager(){
 
-        return $this->hasOne(Manager::class);
+    //     return $this->hasOne(Manager::class);
 
-    }
+    // }
     protected function person(){
         return $this->hasOne(Person::class);
     }

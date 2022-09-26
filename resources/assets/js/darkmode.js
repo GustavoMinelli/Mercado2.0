@@ -7,6 +7,7 @@ $(function() {
 
         var $nav = $('nav');
         var $body = $('body');
+        var $dark = $('dark');
 
         if ($body.hasClass('dark')) {
             $nav.addClass('navbar-light')
@@ -16,6 +17,7 @@ $(function() {
             $icon.removeClass('fa-moon');
             $icon.addClass('fa-sun');
 
+
         } else {
             $nav.removeClass('navbar-light')
             $nav.removeClass('bg-light')
@@ -23,6 +25,7 @@ $(function() {
             $body.css("background-color", "#414141");
             $icon.removeClass('fa-sun');
             $icon.addClass('fa-moon');
+
         }
 
     });

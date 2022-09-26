@@ -28,6 +28,12 @@ class Employee extends Model
     public function employeeroles(){
         return $this->belongsTo(EmployeeRoles::class);
     }
+
+    public function group() {
+        return $this->belongsTo("App\Models\AdminGroup", "admin_group_id");    
+    }
+
+
 }
 
 

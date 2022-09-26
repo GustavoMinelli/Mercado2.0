@@ -1,13 +1,13 @@
 
-
 .alert-success {
     background-color: #3d834d;
     border-color: #4e835a;
 }
 
 .alert-danger {
-    background-color: #8b3139;
-    border-color: #85333c;
+    background-color: #ee98a2;
+    border-color: #ee98a2;
+    color: white !important;
 }
 
 .page-header {
@@ -94,7 +94,12 @@
     color: #1e1e1e !important;
 }
 
+thead{
+    // background-color: white !important;
+}
 tbody{
+
+    background-color: #b5b5b57a;
 
     .btn-primary {
         border-color:#282828 !important;

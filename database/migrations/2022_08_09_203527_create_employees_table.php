@@ -17,13 +17,15 @@ class CreateEmployeesTable extends Migration
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('person_id');
-            $table->timestamps();
             $table->bigInteger('role_id');
+            // $table->unsignedInteger('admin_group_id');
+            $table->timestamps();
             $table->boolean('is_new')->default(true);
             $table->string('work_code')->unique()->nullable();
 
             $table->foreign('person_id')->references('id')->on('people');
             $table->foreign('role_id')->references('id')->on('employee_roles');
+            // $table->foreign('admin_group_id')->references('id')->on('admin_groups');
 
 
 

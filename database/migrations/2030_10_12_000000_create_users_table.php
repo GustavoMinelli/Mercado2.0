@@ -19,13 +19,11 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->bigInteger('employee_id')->nullable();
             $table->bigInteger('customer_id')->nullable();
-            $table->bigInteger('manager_id')->nullable();
             $table->timestamps();
             $table->rememberToken();
 
             $table->foreign('employee_id')->references('id')->on('employees');
             $table->foreign('customer_id')->references('id')->on('customers');
-            $table->foreign('manager_id')->references('id')->on('managers');
 
         });
     }

@@ -29,6 +29,69 @@ Route::group(['middleware' => ['auth']], function () {
 
 });
 
+//Rotas para Admin
+Route::group(["prefix" => "gestao"], function() {
+
+    Route::group(["namespace" => "Auth"], function() {
+
+        Route::get("login",						"LoginController@showLoginForm")->name("admin-login");
+		Route::post("login",					"LoginController@login");
+		Route::post("logout",					"LoginController@logout")->name("admin-logout");
+		Route::get("register",					"RegisterController@showRegistrationForm")->name("admin-register");
+		Route::post("register",					"RegisterController@register");
+		Route::get("password/reset",			"ForgotPasswordController@showLinkRequestForm")->name("admin-password.request");
+		Route::post("password/email",			"ForgotPasswordController@sendResetLinkEmail")->name("admin-password.email");
+		Route::get("password/reset/{token}",	"ResetPasswordController@showResetForm")->name("admin-password.reset");
+		Route::post("password/reset",			"ResetPasswordController@reset")->name("admin-password.update");
+		Route::get("password/confirm",			"ConfirmPasswordController@showConfirmForm")->name("admin-password.confirm");
+		Route::post("password/confirm",			"ConfirmPasswordController@confirm");
+		Route::get("email/verify",				"VerificationController@show")->name("admin-verification.notice");
+		Route::get("email/verify/{id}/{hash}",	"VerificationController@verify")->name("admin-verification.verify");
+		Route::post("email/resend",				"VerificationController@resend")->name("admin-verification.resend");
+    });
+
+    Route::group(["middleware" => ["auth:admin", "PermissionCheck"]], function(){
+
+        //Painel Administrativo
+        Route::get("/",	["uses" => "HomeController@index"]);
+
+        Route::group([], function(){//Usuarios
+
+            Route::get('/users', 'UserController@index');
+            Route::get('/users/create', 'UserController@create');
+            Route::get('/users/{id}/edit', 'UserController@edit');
+            Route::put('/users', 'UserController@update');
+            Route::get('/users/{id}/delete', 'UserController@delete');
+            Route::get('/users/{id}/show', 'UserController@show');
+            
+        });
+
+        Route::group([], function(){//Gerentes
+
+            Route::get('/managers',            'ManagerController@index');
+            Route::get('/managers/create',      'ManagerController@create');
+            Route::post('/managers',       'ManagerController@insert');
+            Route::get('/managers/{id}/edit',   'ManagerController@edit');
+            Route::put('/managers',        'ManagerController@update');
+            Route::get('/managers/{id}/delete', 'ManagerController@delete');
+            Route::get('/managers/{id}/show', 'ManagerController@show');
+    
+        });
+        
+    });
+
+});
+
+
+
+
+
+
+
+
+
+
+
 /* Rotas liberadas para funcionários */
 Route::group(['middleware' => ['auth',  'PermissionCheck:employee']], function () {
 
@@ -147,17 +210,7 @@ Route::group([], function(){//Estoque
         Route::get('/inventories/{id}/delete',     'InventoryController@delete');
     });
 
-    Route::group([], function(){//Gerentes
 
-        Route::get('/managers',            'ManagerController@index');
-        Route::get('/managers/create',      'ManagerController@create');
-        Route::post('/managers',       'ManagerController@insert');
-        Route::get('/managers/{id}/edit',   'ManagerController@edit');
-        Route::put('/managers',        'ManagerController@update');
-        Route::get('/managers/{id}/delete', 'ManagerController@delete');
-        Route::get('/managers/{id}/show', 'ManagerController@show');
-
-    });
 
     Route::group([], function(){ //Carrinho
 

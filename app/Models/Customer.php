@@ -9,6 +9,9 @@ class Customer extends Model
 {
     use HasFactory;
 
+    protected $table = 'customers';
+    protected $guard = 'customer';
+
     protected $fillable = [
         'name',
         'email',
@@ -17,11 +20,17 @@ class Customer extends Model
         'cpf'
     ];
 
+    public function group() {
+        return $this->belongsTo("App\Models\AdminGroup", "admin_group_id");    
+    }
+
     public function user(){
         return $this->belongsTo(User::class);
     }
     public function person(){
         return $this->belongsTo(Person::class);
     }
+
+
 
 }

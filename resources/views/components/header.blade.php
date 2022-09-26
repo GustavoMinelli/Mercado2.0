@@ -13,6 +13,7 @@ $pages = [
     ['Promoções', 'promotions'],
     // ['Carrinho', 'cart'],
     ['Cargos', 'roles'],
+
 ];
 
 @endphp
@@ -61,13 +62,13 @@ $pages = [
 
 					@if (Route::has('login'))
 						<li class="nav-item">
-							<a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+							<a class="nav-link" href="{{ route('login') }}">Login</a>
 						</li>
 					@endif
 	
 					@if (Route::has('register'))
 						<li class="nav-item">
-							<a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+							<a class="nav-link" href="{{ route('register') }}">Register</a>
 						</li>
 					@endif
 
@@ -84,14 +85,23 @@ $pages = [
 					{{-- @if (!Session::get('manager')) --}}
 					<li class="nav-item dropdown">
 
-						<a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">Username"</a>
+						<a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-expanded="false">
+                            {{-- @dd(Auth::user()) --}}
+                            {{Auth::user()->email }}</a>
 	
 						<div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-							<a href="#" class="dropdown-item"><i class="fa-solid fa-user"></i> Perfil</a>
-							<a href="#" class="dropdown-item change"> <i class="fa-solid fa-sun"></i> Dark-Mode</a>
-							<a class="dropdown-item" href="{{ route('logout') }}"><i class="fa-sharp fa-solid fa-right-from-bracket"></i>Sair</a>
-						</div>
+							{{-- <a href="{{url('/users'.$user->id.'/show')}}" class="dropdown-item"><i class="fa-solid fa-user"></i> Perfil</a> --}}
+							<a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+                            <i class="fa-sharp fa-solid fa-right-from-bracket"></i>{{ __('Sair') }}
+                            
+                            </a>
 
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+						</div>
+                    {{-- @endif --}}
 					</li>
 					
 				@endguest
